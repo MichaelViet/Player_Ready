@@ -1,0 +1,12 @@
+**/obj/**
+**/.vs/**
+**/.vscode/**
+**/Library/**
+**/Logs/**
+**/UserSettings/**
+**/.vsconfig/**
+**/Assembly-CSharp/**
+**/obj**
+**/Library**
+**/Logs**
+**/UserSettings**
