@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Entities\StoryScene.cs" />
+     <Compile Include="Assets\Scripts\Controllers\AudioController.cs" />
      <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
      <Compile Include="Assets\Scripts\Controllers\SpriteSwitcher.cs" />
      <Compile Include="Assets\Scripts\Entities\Speaker.cs" />
