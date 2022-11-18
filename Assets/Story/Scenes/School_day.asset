@@ -16,7 +16,7 @@ MonoBehaviour:
   - text: "\u0410 \u043E\u0441\u044C \u0456 \u0448\u043A\u043E\u043B\u0430."
     speaker: {fileID: 11400000, guid: eddfe009b49d3484d8dfb5498d6a2f17, type: 2}
     actions: []
-    music: {fileID: 8300000, guid: 1eb6825c6312df846969b93b93fc8a78, type: 3}
+    music: {fileID: 8300000, guid: e2232238ce437a646a88cd05552eec18, type: 3}
     sound: {fileID: 0}
   - text: "\u0410\u0433\u043E\u0432!"
     speaker: {fileID: 11400000, guid: 1bb84b5530fc445409951fc893429ff9, type: 2}
@@ -29,9 +29,9 @@ MonoBehaviour:
     music: {fileID: 0}
     sound: {fileID: 0}
   - text: "\u0428\u043E \u0442\u0438 \u0433\u043E\u043B\u043E\u0432\u0430?"
-    speaker: {fileID: 11400000, guid: eddfe009b49d3484d8dfb5498d6a2f17, type: 2}
+    speaker: {fileID: 11400000, guid: 1bb84b5530fc445409951fc893429ff9, type: 2}
     actions:
-    - speaker: {fileID: 11400000, guid: eddfe009b49d3484d8dfb5498d6a2f17, type: 2}
+    - speaker: {fileID: 11400000, guid: 1bb84b5530fc445409951fc893429ff9, type: 2}
       spriteIndex: 0
       actionType: 0
       coords: {x: 0, y: 0}
