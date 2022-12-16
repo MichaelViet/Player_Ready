@@ -16,13 +16,19 @@ MonoBehaviour:
   - text: "\u041A\u043B\u0430\u0441\u043D\u043E \u0432\u0438\u0441\u043F\u0430\u0432\u0441\u044F!"
     speaker: {fileID: 11400000, guid: eddfe009b49d3484d8dfb5498d6a2f17, type: 2}
     actions: []
+    music: {fileID: 8300000, guid: e2232238ce437a646a88cd05552eec18, type: 3}
+    sound: {fileID: 0}
   - text: ...
     speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
     actions: []
+    music: {fileID: 0}
+    sound: {fileID: 0}
   - text: "\u0410\u043B\u0435 \u043F\u0440\u043E\u043F\u0443\u0441\u0442\u0438\u0442\u0438
       \u0435\u043A\u0437\u0430\u043C\u0435\u043D\u0438 \u0456 \u0448\u043A\u043E\u043B\u0443
       \u043D\u0430\u043F\u0435\u0432\u043D\u043E \u0431\u0443\u043B\u043E \u043F\u043E\u043C\u0438\u043B\u043A\u043E\u044E?"
     speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
     actions: []
+    music: {fileID: 8300000, guid: e2232238ce437a646a88cd05552eec18, type: 3}
+    sound: {fileID: 0}
   background: {fileID: 21300000, guid: 1fc01c6019af9b3439a2b47fbecb7d3f, type: 3}
-  nextScene: {fileID: 11400000, guid: 322cc1a5845dec844a3dab162f68e0ff, type: 2}
+  nextScene: {fileID: 0}

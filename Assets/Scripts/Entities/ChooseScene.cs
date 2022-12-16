@@ -1,3 +1,5 @@
+// скріпт створює розвілку вибору, який використовується в першій 2D сцені для гравця
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,12 +8,16 @@ using UnityEngine;
 [System.Serializable]
 public class ChooseScene : GameScene
 {
+    // Список вибору для ігрової сцени
     public List<ChooseLabel> labels;
-    
+
     [System.Serializable]
     public struct ChooseLabel
     {
+        // Вибір
         public string text;
+
+        // Настпуна сцена яка буде відтворена після вибору 
         public StoryScene nextScene;
     }
 }
