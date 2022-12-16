@@ -21,11 +21,11 @@ public class ChooseController : MonoBehaviour
     {
         DestroyLabels();
         animator.SetTrigger("Show");
-        for(int index = 0; index < scene.labels.Count; index++)
+        for (int index = 0; index < scene.labels.Count; index++)
         {
             ChooseLabelController newLabel = Instantiate(label.gameObject, transform).GetComponent<ChooseLabelController>();
 
-            if(labelHeight == -1)
+            if (labelHeight == -1)
             {
                 labelHeight = newLabel.GetHeight();
             }
@@ -46,9 +46,9 @@ public class ChooseController : MonoBehaviour
 
     private float CalculateLabelPosition(int labelIndex, int labelCount)
     {
-        if(labelCount %2 == 0)
+        if (labelCount % 2 == 0)
         {
-            if(labelIndex < labelCount / 2)
+            if (labelIndex < labelCount / 2)
             {
                 return labelHeight * (labelCount / 2 - labelIndex - 1) + labelHeight / 2;
             }
@@ -76,7 +76,7 @@ public class ChooseController : MonoBehaviour
 
     private void DestroyLabels()
     {
-        foreach(Transform childTransform in transform)
+        foreach (Transform childTransform in transform)
         {
             Destroy(childTransform.gameObject);
         }

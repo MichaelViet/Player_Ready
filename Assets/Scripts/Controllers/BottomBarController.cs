@@ -5,28 +5,31 @@ using TMPro;
 
 public class BottomBarController : MonoBehaviour
 {
+    // Елементи інтерфейсу користувача для відображення поточного речення та мовця
     public TextMeshProUGUI barText;
     public TextMeshProUGUI personNameText;
 
-    private int sentenceIndex = -1;
-    private StoryScene currentScene;
-    private State state = State.COMPLETED;
-    private Animator animator;
-    private bool isHidden = false;
+    private int sentenceIndex = -1; // Індекс поточного речення в поточній сцені
+    private StoryScene currentScene; // Відтворюється поточна сцена
+    private State state = State.COMPLETED; // Поточний стан контролера
+    private Animator animator; // Аніматор для bottom bar
+    private bool isHidden = false; // Flag для відстеження того, чи bottomBar прихований
 
-    public Dictionary<Speaker, SpriteController> sprites;
-    public GameObject spritesPrefab;
 
-    private Coroutine typingCoroutine;
-    private float speedFactor = 1f;
+    public Dictionary<Speaker, SpriteController> sprites; // Словник для зберігання SpriteController для кожного мовця
+    public GameObject spritesPrefab; // Префаб для ігрового об’єкта спрайтів
 
-    private enum State
+    private Coroutine typingCoroutine; // Співпрограма для анімації набору тексту
+    private float speedFactor = 1f; // Коефіцієнт швидкості для анімації набору тексту
+
+    private enum State // Enum для відстеження стану контролера
     {
         PLAYING, SPEEDED_UP, COMPLETED
     }
 
     private void Start()
     {
+        // Ініціалізація Speaker, SpriteController і отримання компонента аніматора
         sprites = new Dictionary<Speaker, SpriteController>();
         animator = GetComponent<Animator>();
     }
@@ -74,6 +77,7 @@ public class BottomBarController : MonoBehaviour
     {
         sentenceIndex--;
         StopTyping();
+        ClearText();
         HideSprites();
         PlaySentence(false);
     }
@@ -107,75 +111,75 @@ public class BottomBarController : MonoBehaviour
 
     public void HideSprites()
     {
-        while(spritesPrefab.transform.childCount > 0)
+        while (spritesPrefab.transform.childCount > 0)
         {
             DestroyImmediate(spritesPrefab.transform.GetChild(0).gameObject);
         }
         sprites.Clear();
     }
 
-    private void PlaySentence(bool isAnimated = true)
+    private void PlaySentence(bool playAnimation = true)
     {
         speedFactor = 1f;
-        typingCoroutine = StartCoroutine(TypeText(currentScene.sentences[sentenceIndex].text));
-        personNameText.text = currentScene.sentences[sentenceIndex].speaker.speakerName;
-        personNameText.color = currentScene.sentences[sentenceIndex].speaker.textColor;
-        ActSpeakers(isAnimated);
+        var currentSentence = currentScene.sentences[sentenceIndex];
+        typingCoroutine = StartCoroutine(TypeText(currentSentence.text));
+        personNameText.text = currentSentence.speaker.speakerName;
+        personNameText.color = currentSentence.speaker.textColor;
+        ActSpeakers(playAnimation);
     }
 
     private IEnumerator TypeText(string text)
     {
         barText.text = "";
         state = State.PLAYING;
-        int wordIndex = 0;
 
-        while (state != State.COMPLETED)
+        for (int i = 0; i < text.Length; i++)
         {
-            barText.text += text[wordIndex];
+            barText.text += text[i];
             yield return new WaitForSeconds(speedFactor * 0.05f);
-            if(++wordIndex == text.Length)
+
+            if (state == State.COMPLETED)
             {
-                state = State.COMPLETED;
                 break;
             }
         }
+
+        state = State.COMPLETED;
     }
 
-    private void ActSpeakers(bool isAnimated = true)
+    private void ActSpeakers(bool playAnimation = true)
     {
-        List<StoryScene.Sentence.Action> actions = currentScene.sentences[sentenceIndex].actions;
-        for(int i = 0; i < actions.Count; i++)
+        var actions = currentScene.sentences[sentenceIndex].actions;
+        foreach (var action in actions)
         {
-            ActSpeaker(actions[i], isAnimated);
+            ActSpeaker(action, playAnimation);
         }
     }
 
-    private void ActSpeaker(StoryScene.Sentence.Action action, bool isAnimated = true)
+    private void ActSpeaker(StoryScene.Sentence.Action action, bool playAnimation = true)
     {
         SpriteController controller;
-        if (!sprites.ContainsKey(action.speaker))
+        if (!sprites.TryGetValue(action.speaker, out controller))
         {
-            controller = Instantiate(action.speaker.prefab.gameObject, spritesPrefab.transform)
-                .GetComponent<SpriteController>();
+            GameObject prefab = action.speaker.prefab.gameObject;
+            GameObject instance = Instantiate(prefab, spritesPrefab.transform);
+            controller = instance.GetComponent<SpriteController>();
             sprites.Add(action.speaker, controller);
         }
-        else
-        {
-            controller = sprites[action.speaker];
-        }
+
         switch (action.actionType)
         {
             case StoryScene.Sentence.Action.Type.APPEAR:
                 controller.Setup(action.speaker.sprites[action.spriteIndex]);
-                controller.Show(action.coords, isAnimated);
-                return;
+                controller.Show(action.coords, playAnimation);
+                break;
             case StoryScene.Sentence.Action.Type.MOVE:
-                controller.Move(action.coords, action.moveSpeed, isAnimated);
+                controller.Move(action.coords, action.moveSpeed, playAnimation);
                 break;
             case StoryScene.Sentence.Action.Type.DISAPPEAR:
-                controller.Hide(isAnimated);
+                controller.Hide(playAnimation);
                 break;
         }
-        controller.SwitchSprite(action.speaker.sprites[action.spriteIndex], isAnimated);
+        controller.SwitchSprite(action.speaker.sprites[action.spriteIndex], playAnimation);
     }
 }

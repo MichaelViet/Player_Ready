@@ -65,7 +65,7 @@ public class SpriteController : MonoBehaviour
 
     private IEnumerator MoveCoroutine(Vector2 coords, float speed)
     {
-        while(rect.localPosition.x != coords.x || rect.localPosition.y != coords.y)
+        while (rect.localPosition.x != coords.x || rect.localPosition.y != coords.y)
         {
             rect.localPosition = Vector2.MoveTowards(rect.localPosition, coords,
                 Time.deltaTime * 1000f * speed);
@@ -75,7 +75,7 @@ public class SpriteController : MonoBehaviour
 
     public void SwitchSprite(Sprite sprite, bool isAnimated = true)
     {
-        if(switcher.GetImage() != sprite)
+        if (switcher.GetImage() != sprite)
         {
             if (isAnimated)
             {
