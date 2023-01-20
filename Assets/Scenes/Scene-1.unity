@@ -665,7 +665,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e08410dfc77b5ae4d9f9b7846e07d161, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cf69324aa586b8c4893540504cd7da9b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -750,7 +750,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1032,8 +1032,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Hello there!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f2f9d9ef9fbe95840ad1cbff9e241090, type: 2}
+  m_sharedMaterial: {fileID: -8641655838252118733, guid: f2f9d9ef9fbe95840ad1cbff9e241090,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1292,7 +1293,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5a431f3b83ce874d9c5174365f51876, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentScene: {fileID: 11400000, guid: 8157eee26ed449e4180b2df48a5f5257, type: 2}
+  gameController: {fileID: 0}
+  currentScene: {fileID: 11400000, guid: fb8d99a781ce5024b8f4f8538b34050f, type: 2}
   bottomBar: {fileID: 455100601}
   backgroundController: {fileID: 48699395}
   chooseController: {fileID: 1548364065}
@@ -1357,8 +1359,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Carl
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f2f9d9ef9fbe95840ad1cbff9e241090, type: 2}
+  m_sharedMaterial: {fileID: -8641655838252118733, guid: f2f9d9ef9fbe95840ad1cbff9e241090,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
