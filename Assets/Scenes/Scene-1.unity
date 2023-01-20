@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!29 &1
@@ -1511,3 +1512,5 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2106597532}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> 01dd5fbd6d348b8b3e6aea435bc7ccd5b8d9d1f0
