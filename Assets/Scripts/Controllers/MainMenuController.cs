@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
+using TMPro;
 public class MainMenuController : MonoBehaviour
 {
-    // Індекс поточного завантаженного рівня
+    public Image loadingImage, circleImg;
+    private bool allowSceneActivation = false;
+
+    public TextMeshProUGUI pressE;
+
+
     public void PlayGame()
     {
-        // Кешування всіх невикористаних ресурсів
         CacheObjects();
-
-        // Завантажити наступну сцену в індекс збірки
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        StartCoroutine(LoadScene());
     }
 
     public void QuitGame()
@@ -23,7 +26,36 @@ public class MainMenuController : MonoBehaviour
 
     public void CacheObjects()
     {
-        // Кешувати всі невикористані ресурси
         Resources.UnloadUnusedAssets();
+    }
+
+    IEnumerator LoadScene()
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+
+        loadingImage.gameObject.SetActive(true);
+        // Знаходимо об'єкт Environment та робимо його неактивним
+        GameObject parentEnvironment = GameObject.Find("Environment");
+        parentEnvironment.SetActive(false);
+
+        asyncLoad.allowSceneActivation = false;
+
+        while (!asyncLoad.isDone)
+        {
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                allowSceneActivation = true;
+            }
+            if (allowSceneActivation == true && asyncLoad.progress >= 0.9f)
+            {
+                circleImg.fillAmount = asyncLoad.progress;
+                asyncLoad.allowSceneActivation = true;
+                pressE.gameObject.SetActive(true);
+
+            }
+
+            yield return null;
+        }
     }
 }

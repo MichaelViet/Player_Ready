@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 1_choose
   m_EditorClassIdentifier: 
   labels:
-  - text: "\u0421\u043F\u0430\u0442\u0438 \u0432\u0435\u0441\u044C \u0434\u0435\u043D\u044C"
-    nextScene: {fileID: 11400000, guid: 5a227718f9adde8459ae4099f6eafac6, type: 2}
-  - text: "\u041F\u0456\u0442\u0438 \u0434\u043E \u0448\u043A\u043E\u043B\u0438"
-    nextScene: {fileID: 11400000, guid: 322cc1a5845dec844a3dab162f68e0ff, type: 2}
+  - text: "\u041F\u043E\u0441\u043B\u0443\u0445\u0430\u0442\u0438 \u043C\u0443\u0437\u0438\u043A\u0443"
+    nextScene: {fileID: 11400000, guid: 852fa6a471b10ba4992423700cca64bf, type: 2}
+  - text: "\u041F\u043E\u0447\u0438\u0442\u0430\u0442\u0438 \u043A\u043D\u0438\u0433\u0443"
+    nextScene: {fileID: 11400000, guid: 9af24d33dc5e3834db6647b3f4c4206b, type: 2}

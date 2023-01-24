@@ -34,18 +34,18 @@ Shader "Custom/GeometryGrass"
 #define GrassSegments 5 // segments per blade
 #define GrassBlades 4 // blades per vertex
 
-#pragma multi_compile _ _MAIN_LIGHT_SHADOWS
-#pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
+// #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
+// #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
 
-#pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
-#pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
-#pragma multi_compile_fragment _ _SHADOWS_SOFT
-#pragma multi_compile _ LIGHTMAP_SHADOW_MIXING
-#pragma multi_compile _ SHADOWS_SHADOWMASK
-#pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
-#pragma multi_compile_fog   
-#pragma multi_compile _ DIRLIGHTMAP_COMBINED
-#pragma multi_compile _ LIGHTMAP_ON
+// #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
+// #pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
+// #pragma multi_compile_fragment _ _SHADOWS_SOFT
+// #pragma multi_compile _ LIGHTMAP_SHADOW_MIXING
+// #pragma multi_compile _ SHADOWS_SHADOWMASK
+// #pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
+// #pragma multi_compile_fog   
+// #pragma multi_compile _ DIRLIGHTMAP_COMBINED
+// #pragma multi_compile _ LIGHTMAP_ON
 
 		// The Core.hlsl file contains definitions of frequently used HLSL
 		// macros and functions, and also contains #include references to other
@@ -324,7 +324,7 @@ Shader "Custom/GeometryGrass"
 
 		#define SHADERPASS_SHADOWCASTER
 
-		#pragma shader_feature_local _ DISTANCE_DETAIL
+		// #pragma shader_feature_local _ DISTANCE_DETAIL
 
 		half4 frag(g2f input) : SV_TARGET{
 			return 1;
