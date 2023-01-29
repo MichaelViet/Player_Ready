@@ -11,7 +11,10 @@ public class MainMenuController : MonoBehaviour
 
     public TextMeshProUGUI pressE;
 
-
+    public void Update()
+    {
+        Time.timeScale = 1;
+    }
     public void PlayGame()
     {
         CacheObjects();
@@ -37,7 +40,6 @@ public class MainMenuController : MonoBehaviour
         // Знаходимо об'єкт Environment та робимо його неактивним
         GameObject parentEnvironment = GameObject.Find("Environment");
         parentEnvironment.SetActive(false);
-
         asyncLoad.allowSceneActivation = false;
 
         while (!asyncLoad.isDone)

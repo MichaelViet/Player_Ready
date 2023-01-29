@@ -20,6 +20,7 @@ public class AudioController : MonoBehaviour
         {
             StartCoroutine(FadeOutAndSwitchMusic(music));
         }
+
     }
 
     private IEnumerator FadeOutAndSwitchMusic(AudioClip music)

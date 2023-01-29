@@ -48,6 +48,8 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+
+        Time.timeScale = 1;
         // Якщо стан гри не IDLE, повертаємося і не продовжуємо виконання методу Update
         if (state != State.IDLE)
         {
@@ -182,4 +184,6 @@ public class GameController : MonoBehaviour
         // Використовуємо audioController для відтворення вказаної музики та звукових ефектів для речення
         audioController.PlayAudio(sentence.music, sentence.sound);
     }
+
+
 }

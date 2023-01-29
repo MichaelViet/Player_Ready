@@ -5,31 +5,30 @@ using TMPro;
 
 public class BottomBarController : MonoBehaviour
 {
-    // Елементи інтерфейсу користувача для відображення поточного речення та мовця
+
     public TextMeshProUGUI barText;
     public TextMeshProUGUI personNameText;
 
-    private int sentenceIndex = -1; // Індекс поточного речення в поточній сцені
-    private StoryScene currentScene; // Відтворюється поточна сцена
-    private State state = State.COMPLETED; // Поточний стан контролера
-    private Animator animator; // Аніматор для bottom bar
-    private bool isHidden = false; // Flag для відстеження того, чи bottomBar прихований
+    private int sentenceIndex = -1;
+    private StoryScene currentScene;
+    private State state = State.COMPLETED;
+    private Animator animator;
+    private bool isHidden = false;
 
+    public Dictionary<Speaker, SpriteController> sprites;
+    public GameObject spritesPrefab;
 
-    public Dictionary<Speaker, SpriteController> sprites; // Словник для зберігання SpriteController для кожного мовця
-    public GameObject spritesPrefab; // Префаб для ігрового об’єкта спрайтів
+    private Coroutine typingCoroutine;
+    private float speedFactor = 1f;
 
-    private Coroutine typingCoroutine; // Співпрограма для анімації набору тексту
-    private float speedFactor = 1f; // Коефіцієнт швидкості для анімації набору тексту
-
-    private enum State // Enum для відстеження стану контролера
+    private enum State
     {
         PLAYING, SPEEDED_UP, COMPLETED
     }
 
     private void Start()
     {
-        // Ініціалізація Speaker, SpriteController і отримання компонента аніматора
+
         sprites = new Dictionary<Speaker, SpriteController>();
         animator = GetComponent<Animator>();
     }
@@ -181,5 +180,9 @@ public class BottomBarController : MonoBehaviour
                 break;
         }
         controller.SwitchSprite(action.speaker.sprites[action.spriteIndex], playAnimation);
+    }
+    public void Update()
+    {
+
     }
 }
