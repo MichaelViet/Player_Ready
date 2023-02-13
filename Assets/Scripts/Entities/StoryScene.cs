@@ -5,39 +5,41 @@ using UnityEngine;
 [System.Serializable]
 public class StoryScene : GameScene
 {
-    public List<Sentence> sentences; // Список речень у цій сцені
-    public Sprite background; // Фонове зображення цієї сцени
-    public GameScene nextScene; // Наступна сцена в грі
+    public List<Sentence> sentences;
+    public Sprite background;
+    public GameScene nextScene;
 
-    // Визначаємо речення в storyScene
+
+
     [System.Serializable]
     public struct Sentence
     {
-        public string text; // Текст речення
-        public Speaker speaker; // Спікер 
-        public List<Action> actions; // Список дій, пов'язаних з реченням
+        public string text;
+        public Speaker speaker;
+        public List<Action> actions;
 
-        public AudioClip music; // Музика та звук на фоні гри
+        public AudioClip music;
         public AudioClip sound;
+        public AudioClip environment;
 
-        // Визначає дію, пов’язану з реченням
+
         [System.Serializable]
         public struct Action
         {
-            public Speaker speaker; // Спікер, пов'язаний з дією
-            public int spriteIndex; // Спрайту, пов'язаний з дією
-            public Type actionType; // Тип дії (наприклад, з'явитися, переміститися, зникнути)
-            public Vector2 coords; // Координати дії
-            public float moveSpeed; // Швидкість дії
+            public Speaker speaker;
+            public int spriteIndex;
+            public Type actionType;
+            public Vector2 coords;
+            public float moveSpeed;
 
-            // Логіка поведінки спрайту на сцені
+
             [System.Serializable]
             public enum Type
             {
-                NONE, // Ніяких дій
-                APPEAR, // // З'являється спрайт
-                MOVE, // Спрайт рухається
-                DISAPPEAR // Спрайт зникає
+                NONE,
+                APPEAR,
+                MOVE,
+                DISAPPEAR
             }
         }
     }

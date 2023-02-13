@@ -2,16 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    public GameController gameController; // // Посилання на компонент GameController
+
     public GameScene currentScene; // Посилання на поточну сцену, що відтворюється
     public BottomBarController bottomBar; // Посилання на компонент BottomBarController
     public SpriteSwitcher backgroundController; // Посилання на компонент SpriteSwitcher
     public ChooseController chooseController; // Посилання на компонент ChooseController
     public AudioController audioController; // Посилання на компонент AudioController
+
+    public static bool GameIsPaused = false;
+    public DataHolder data;
     bool leftMouseButtonEnabled = true;
     bool spacebarEnabled = true;
     private State state = State.IDLE; // Enum для збереження поточного стану гри
@@ -33,15 +36,25 @@ public class GameController : MonoBehaviour
     {
         UnloadUnusedAssets();
 
+        if (SaveManager.IsGameSaved())
+        {
+            SaveData data = SaveManager.LoadGame();
+            data.prevScenes.ForEach(scene =>
+            {
+                history.Add(this.data.scenes[scene] as StoryScene);
+            });
+            currentScene = history[history.Count - 1];
+            history.RemoveAt(history.Count - 1);
+            bottomBar.SetSentenceIndex(data.sentence - 1);
+        }
         // Перевірка якщо поточна сцена є StoryScene
         if (currentScene is StoryScene)
         {
-            gameController = GetComponent<GameController>(); // Призначаємо компонент GameController до поля gameController
             StoryScene storyScene = currentScene as StoryScene; // Транслюємо поточну сцену до StoryScene і зберігаємо її у змінній
             history.Add(storyScene); // Додати storyScene до списку history
-            bottomBar.PlayScene(storyScene); // Відтворення сюжетної сцени за допомогою BottomBarController
+            bottomBar.PlayScene(storyScene, bottomBar.GetSentenceIndex()); // Відтворення сюжетної сцени за допомогою BottomBarController
             backgroundController.SetImage(storyScene.background); // Встановлюємо фонове зображення за допомогою компонента SpriteSwitcher
-            PlayAudio(storyScene.sentences[0]); // Відтворення звукової доріжки для сцени
+            PlayAudio(storyScene.sentences[bottomBar.GetSentenceIndex()]); // Відтворення звукової доріжки для сцени
         }
     }
 
@@ -122,6 +135,21 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void SaveGame()
+    {
+        List<int> historyIndicies = new List<int>();
+        history.ForEach(scene =>
+        {
+            historyIndicies.Add(this.data.scenes.IndexOf(scene));
+        });
+        SaveData data = new SaveData
+        {
+            sentence = bottomBar.GetSentenceIndex(),
+            prevScenes = historyIndicies
+        };
+        SaveManager.SaveGame(data);
+    }
+
     // PlayScene метод дозволяє відтворити певну сцену в грі
     // Якщо для прапорця isAnimated встановлено значення true, сцена відтворюватиметься з анімацією
     public void PlayScene(GameScene scene, int sentenceIndex = -1, bool isAnimated = true)
@@ -181,9 +209,7 @@ public class GameController : MonoBehaviour
     // Цей метод відтворює аудіо для певного речення в StoryScene
     private void PlayAudio(StoryScene.Sentence sentence)
     {
-        // Використовуємо audioController для відтворення вказаної музики та звукових ефектів для речення
-        audioController.PlayAudio(sentence.music, sentence.sound);
+        audioController.PlayAudio(sentence.music, sentence.sound, sentence.environment);
     }
-
 
 }

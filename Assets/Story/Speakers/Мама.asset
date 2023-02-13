@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: "\u041C\u0430\u043C\u0430"
   m_EditorClassIdentifier: 
   speakerName: "\u041C\u0430\u043C\u0430"
-  textColor: {r: 1, g: 0.62417626, b: 0, a: 0}
+  textColor: {r: 0.7058824, g: 0.5686275, b: 0.33333334, a: 0}
   sprites: []
   prefab: {fileID: 0}

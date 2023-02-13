@@ -1,12 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+
 public class MainMenuController : MonoBehaviour
 {
+    public string gameScene;
     public Image loadingImage, circleImg;
+    public Button loadButton;
     private bool allowSceneActivation = false;
 
     public TextMeshProUGUI pressE;
@@ -18,6 +20,7 @@ public class MainMenuController : MonoBehaviour
     public void PlayGame()
     {
         CacheObjects();
+        SaveManager.ClearSavedGame();
         StartCoroutine(LoadScene());
     }
 
@@ -31,6 +34,18 @@ public class MainMenuController : MonoBehaviour
     {
         Resources.UnloadUnusedAssets();
     }
+
+    public void Start()
+    {
+        loadButton.interactable = SaveManager.IsGameSaved();
+    }
+
+
+    public void Load()
+    {
+        SceneManager.LoadScene(gameScene, LoadSceneMode.Single);
+    }
+
 
     IEnumerator LoadScene()
     {
@@ -54,7 +69,6 @@ public class MainMenuController : MonoBehaviour
                 circleImg.fillAmount = asyncLoad.progress;
                 asyncLoad.allowSceneActivation = true;
                 pressE.gameObject.SetActive(true);
-
             }
 
             yield return null;

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +9,8 @@ public class PauseMenuController : MonoBehaviour
 
     public AudioSource musicSource;
     public AudioSource soundSource;
+    public AudioSource environmentSource;
+
 
     void Update()
     {
@@ -36,6 +36,7 @@ public class PauseMenuController : MonoBehaviour
 
         musicSource.pitch = 1f;
         soundSource.pitch = 1f;
+        environmentSource.pitch = 1f;
     }
 
     void Pause()
@@ -45,8 +46,10 @@ public class PauseMenuController : MonoBehaviour
         gameController.enabled = false;
         GameIsPaused = true;
 
-        musicSource.pitch *= 0.3f;
-        soundSource.pitch *= 0.3f;
+        musicSource.pitch *= 0f;
+        soundSource.pitch *= 0f;
+        environmentSource.pitch *= 0f;
+
     }
 
     public void LoadMenu()
