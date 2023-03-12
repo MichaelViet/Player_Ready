@@ -18,15 +18,15 @@ MonoBehaviour:
       \u0437\u0430\u0434\u0437\u0432\u043E\u043D\u0438\u0432 \u0437\u043D\u043E\u0432\u0443."
     speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
     actions: []
-    music: {fileID: 0}
-    sound: {fileID: 0}
+    music: {fileID: 8300000, guid: 51143946d119e5d47b3d04196f9de761, type: 3}
+    sound: {fileID: 8300000, guid: 4f6fca6f22e0ae74eab1578450eced0a, type: 3}
     environment: {fileID: 0}
   - text: "\u0422\u0430\u043A\u0438\u043C\u0438 \u0442\u0435\u043C\u043F\u0430\u043C\u0438
       \u0432\u0441\u044E \u043D\u0456\u0447 \u0434\u0437\u0432\u043E\u043D\u0438\u0442\u0438\u043C\u0435!"
     speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
     actions: []
-    music: {fileID: 0}
-    sound: {fileID: 0}
+    music: {fileID: 8300000, guid: 51143946d119e5d47b3d04196f9de761, type: 3}
+    sound: {fileID: 8300000, guid: 11684bde14c77f34299c36fec196b683, type: 3}
     environment: {fileID: 0}
   - text: "\u042F \u0437\u043D\u044F\u0432 \u0442\u0435\u043B\u0435\u0444\u043E\u043D
       \u0437 \u0441\u0442\u0430\u043D\u0446\u0456\u0457 \u0442\u0430 \u043F\u043E\u043A\u043B\u0430\u0432
@@ -36,16 +36,16 @@ MonoBehaviour:
       \u043E \u0442\u0440\u0435\u0442\u0456\u0439 \u043D\u043E\u0447\u0456."
     speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
     actions: []
-    music: {fileID: 0}
-    sound: {fileID: 0}
+    music: {fileID: 8300000, guid: 51143946d119e5d47b3d04196f9de761, type: 3}
+    sound: {fileID: 8300000, guid: ee3b53a113db8d94da95751a2c083c69, type: 3}
     environment: {fileID: 0}
   - text: "\u0422\u0440\u0435\u0431\u0430 \u0437\u0430\u0432\u0435\u0441\u0442\u0438
       \u0431\u0443\u0434\u0438\u043B\u044C\u043D\u0438\u043A, \u0449\u043E\u0431
       \u043F\u0440\u043E\u043A\u0438\u043D\u0443\u0442\u0438\u0441\u044F \u0440\u0430\u043D\u0456\u0448\u0435."
     speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
     actions: []
-    music: {fileID: 0}
+    music: {fileID: 8300000, guid: 51143946d119e5d47b3d04196f9de761, type: 3}
     sound: {fileID: 0}
     environment: {fileID: 0}
-  background: {fileID: 21300000, guid: 0e8bf65943a1c5942af324fd5d833434, type: 3}
-  nextScene: {fileID: 0}
+  background: {fileID: 21300000, guid: c3919666431c9b84dadc34d4dc6f0c62, type: 3}
+  nextScene: {fileID: 11400000, guid: 8b4d9d919be20a548b5ca05d5157aea3, type: 2}

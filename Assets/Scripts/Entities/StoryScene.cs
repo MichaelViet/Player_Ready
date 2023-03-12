@@ -9,11 +9,12 @@ public class StoryScene : GameScene
     public Sprite background;
     public GameScene nextScene;
 
-
-
     [System.Serializable]
     public struct Sentence
     {
+        AudioSource musicSource; // Посилання на AudioSource для відтворення музикі
+        AudioSource soundSource; // Посилання на AudioSource для відтворення звукових ефектів
+        AudioSource environmentSource; // Посилання на AudioSource для відтворення звукових ефектів оточення
         public string text;
         public Speaker speaker;
         public List<Action> actions;
@@ -21,7 +22,6 @@ public class StoryScene : GameScene
         public AudioClip music;
         public AudioClip sound;
         public AudioClip environment;
-
 
         [System.Serializable]
         public struct Action
@@ -31,7 +31,6 @@ public class StoryScene : GameScene
             public Type actionType;
             public Vector2 coords;
             public float moveSpeed;
-
 
             [System.Serializable]
             public enum Type
@@ -43,6 +42,8 @@ public class StoryScene : GameScene
             }
         }
     }
+
+
 }
 // Визначає базовий клас для ігрової сцени
 public class GameScene : ScriptableObject { }

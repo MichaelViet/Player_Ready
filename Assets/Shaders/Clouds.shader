@@ -113,16 +113,16 @@
 
 			half4 SampleClouds ( float3 uv, half3 sunTrans, half densityAdd ){
 
-				// wave distortion
+				// спотворення хвилі
 				float3 coordsWave = float3( uv.xy *_TilingWave.xy + ( _TilingWave.zw * _Speed * _Time.y ), 0.0 );
 				half3 wave = tex2Dlod( _WaveTex, float4(coordsWave.xy,0,0) ).xyz;
 
-				// first cloud layer
+				// перший хмарний шар
 				float2 coords1 = uv.xy * _Tiling1.xy + ( _Tiling1.zw * _Speed * _Time.y ) + ( wave.xy - 0.5 ) * _WaveDistort;
 				half4 clouds = tex2Dlod( _CloudTex1, float4(coords1.xy,0,0) );
 				half3 cloudsFlow = tex2Dlod( _FlowTex1, float4(coords1.xy,0,0) ).xyz;
 
-				// set up time for second clouds layer
+				// встановити час для другого шару хмар
 				float speed = _FlowSpeed * _Speed * 10;
 				float timeFrac1 = frac( _Time.y * speed );
 				float timeFrac2 = frac( _Time.y * speed + 0.5 );
@@ -130,43 +130,42 @@
 				timeFrac1 = ( timeFrac1 - 0.5 ) * _FlowAmount;
 				timeFrac2 = ( timeFrac2 - 0.5 ) * _FlowAmount;
 
-				// second cloud layer uses flow map
+				// другий хмарний шар використовує карту потоку
 				float2 coords2 = coords1 * _Tiling2.xy + ( _Tiling2.zw * _Speed * _Time.y );
 				half4 clouds2 = tex2Dlod( _CloudTex2, float4(coords2.xy + ( cloudsFlow.xy - 0.5 ) * timeFrac1,0,0)  );
 				half4 clouds2b = tex2Dlod( _CloudTex2, float4(coords2.xy + ( cloudsFlow.xy - 0.5 ) * timeFrac2 + 0.5,0,0)  );
 				clouds2 = lerp( clouds2, clouds2b, timeLerp);
 				clouds += ( clouds2 - 0.5 ) * _Cloud2Amount * cloudsFlow.z;
 
-				// add wave to cloud height
+				// додати хвилю до висоти хмари
 				clouds.w += ( wave.z - 0.5 ) * _WaveAmount;
 
-				// scale and bias clouds because we are adding lots of stuff together
-				// and the values cound go outside 0-1 range
+				// хмари масштабу та зміщення, оскільки ми додаємо багато речей разом, і значення можуть виходити за межі діапазону 0-1
 				clouds.w = clouds.w * _CloudScale + _CloudBias;
 
-				// overhead light color
+				// верхній світлий колір
 				float3 coords4 = float3( uv.xy * _TilingColor.xy + ( _TilingColor.zw * _Speed * _Time.y ), 0.0 );
 				half4 cloudColor = tex2Dlod( _ColorTex, float4(coords4.xy,0,0)  );
 
-				// cloud color based on density
+				// колір хмари на основі щільності
 				half cloudHightMask = 1.0 - saturate( clouds.w );
 				cloudHightMask = pow( cloudHightMask, _ColPow );
 				clouds.xyz *= lerp( _Color2.xyz, _Color.xyz * cloudColor.xyz * _ColFactor, cloudHightMask );
 
-				// subtract alpha based on height
+				
 				half cloudSub = 1.0 - uv.z;
 				clouds.w = clouds.w - cloudSub * cloudSub;
 
-				// multiply density
+				// помноження щільності
 				clouds.w = saturate( clouds.w * _CloudDensity );
 
-				// add extra density
+				// додати додаткову щільність
 				clouds.w = saturate( clouds.w + densityAdd );
 
-				// add Sunlight
+				// додати сонячне світло
 				clouds.xyz += sunTrans * cloudHightMask;
 
-				// premultiply alpha
+				// попередньо помножити альфа
 				clouds.xyz *= clouds.w;
 
 				return clouds;
@@ -174,51 +173,48 @@
 
 			fixed4 frag (v2f IN) : SV_Target
 			{
-				// generate a view direction fromt he world position of the skybox mesh
+				// генеруємо напрямок огляду зі світової позиції сітки skybox
 				float3 viewDir = normalize( IN.worldPos - _WorldSpaceCameraPos );
 
-				// get the falloff to the horizon
+				// отримаємо падіння до горизонту
 				float viewFalloff = 1.0 - saturate( dot( viewDir, float3(0,1,0) ) );
 
-				// Add some up vector to the horizon to pull the clouds down
+				// Додаємо деякий вектор вгору до горизонту, щоб стягнути хмари вниз
 				float3 traceDir = normalize( viewDir + float3(0,viewFalloff * 0.1,0) );
 
-				// Generate uvs from the world position of the sky
+				// Генеруємо UV-розгортку зі становища неба у світі
 				float3 worldPos = _WorldSpaceCameraPos + traceDir * ( ( _CloudHeight - _WorldSpaceCameraPos.y ) / max( traceDir.y, 0.00001) );
 				float3 uv = float3( worldPos.xz * 0.01 * _Scale, 0 );
 
-				// Make a spot for the sun, make it brighter at the horizon
+				// Робимо пляму для сонця, робимо її яскравіше на горизонті
 				float lightDot = saturate( dot( _WorldSpaceLightPos0, viewDir ) * 0.5 + 0.5 );
 				half3 lightTrans = _LightColor0.xyz * ( pow(lightDot,_LightSpread.x) * _LightSpread.y + pow(lightDot,_LightSpread.z) * _LightSpread.w );
 				half3 lightTransTotal = lightTrans * pow(viewFalloff, 5 ) * 5.0 + 1.0;
 
-				// Figure out how for to move through the uvs for each step of the parallax offset
+				// З'ясуємо, як переміщатися uv для кожного кроку зміщення паралаксу
 				half3 uvStep = half3( traceDir.xz * _BumpOffset * ( 1.0 / traceDir.y), 1.0 ) * ( 1.0 / _Steps );
 				uv += uvStep * rand3( IN.worldPos + _SinTime.w );
 
-				// initialize the accumulated color with fog
+				// ініціалізація накопиченого кольору туманом
 				half4 accColor = FogColorDensitySky(viewDir);
 				half4 clouds = 0;
 				[loop]for( int j = 0; j < _Steps; j++ ){
-					// if we filled the alpha then break out of the loop
+					// якщо ми заповнили альфу, то виходимо з циклу
 					if( accColor.w >= 1.0 ) { break; }
 
-					// add the step offset to the uv
+					// додайте зміщення кроку до uv
 					uv += uvStep;
 
-					// sample the clouds at the current position
+					// вибірка хмар у поточній позиції
 					clouds = SampleClouds(uv, lightTransTotal, 0.0 );
 
-					// add the current cloud color with front to back blending
+					// додати поточний колір хмари за допомогою змішування спереду назад
 					accColor += clouds * ( 1.0 - accColor.w );
 				}
-
-				// one last sample to fill gaps
 				uv += uvStep;
 				clouds = SampleClouds(uv, lightTransTotal, 1.0 );
 				accColor += clouds * ( 1.0 - accColor.w );
 
-				// return the color!
 				return accColor;
 			}
 			ENDCG

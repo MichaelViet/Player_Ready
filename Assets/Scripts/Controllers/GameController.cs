@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+using TMPro;
 public class GameController : MonoBehaviour
 {
 
@@ -13,14 +13,20 @@ public class GameController : MonoBehaviour
     public ChooseController chooseController; // Посилання на компонент ChooseController
     public AudioController audioController; // Посилання на компонент AudioController
 
+    private bool leftMouseButtonEnabled = true;
+    private bool rightMouseButtonEnabled = true;
+    private bool spacebarEnabled = true;
+
     public static bool GameIsPaused = false;
     public DataHolder data;
-    bool leftMouseButtonEnabled = true;
-    bool spacebarEnabled = true;
+
+    public Image bottomBarImage;
+
+    public TextMeshProUGUI textObject1;
+    public TextMeshProUGUI textObject2;
+
     private State state = State.IDLE; // Enum для збереження поточного стану гри
-
     private List<StoryScene> history = new List<StoryScene>(); // Список для збереження історії відтворених сцен
-
     private enum State // Enum для зберігання можливих станів гри
     {
         IDLE, ANIMATE, CHOOSE
@@ -58,36 +64,18 @@ public class GameController : MonoBehaviour
         }
     }
 
-
     void Update()
     {
-
         Time.timeScale = 1;
         // Якщо стан гри не IDLE, повертаємося і не продовжуємо виконання методу Update
         if (state != State.IDLE)
         {
             return;
         }
-        // Якщо гравець натисне на колесико миші, то гра сховає bottomBar, якщо гравець настисне знову, гра покаже bottomBar
-        if (Input.GetMouseButtonDown(2))
-        {
-            if (bottomBar.gameObject.activeSelf)
-            {
-                bottomBar.gameObject.SetActive(false);
-                leftMouseButtonEnabled = false;
-                spacebarEnabled = false;
-            }
-            else
-            {
-                bottomBar.gameObject.SetActive(true);
-                leftMouseButtonEnabled = true;
-                spacebarEnabled = true;
-            }
-        }
 
         // Логіка тексту, якщо гравець натискає пробіл або ліву кнопку миші, текст міняється, сюжет рухається далі. 
         // Якщо гравець сховає bottomBar натиснувши колесико миші, то пробіл і ліва кнопка миші не будуть рухати сюжет.
-        if (Input.GetKeyDown(KeyCode.Space) && bottomBar.gameObject.activeSelf && spacebarEnabled && leftMouseButtonEnabled || Input.GetMouseButtonDown(0) && bottomBar.gameObject.activeSelf && leftMouseButtonEnabled)
+        if (Input.GetKeyDown(KeyCode.Space) && bottomBar.gameObject.activeSelf && spacebarEnabled && leftMouseButtonEnabled && rightMouseButtonEnabled || Input.GetMouseButtonDown(0) && bottomBar.gameObject.activeSelf && leftMouseButtonEnabled)
         {
             // Якщо поточне речення завершено
             if (bottomBar.IsCompleted())
@@ -97,6 +85,7 @@ public class GameController : MonoBehaviour
                 // Якщо це останнє речення в сцені відтворюємо наступну сцену
                 if (bottomBar.IsLastSentence())
                 {
+                    audioController.StopAllAudio();
                     PlayScene((currentScene as StoryScene).nextScene);
                 }
                 else // Якщо ні відтворюємо наступне речення в поточній сцені
@@ -111,7 +100,7 @@ public class GameController : MonoBehaviour
             }
         }
         // Якщо гравець клацає правою кнопкою миші, вертаємося на попереднє речення
-        else if (Input.GetMouseButtonDown(1))
+        else if (Input.GetMouseButtonDown(1) && bottomBar.gameObject.activeSelf && rightMouseButtonEnabled)
         {   // Перевірка, якщо це перше речення сцени
             if (bottomBar.IsFirstSentence())
             {
@@ -132,6 +121,33 @@ public class GameController : MonoBehaviour
             {
                 bottomBar.GoBack();
             }
+        }
+
+        if (Input.GetMouseButtonDown(2))
+        {
+            ToggleObjects();
+        }
+    }
+
+    private void ToggleObjects()
+    {
+        if (textObject1.gameObject.activeSelf)
+        {
+            bottomBarImage.enabled = false;
+            textObject1.gameObject.SetActive(false);
+            textObject2.gameObject.SetActive(false);
+            leftMouseButtonEnabled = false;
+            rightMouseButtonEnabled = false;
+            spacebarEnabled = false;
+        }
+        else
+        {
+            textObject1.gameObject.SetActive(true);
+            textObject2.gameObject.SetActive(true);
+            bottomBarImage.enabled = true;
+            leftMouseButtonEnabled = true;
+            rightMouseButtonEnabled = true;
+            spacebarEnabled = true;
         }
     }
 

@@ -11,7 +11,7 @@ public class PauseMenuController : MonoBehaviour
     public AudioSource soundSource;
     public AudioSource environmentSource;
 
-
+    public GameObject optionsPanel;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -24,6 +24,11 @@ public class PauseMenuController : MonoBehaviour
             {
                 Pause();
             }
+            if (optionsPanel.activeSelf)
+            {
+                Pause();
+            }
+
         }
     }
 
@@ -46,7 +51,7 @@ public class PauseMenuController : MonoBehaviour
         gameController.enabled = false;
         GameIsPaused = true;
 
-        musicSource.pitch *= 0f;
+        //musicSource.pitch *= 0f;
         soundSource.pitch *= 0f;
         environmentSource.pitch *= 0f;
 

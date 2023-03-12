@@ -8,6 +8,7 @@ public class AudioController : MonoBehaviour
     public AudioSource soundSource; // Посилання на AudioSource для відтворення звукових ефектів
     public AudioSource environmentSource; // Посилання на AudioSource для відтворення звукових ефектів оточення
 
+    StoryScene storyScene;
     public void PlayAudio(AudioClip music, AudioClip sound, AudioClip environment)
     {
         // Відтворення саунду
@@ -15,6 +16,11 @@ public class AudioController : MonoBehaviour
         {
             soundSource.clip = sound;
             soundSource.Play();
+        }
+        else
+        {
+            soundSource.clip = sound;
+            soundSource.Pause();
         }
         if (environment != null)
         {
@@ -26,6 +32,7 @@ public class AudioController : MonoBehaviour
             environmentSource.clip = environment;
             environmentSource.Pause();
         }
+
 
         // Перемикач саундів
         // Якщо саунд не нульовий і відрізняється від поточного саунду, згасне поточна музика та перейде на нову музику
@@ -41,8 +48,8 @@ public class AudioController : MonoBehaviour
         {
             while (musicSource.volume > 0)
             {
-                musicSource.volume -= 0.05f;
-                yield return new WaitForSeconds(0.05f);
+                musicSource.volume -= 1f;
+                yield return new WaitForSeconds(1f);
             }
         }
         else
@@ -55,10 +62,15 @@ public class AudioController : MonoBehaviour
         musicSource.Play();
 
         // Згасання(Исчезновение) нової музики
-        while (musicSource.volume < 0.5)
+        while (musicSource.volume < 1)
         {
-            musicSource.volume += 0.05f;
-            yield return new WaitForSeconds(0.05f);
+            musicSource.volume += 1f;
+            yield return new WaitForSeconds(1f);
         }
     }
+    public void StopAllAudio()
+    {
+        soundSource.Stop();
+    }
+
 }

@@ -9,7 +9,7 @@ public class MainMenuController : MonoBehaviour
     public string gameScene;
     public Image loadingImage, circleImg;
     public Button loadButton;
-    private bool allowSceneActivation = false;
+
 
     public TextMeshProUGUI pressE;
 
@@ -43,34 +43,58 @@ public class MainMenuController : MonoBehaviour
 
     public void Load()
     {
-        SceneManager.LoadScene(gameScene, LoadSceneMode.Single);
+        StartCoroutine(LoadAsync());
+    }
+
+    private IEnumerator LoadAsync()
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(gameScene, LoadSceneMode.Single);
+        loadingImage.gameObject.SetActive(true);
+        asyncLoad.allowSceneActivation = false;
+        while (!asyncLoad.isDone)
+        {
+            // Отримуємо поточний прогрес завантаження і конвертуємо його в діапазон від 0 до 360 градусів.
+            float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
+            float fillAmount = progress * 360f;
+
+            // Задаємо кружечку відповідний заповнення.
+            circleImg.fillAmount = fillAmount / 360f;
+
+            if (asyncLoad.progress >= 0.9f)
+            {
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    asyncLoad.allowSceneActivation = true;
+                }
+                pressE.gameObject.SetActive(true);
+            }
+            yield return null;
+        }
     }
 
 
     IEnumerator LoadScene()
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
-
         loadingImage.gameObject.SetActive(true);
-        // Знаходимо об'єкт Environment та робимо його неактивним
-        GameObject parentEnvironment = GameObject.Find("Environment");
-        parentEnvironment.SetActive(false);
         asyncLoad.allowSceneActivation = false;
-
         while (!asyncLoad.isDone)
         {
+            // Отримуємо поточний прогрес завантаження і конвертуємо його в діапазон від 0 до 360 градусів.
+            float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
+            float fillAmount = progress * 360f;
 
-            if (Input.GetKeyDown(KeyCode.E))
+            // Задаємо кружечку відповідний заповнення.
+            circleImg.fillAmount = fillAmount / 360f;
+
+            if (asyncLoad.progress >= 0.9f)
             {
-                allowSceneActivation = true;
-            }
-            if (allowSceneActivation == true && asyncLoad.progress >= 0.9f)
-            {
-                circleImg.fillAmount = asyncLoad.progress;
-                asyncLoad.allowSceneActivation = true;
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    asyncLoad.allowSceneActivation = true;
+                }
                 pressE.gameObject.SetActive(true);
             }
-
             yield return null;
         }
     }

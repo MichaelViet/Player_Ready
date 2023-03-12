@@ -16,8 +16,14 @@ MonoBehaviour:
   - text: '  '
     speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
     actions: []
-    music: {fileID: 0}
-    sound: {fileID: 0}
+    music: {fileID: 8300000, guid: 51143946d119e5d47b3d04196f9de761, type: 3}
+    sound: {fileID: 8300000, guid: 4f6fca6f22e0ae74eab1578450eced0a, type: 3}
     environment: {fileID: 0}
-  background: {fileID: 21300000, guid: 0e8bf65943a1c5942af324fd5d833434, type: 3}
+  - text: '  '
+    speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
+    actions: []
+    music: {fileID: 8300000, guid: 51143946d119e5d47b3d04196f9de761, type: 3}
+    sound: {fileID: 8300000, guid: 82093149f0ca39b47b9c5c4989be61bc, type: 3}
+    environment: {fileID: 0}
+  background: {fileID: 21300000, guid: c3919666431c9b84dadc34d4dc6f0c62, type: 3}
   nextScene: {fileID: 11400000, guid: f050a1a8ea3fc5c459e138c33ce07525, type: 2}

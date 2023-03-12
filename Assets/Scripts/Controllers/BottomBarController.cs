@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using System;
+using UnityEngine.UI;
 public class BottomBarController : MonoBehaviour
 {
     // Елементи інтерфейсу користувача для відображення діалогу та імені спікера
@@ -27,6 +28,9 @@ public class BottomBarController : MonoBehaviour
     private Coroutine typingCoroutine;
     // Швидкість виводу тексту
     private float speedFactor = 1f;
+   
+    bool leftMouseButtonEnabled = true;
+    bool spacebarEnabled = true;
 
     // Enum для відстеження стану анімації
     private enum State
@@ -39,7 +43,7 @@ public class BottomBarController : MonoBehaviour
         sprites = new Dictionary<Speaker, SpriteController>(); // Ініціалізація словника спрайтів
         animator = GetComponent<Animator>(); // Отримати компонент Animator з об’єкта UI нижньої панелі
     }
-
+    
     // Повертає індекс поточного речення
     public int GetSentenceIndex()
     {
@@ -200,7 +204,6 @@ public class BottomBarController : MonoBehaviour
 
         switch (action.actionType)
         {
-
             case StoryScene.Sentence.Action.Type.APPEAR:
                 controller.Setup(action.speaker.sprites[action.spriteIndex]); // Налаштування контролера з відповідним спрайтом
                 controller.Show(action.coords, playAnimation); // Показувати контролер з анімацією або без неї
@@ -214,8 +217,6 @@ public class BottomBarController : MonoBehaviour
         }
         controller.SwitchSprite(action.speaker.sprites[action.spriteIndex], playAnimation);
     }
-    public void Update()
-    {
 
-    }
+
 }
