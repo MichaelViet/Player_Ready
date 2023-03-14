@@ -21,7 +21,7 @@ public class MainMenuController : MonoBehaviour
     {
         CacheObjects();
         SaveManager.ClearSavedGame();
-        StartCoroutine(LoadScene());
+        StartCoroutine(LoadNewGame());
     }
 
     public void QuitGame()
@@ -43,10 +43,15 @@ public class MainMenuController : MonoBehaviour
 
     public void Load()
     {
-        StartCoroutine(LoadAsync());
+        StartCoroutine(LoadSavedGame());
     }
 
-    private IEnumerator LoadAsync()
+    public void LoadfromGame()
+    {
+        SceneManager.LoadScene(gameScene, LoadSceneMode.Single);
+    }
+
+    private IEnumerator LoadSavedGame()
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(gameScene, LoadSceneMode.Single);
         loadingImage.gameObject.SetActive(true);
@@ -73,18 +78,17 @@ public class MainMenuController : MonoBehaviour
     }
 
 
-    IEnumerator LoadScene()
+    IEnumerator LoadNewGame()
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
         loadingImage.gameObject.SetActive(true);
         asyncLoad.allowSceneActivation = false;
         while (!asyncLoad.isDone)
         {
-            // Отримуємо поточний прогрес завантаження і конвертуємо його в діапазон від 0 до 360 градусів.
+
             float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
             float fillAmount = progress * 360f;
 
-            // Задаємо кружечку відповідний заповнення.
             circleImg.fillAmount = fillAmount / 360f;
 
             if (asyncLoad.progress >= 0.9f)

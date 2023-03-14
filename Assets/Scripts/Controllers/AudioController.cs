@@ -17,11 +17,6 @@ public class AudioController : MonoBehaviour
             soundSource.clip = sound;
             soundSource.Play();
         }
-        else
-        {
-            soundSource.clip = sound;
-            soundSource.Pause();
-        }
         if (environment != null)
         {
             environmentSource.clip = environment;
@@ -33,7 +28,6 @@ public class AudioController : MonoBehaviour
             environmentSource.Pause();
         }
 
-
         // Перемикач саундів
         // Якщо саунд не нульовий і відрізняється від поточного саунду, згасне поточна музика та перейде на нову музику
         if (music != null && musicSource.clip != music)
@@ -43,13 +37,15 @@ public class AudioController : MonoBehaviour
     }
 
     private IEnumerator FadeOutAndSwitchMusic(AudioClip music)
-    {   // Згасання поточної музики
+    {
+        // Поступове згасання поточної музики
         if (musicSource.clip != null)
         {
-            while (musicSource.volume > 0)
+            float startingVolume = musicSource.volume; // зберігати початкову гучність музики
+            while (musicSource.volume > 0) // зменшення гучності музики до нуля
             {
-                musicSource.volume -= 1f;
-                yield return new WaitForSeconds(1f);
+                musicSource.volume -= startingVolume * Time.deltaTime / 1f;
+                yield return null;
             }
         }
         else
@@ -57,15 +53,13 @@ public class AudioController : MonoBehaviour
             musicSource.volume = 0;
         }
 
-        // Переключаємо на нову музику та відображаємо її
-        musicSource.clip = music;
+        // Перейти на нову музику і поступово збільшувати її гучність
+        musicSource.clip = music; // Вставновлюємо новий музичний кліп
         musicSource.Play();
-
-        // Згасання(Исчезновение) нової музики
-        while (musicSource.volume < 1)
+        while (musicSource.volume < 1) // збільшення гучності музики до 1
         {
-            musicSource.volume += 1f;
-            yield return new WaitForSeconds(1f);
+            musicSource.volume += Time.deltaTime / 1f;
+            yield return null;
         }
     }
     public void StopAllAudio()

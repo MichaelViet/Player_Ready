@@ -36,7 +36,6 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\SceneChanger.cs" />
      <Compile Include="Assets\Scripts\GrassObject\GrassPainterEditor.cs" />
      <Compile Include="Assets\Scripts\Controllers\PauseMenuController.cs" />
      <Compile Include="Assets\Scripts\Controllers\SaveManager.cs" />
