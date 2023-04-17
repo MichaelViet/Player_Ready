@@ -9,14 +9,13 @@ public class MainMenuController : MonoBehaviour
     public string gameScene;
     public Image loadingImage, circleImg;
     public Button loadButton;
-
-
     public TextMeshProUGUI pressE;
-
+    public PlayerMovement playerMovement;
     public void Update()
     {
         Time.timeScale = 1;
     }
+
     public void PlayGame()
     {
         CacheObjects();
@@ -40,29 +39,35 @@ public class MainMenuController : MonoBehaviour
         loadButton.interactable = SaveManager.IsGameSaved();
     }
 
-
     public void Load()
     {
         StartCoroutine(LoadSavedGame());
     }
 
-    public void LoadfromGame()
-    {
-        SceneManager.LoadScene(gameScene, LoadSceneMode.Single);
-    }
-
     private IEnumerator LoadSavedGame()
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(gameScene, LoadSceneMode.Single);
+        Debug.Log("LoadSavedGame() called in scene: " + SceneManager.GetActiveScene().name);
+        int sceneToLoad = SceneManager.GetActiveScene().buildIndex + 1;
+        if (SaveManager.IsGameSaved())
+        {
+            SaveData data = SaveManager.LoadGame();
+            // Save the loaded position to be used later in PlayerMovement script
+            PlayerPrefs.SetFloat("LoadedPlayerPositionX", data.playerPosition.x);
+            PlayerPrefs.SetFloat("LoadedPlayerPositionY", data.playerPosition.y);
+            PlayerPrefs.SetFloat("LoadedPlayerPositionZ", data.playerPosition.z);
+            sceneToLoad = data.currentScene != 0 ? data.currentScene : sceneToLoad;
+        }
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Single);
         loadingImage.gameObject.SetActive(true);
         asyncLoad.allowSceneActivation = false;
         while (!asyncLoad.isDone)
         {
-            // Отримуємо поточний прогрес завантаження і конвертуємо його в діапазон від 0 до 360 градусів.
+            // Get the current loading progress and convert it into a range from 0 to 360 degrees.
             float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
             float fillAmount = progress * 360f;
 
-            // Задаємо кружечку відповідний заповнення.
+            // Set the loading circle to be filled in.
             circleImg.fillAmount = fillAmount / 360f;
 
             if (asyncLoad.progress >= 0.9f)
@@ -76,7 +81,6 @@ public class MainMenuController : MonoBehaviour
             yield return null;
         }
     }
-
 
     IEnumerator LoadNewGame()
     {

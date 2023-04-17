@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 public class GameController : MonoBehaviour
 {
-
     public GameScene currentScene; // Посилання на поточну сцену, що відтворюється
     public BottomBarController bottomBar; // Посилання на компонент BottomBarController
     public SpriteSwitcher backgroundController; // Посилання на компонент SpriteSwitcher
@@ -25,6 +25,8 @@ public class GameController : MonoBehaviour
     public TextMeshProUGUI textObject1;
     public TextMeshProUGUI textObject2;
 
+    public GameObject panel;
+    public Animator transition;
     private State state = State.IDLE; // Enum для збереження поточного стану гри
     private List<StoryScene> history = new List<StoryScene>(); // Список для збереження історії відтворених сцен
     private enum State // Enum для зберігання можливих станів гри
@@ -33,15 +35,15 @@ public class GameController : MonoBehaviour
     }
 
     // Вивантажуємо всі невикористані ресурси з пам'яті
-    public void UnloadUnusedAssets()
+    private void UnloadUnusedAssets()
     {
         Resources.UnloadUnusedAssets();
+        System.GC.Collect();
     }
-
     void Start()
     {
+        StartLevel();
         UnloadUnusedAssets();
-
         if (SaveManager.IsGameSaved())
         {
             SaveData data = SaveManager.LoadGame();
@@ -64,63 +66,56 @@ public class GameController : MonoBehaviour
         }
     }
 
+    IEnumerator StartLevel()
+    {
+        transition.SetTrigger("Start");
+        yield return new WaitForSeconds(1f);
+    }
+
     void Update()
     {
-        Time.timeScale = 1;
-        // Якщо стан гри не IDLE, повертаємося і не продовжуємо виконання методу Update
-        if (state != State.IDLE)
+        if (state != State.IDLE || PauseMenuController.isPaused)
         {
             return;
         }
-
-        // Логіка тексту, якщо гравець натискає пробіл або ліву кнопку миші, текст міняється, сюжет рухається далі. 
-        // Якщо гравець сховає bottomBar натиснувши колесико миші, то пробіл і ліва кнопка миші не будуть рухати сюжет.
-        if (Input.GetKeyDown(KeyCode.Space) && bottomBar.gameObject.activeSelf && spacebarEnabled && leftMouseButtonEnabled && rightMouseButtonEnabled || Input.GetMouseButtonDown(0) && bottomBar.gameObject.activeSelf && leftMouseButtonEnabled)
+        bool isClickingIgnoredUI = false;
+        if (EventSystem.current.IsPointerOverGameObject())
         {
-            // Якщо поточне речення завершено
-            if (bottomBar.IsCompleted())
+            GameObject clickedObject = EventSystem.current.currentSelectedGameObject;
+            if (clickedObject != null && clickedObject.CompareTag("IgnoreTextOutput"))
             {
-                // Зупинняється введення та переходимо до наступного речення
-                bottomBar.StopTyping();
-                // Якщо це останнє речення в сцені відтворюємо наступну сцену
-                if (bottomBar.IsLastSentence())
-                {
-                    audioController.StopAllAudio();
-                    PlayScene((currentScene as StoryScene).nextScene);
-                }
-                else // Якщо ні відтворюємо наступне речення в поточній сцені
-                {
-                    bottomBar.PlayNextSentence();
-                    PlayAudio((currentScene as StoryScene).sentences[bottomBar.GetSentenceIndex()]);
-                }
-            }
-            else
-            {
-                bottomBar.SpeedUp(); // Прискорюємо введення поточного речення якщо гравець натискає ліву кнопку миші знову
+                isClickingIgnoredUI = true;
             }
         }
-        // Якщо гравець клацає правою кнопкою миші, вертаємося на попереднє речення
-        else if (Input.GetMouseButtonDown(1) && bottomBar.gameObject.activeSelf && rightMouseButtonEnabled)
-        {   // Перевірка, якщо це перше речення сцени
-            if (bottomBar.IsFirstSentence())
-            {
-                // Якщо в історії більше однієї сцени
-                if (history.Count > 1)
-                {
-                    bottomBar.StopTyping(); // Припинити вводити текст і сховати спрайти
-                    bottomBar.HideSprites();
 
-                    history.RemoveAt(history.Count - 1); // Видалити поточну сцену з історії
-                    StoryScene scene = history[history.Count - 1]; // Отримати попередню сцену з історії
-                    history.RemoveAt(history.Count - 1); // Видалення попередньої сцени з історії
-                    PlayScene(scene, scene.sentences.Count - 2, false); // Відтворення попередньої сцени, починаючи з передостаннього речення
+        // Если все объекты активны и пользователь нажал левую кнопку мыши
+        if (textObject1.gameObject.activeSelf && textObject2.gameObject.activeSelf && bottomBarImage.enabled && panel.gameObject.activeSelf && Input.GetMouseButtonDown(0))
+        {
+            if (!isClickingIgnoredUI && (Input.GetKeyDown(KeyCode.Space) && spacebarEnabled && leftMouseButtonEnabled && rightMouseButtonEnabled || leftMouseButtonEnabled))
+            {
+                if (bottomBar.IsCompleted())
+                {
+                    bottomBar.StopTyping();
+                    if (bottomBar.IsLastSentence())
+                    {
+                        audioController.StopAllAudio();
+                        PlayScene((currentScene as StoryScene).nextScene);
+                    }
+                    else
+                    {
+                        bottomBar.PlayNextSentence();
+                        PlayAudio((currentScene as StoryScene).sentences[bottomBar.GetSentenceIndex()]);
+                    }
+                }
+                else
+                {
+                    bottomBar.SpeedUp();
                 }
             }
-            // Повернутися до попереднього речення в поточній сцені
-            else
-            {
-                bottomBar.GoBack();
-            }
+        }
+        else if (Input.GetMouseButtonDown(0)) // Если объекты неактивны и пользователь нажал левую кнопку мыши
+        {
+            ToggleObjects();
         }
 
         if (Input.GetMouseButtonDown(2))
@@ -129,26 +124,17 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void ToggleObjects()
+    public void ToggleObjects()
     {
-        if (textObject1.gameObject.activeSelf)
-        {
-            bottomBarImage.enabled = false;
-            textObject1.gameObject.SetActive(false);
-            textObject2.gameObject.SetActive(false);
-            leftMouseButtonEnabled = false;
-            rightMouseButtonEnabled = false;
-            spacebarEnabled = false;
-        }
-        else
-        {
-            textObject1.gameObject.SetActive(true);
-            textObject2.gameObject.SetActive(true);
-            bottomBarImage.enabled = true;
-            leftMouseButtonEnabled = true;
-            rightMouseButtonEnabled = true;
-            spacebarEnabled = true;
-        }
+        bool setActive = !textObject1.gameObject.activeSelf;
+
+        bottomBarImage.enabled = setActive;
+        textObject1.gameObject.SetActive(setActive);
+        textObject2.gameObject.SetActive(setActive);
+        leftMouseButtonEnabled = setActive;
+        rightMouseButtonEnabled = setActive;
+        spacebarEnabled = setActive;
+        panel.gameObject.SetActive(setActive);
     }
 
     public void SaveGame()
@@ -173,7 +159,7 @@ public class GameController : MonoBehaviour
         StartCoroutine(SwitchScene(scene, sentenceIndex, isAnimated)); // Запуск coroutine (співпрограми) для перемикання на вказану сцену
     }
 
-    // Ця співпрограма обробляє фактичне перемикання сцен
+    // Ця корутина обробляє фактичне перемикання сцен
     private IEnumerator SwitchScene(GameScene scene, int sentenceIndex = -1, bool isAnimated = true)
     {
         state = State.ANIMATE; // Встановити стан на ANIMATE, який вказує на те, що анімація триває
@@ -227,5 +213,4 @@ public class GameController : MonoBehaviour
     {
         audioController.PlayAudio(sentence.music, sentence.sound, sentence.environment);
     }
-
 }

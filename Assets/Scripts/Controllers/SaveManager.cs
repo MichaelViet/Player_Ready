@@ -25,5 +25,12 @@ public class SaveManager : MonoBehaviour
     {
         PlayerPrefs.DeleteKey(SAVED_GAME);
     }
+}
 
+public struct SaveData
+{
+    public List<int> prevScenes;
+    public int sentence;
+    public Vector3 playerPosition;
+    public int currentScene;
 }

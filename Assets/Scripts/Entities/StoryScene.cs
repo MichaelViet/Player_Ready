@@ -12,9 +12,9 @@ public class StoryScene : GameScene
     [System.Serializable]
     public struct Sentence
     {
-        AudioSource musicSource; // Посилання на AudioSource для відтворення музикі
-        AudioSource soundSource; // Посилання на AudioSource для відтворення звукових ефектів
-        AudioSource environmentSource; // Посилання на AudioSource для відтворення звукових ефектів оточення
+        AudioSource musicSource;
+        AudioSource soundSource;
+        AudioSource environmentSource;
         public string text;
         public Speaker speaker;
         public List<Action> actions;
@@ -29,7 +29,7 @@ public class StoryScene : GameScene
             public Speaker speaker;
             public int spriteIndex;
             public Type actionType;
-            public Vector2 coords;
+            public Vector2 coordinates;
             public float moveSpeed;
 
             [System.Serializable]

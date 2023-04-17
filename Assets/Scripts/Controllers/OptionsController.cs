@@ -31,12 +31,10 @@ public class OptionsController : MonoBehaviour
         {
             OnMucicChanged(musicSlider.value);
         }
-
         if (soundSlider.value != PlayerPrefs.GetFloat("soundVolume", 50f))
         {
             OnSoundChanged(soundSlider.value);
         }
-
         if (environmentSlider.value != PlayerPrefs.GetFloat("environmentVolume", 50f))
         {
             OnEnvironmentChanged(environmentSlider.value);

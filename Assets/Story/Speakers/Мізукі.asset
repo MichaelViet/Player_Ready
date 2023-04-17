@@ -25,4 +25,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 677a3cc4521b8dd4cbb0d78db6a8422e, type: 3}
   - {fileID: 21300000, guid: 677a3cc4521b8dd4cbb0d78db6a8422e, type: 3}
   - {fileID: 21300000, guid: 6e4321c6b123a5e409fc1d822de8f0c3, type: 3}
-  prefab: {fileID: -400084230080365608, guid: b63e65cd1c58ac24dbd937d543b10442, type: 3}
+  - {fileID: 21300000, guid: 0a3d741010a98424d81347d2cb06a5c5, type: 3}
+  - {fileID: 21300000, guid: 5a68fc6d726a90242b0995aa82abbdc1, type: 3}
+  - {fileID: 21300000, guid: 9cf363689e5b36b4aa72aa2799fa8fb6, type: 3}
+  - {fileID: 21300000, guid: c70cb8b4e0b839e4da72706155579af7, type: 3}
+  - {fileID: 21300000, guid: b4d0e204676241b45ae92c9a83a19a64, type: 3}
+  - {fileID: 21300000, guid: 1940ea34545d04e4497e81ab5c1d816b, type: 3}
+  - {fileID: 21300000, guid: ec6c3b4f7f22c464fa5d1382a0915fac, type: 3}
+  - {fileID: 21300000, guid: 65fe6921f1e63524698b7c0859c0cf76, type: 3}
+  prefab: {fileID: -400084230080365608, guid: 7754c4216025d624d8b30688733c3c70, type: 3}

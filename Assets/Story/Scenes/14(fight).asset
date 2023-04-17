@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51fb4c6070f247e48b4377b5728b8182, type: 3}
+  m_Name: 14(fight)
+  m_EditorClassIdentifier: 
+  sentences:
+  - text: "\u0406 \u0447\u043E\u043C\u0443 \u044F \u043F\u043E\u0432\u0438\u043D\u0435\u043D
+      \u0437\u0430\u043B\u0438\u0448\u0430\u0442\u0438\u0441\u044F \u043E\u0441\u0442\u043E\u0440\u043E\u043D\u044C?
+      \u0410 \u044F\u043A\u0431\u0438 \u043D\u0430 \u0439\u043E\u0433\u043E \u043C\u0456\u0441\u0446\u0456
+      \u0431\u0443\u0432 \u041C\u0430\u0439\u043A\u043B?"
+    speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
+    actions: []
+    music: {fileID: 8300000, guid: 257772710d4f64d49a01a8311aa7cf18, type: 3}
+    sound: {fileID: 0}
+    environment: {fileID: 0}
+  - text: "\u0410\u0434\u0436\u0435 \u043C\u0438 \u0442\u0435\u0436 \u0434\u0430\u043B\u0435\u043A\u043E
+      \u043D\u0435 \u043D\u0430\u0439\u0431\u0430\u0433\u0430\u0442\u0448\u0456 \u0437\u0430
+      \u043C\u0456\u0440\u043A\u0430\u043C\u0438 \u0446\u0456\u0454\u0457 \u0448\u043A\u043E\u043B\u0438."
+    speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
+    actions: []
+    music: {fileID: 8300000, guid: 257772710d4f64d49a01a8311aa7cf18, type: 3}
+    sound: {fileID: 0}
+    environment: {fileID: 0}
+  - text: "\u0412\u0438\u0431\u0430\u0447\u2026 \u0421\u043A\u043E\u0440\u043E \u0431\u0443\u0434\u0443"
+    speaker: {fileID: 11400000, guid: eddfe009b49d3484d8dfb5498d6a2f17, type: 2}
+    actions: []
+    music: {fileID: 8300000, guid: 257772710d4f64d49a01a8311aa7cf18, type: 3}
+    sound: {fileID: 0}
+    environment: {fileID: 0}
+  - text: "\u041C\u0456\u0437\u0443\u043A\u0456 \u043B\u0438\u0448\u0435 \u0442\u0440\u043E\u0445\u0438
+      \u043F\u043E\u0441\u043C\u0456\u0445\u043D\u0443\u043B\u0430\u0441\u044F \u0443
+      \u0432\u0456\u0434\u043F\u043E\u0432\u0456\u0434\u044C."
+    speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
+    actions: []
+    music: {fileID: 8300000, guid: 257772710d4f64d49a01a8311aa7cf18, type: 3}
+    sound: {fileID: 0}
+    environment: {fileID: 0}
+  background: {fileID: 21300000, guid: 16ed8fe65b252b640a81a9284c263c3b, type: 3}
+  nextScene: {fileID: 11400000, guid: 944e57ef79b660e41b6a8d69e3dfe430, type: 2}

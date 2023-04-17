@@ -22,7 +22,7 @@ MonoBehaviour:
   - text: '  '
     speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
     actions: []
-    music: {fileID: 8300000, guid: 51143946d119e5d47b3d04196f9de761, type: 3}
+    music: {fileID: 0}
     sound: {fileID: 8300000, guid: 11684bde14c77f34299c36fec196b683, type: 3}
     environment: {fileID: 0}
   background: {fileID: 21300000, guid: c3919666431c9b84dadc34d4dc6f0c62, type: 3}

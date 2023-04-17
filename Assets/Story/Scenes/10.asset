@@ -19,5 +19,22 @@ MonoBehaviour:
     music: {fileID: 8300000, guid: b5e319b12d1ad914db216cf8c1434ccb, type: 3}
     sound: {fileID: 0}
     environment: {fileID: 0}
+  - text: "\u0417\u0434\u0430\u0454\u0442\u044C\u0441\u044F, \u0442\u0430\u043A\u0430
+      \u043F\u043E\u0433\u043E\u0434\u0430 \u043D\u0430 \u043F\u043E\u0447\u0430\u0442\u043A\u0443
+      \u043E\u0441\u0435\u043D\u0456 \u0443 \u0421\u0428\u0410 \u043D\u0430\u0437\u0438\u0432\u0430\u0454\u0442\u044C\u0441\u044F
+      \xAB\u0456\u043D\u0434\u0456\u0430\u043D\u0441\u044C\u043A\u0438\u043C \u043B\u0456\u0442\u043E\u043C\xBB."
+    speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
+    actions: []
+    music: {fileID: 8300000, guid: b5e319b12d1ad914db216cf8c1434ccb, type: 3}
+    sound: {fileID: 0}
+    environment: {fileID: 0}
+  - text: "\u042F\u043A \u0431\u0438 \u0442\u0430\u043C \u043D\u0435 \u0431\u0443\u043B\u043E,
+      \u0432 \u042F\u043F\u043E\u043D\u0456\u0457 \u043D\u0430 \u043F\u043E\u0447\u0430\u0442\u043A\u0443
+      \u0432\u0435\u0440\u0435\u0441\u043D\u044F \u0434\u043E\u0441\u0456 \u0441\u043F\u0435\u043A\u0430."
+    speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
+    actions: []
+    music: {fileID: 8300000, guid: b5e319b12d1ad914db216cf8c1434ccb, type: 3}
+    sound: {fileID: 0}
+    environment: {fileID: 0}
   background: {fileID: 21300000, guid: 42188b269cbb4e843b21a1c5a223e98f, type: 3}
-  nextScene: {fileID: 0}
+  nextScene: {fileID: 11400000, guid: d71210729ca00c644aaf7ec0a7fbd51d, type: 2}

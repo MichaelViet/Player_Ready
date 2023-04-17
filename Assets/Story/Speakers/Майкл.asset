@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "\u041C\u0430\u0439\u043A\u043B"
   m_EditorClassIdentifier: 
   speakerName: "\u041C\u0430\u0439\u043A\u043B"
-  textColor: {r: 1, g: 0.9297467, b: 0.28773582, a: 0}
+  textColor: {r: 0.5411765, g: 0.5372549, b: 0.56078434, a: 0}
   sprites:
-  - {fileID: 21300000, guid: c41ed6fa5a889d24896085d8df97b583, type: 3}
-  prefab: {fileID: 0}
+  - {fileID: 21300000, guid: 10085aaff8abcee42adf81358a0289c0, type: 3}
+  prefab: {fileID: -400084230080365608, guid: 3335f82b54c1cc24b933657d8d5b0656, type: 3}

@@ -28,7 +28,7 @@ public class BottomBarController : MonoBehaviour
     private Coroutine typingCoroutine;
     // Швидкість виводу тексту
     private float speedFactor = 1f;
-   
+
     bool leftMouseButtonEnabled = true;
     bool spacebarEnabled = true;
 
@@ -43,7 +43,7 @@ public class BottomBarController : MonoBehaviour
         sprites = new Dictionary<Speaker, SpriteController>(); // Ініціалізація словника спрайтів
         animator = GetComponent<Animator>(); // Отримати компонент Animator з об’єкта UI нижньої панелі
     }
-    
+
     // Повертає індекс поточного речення
     public int GetSentenceIndex()
     {
@@ -206,10 +206,10 @@ public class BottomBarController : MonoBehaviour
         {
             case StoryScene.Sentence.Action.Type.APPEAR:
                 controller.Setup(action.speaker.sprites[action.spriteIndex]); // Налаштування контролера з відповідним спрайтом
-                controller.Show(action.coords, playAnimation); // Показувати контролер з анімацією або без неї
+                controller.Show(action.coordinates, playAnimation); // Показувати контролер з анімацією або без неї
                 break;
             case StoryScene.Sentence.Action.Type.MOVE:
-                controller.Move(action.coords, action.moveSpeed, playAnimation);
+                controller.Move(action.coordinates, action.moveSpeed, playAnimation);
                 break;
             case StoryScene.Sentence.Action.Type.DISAPPEAR:
                 controller.Hide(playAnimation);
