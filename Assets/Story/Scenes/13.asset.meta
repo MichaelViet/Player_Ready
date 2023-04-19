@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Story/Scenes/13.asset.meta
 guid: 73dfafbd2f5e40e45bf274788952d8c8
+========
+guid: 87d5ecc9c7a771a4a8fcd68b1c9a2499
+>>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації):Assets/Story/Choose/Choose3.asset.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

@@ -1821,9 +1821,12 @@ GameObject:
   - component: {fileID: 1149083475}
   - component: {fileID: 1149083479}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   - component: {fileID: 1149083478}
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_Layer: 0
   m_Name: LoadImage
   m_TagString: Untagged
@@ -1891,6 +1894,7 @@ RectTransform:
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!225 &1149083479
 CanvasGroup:
 =======
@@ -1898,12 +1902,17 @@ CanvasGroup:
 Animator:
   serializedVersion: 5
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+--- !u!225 &1149083479
+CanvasGroup:
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1149083474}
   m_Enabled: 1
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
   m_Avatar: {fileID: 0}
@@ -1927,6 +1936,8 @@ CanvasGroup:
   m_GameObject: {fileID: 1149083474}
   m_Enabled: 1
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1

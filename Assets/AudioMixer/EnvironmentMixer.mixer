@@ -70,8 +70,12 @@ AudioMixerSnapshotController:
     ee6089202224b78438cf7c6c35b0ded5: -57.1
     78a582c225ad3594ba0ae42fccc89f89: 9.3
 <<<<<<< HEAD
+<<<<<<< HEAD
     f9eea97d8c4077049bc76871b9ea1d3e: -13
 =======
     f9eea97d8c4077049bc76871b9ea1d3e: -13.000002
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+    f9eea97d8c4077049bc76871b9ea1d3e: -13
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_TransitionOverrides: {}

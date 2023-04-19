@@ -1,9 +1,17 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 <<<<<<<< HEAD:Assets/Story/Scenes/12.asset.meta
 guid: 85c07291fee5dc14aa59d05fb4f54377
 ========
 guid: 73dfafbd2f5e40e45bf274788952d8c8
 >>>>>>>> 225847647076aea25586628776fc6887ae55b500:Assets/Story/Scenes/13.asset.meta
+=======
+<<<<<<<< HEAD:Assets/Story/Scenes/14(fight).asset.meta
+guid: d2a5807925e6d5e48972ed74a1e20098
+========
+guid: 85c07291fee5dc14aa59d05fb4f54377
+>>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації):Assets/Story/Scenes/12.asset.meta
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000
