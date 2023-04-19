@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-
+using UnityEngine.SceneManagement;
 public class ChooseController : MonoBehaviour
 {
     public ChooseLabelController label;
@@ -38,9 +35,16 @@ public class ChooseController : MonoBehaviour
         rectTransform.sizeDelta = size;
     }
 
-    public void PerformChoose(StoryScene scene)
+    public void PerformChoose(ChooseScene.ChooseLabel label)
     {
-        gameController.PlayScene(scene);
+        if (label.nextScene != null)
+        {
+            gameController.PlayScene(label.nextScene);
+        }
+        else if (!string.IsNullOrEmpty(label.nextSceneName))
+        {
+            SceneManager.LoadScene(label.nextSceneName);
+        }
         animator.SetTrigger("Hide");
     }
 

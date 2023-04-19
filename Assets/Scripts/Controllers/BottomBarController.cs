@@ -93,15 +93,6 @@ public class BottomBarController : MonoBehaviour
         PlaySentence(isAnimated); // isAnimated використовується, щоб визначити, чи повинен текст анімуватися під час введення
     }
 
-    // Метод GoBack використовується для повернення до попереднього речення при натисканні правої кнопки миші
-    public void GoBack()
-    {
-        sentenceIndex--;
-        StopTyping();
-        ClearText();
-        HideSprites();
-        PlaySentence(false);
-    }
     // IsCompleted метод повертає, чи була сцена завершена
     public bool IsCompleted()
     {

@@ -6,7 +6,6 @@ using TMPro;
 
 public class MainMenuController : MonoBehaviour
 {
-    public string gameScene;
     public Image loadingImage, circleImg;
     public Button loadButton;
     public TextMeshProUGUI pressE;
@@ -51,7 +50,10 @@ public class MainMenuController : MonoBehaviour
         if (SaveManager.IsGameSaved())
         {
             SaveData data = SaveManager.LoadGame();
+<<<<<<< HEAD
+=======
             // Save the loaded position to be used later in PlayerMovement script
+>>>>>>> 225847647076aea25586628776fc6887ae55b500
             PlayerPrefs.SetFloat("LoadedPlayerPositionX", data.playerPosition.x);
             PlayerPrefs.SetFloat("LoadedPlayerPositionY", data.playerPosition.y);
             PlayerPrefs.SetFloat("LoadedPlayerPositionZ", data.playerPosition.z);
@@ -63,13 +65,17 @@ public class MainMenuController : MonoBehaviour
         asyncLoad.allowSceneActivation = false;
         while (!asyncLoad.isDone)
         {
+<<<<<<< HEAD
+            float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
+            float fillAmount = progress * 360f;
+=======
             // Get the current loading progress and convert it into a range from 0 to 360 degrees.
             float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
             float fillAmount = progress * 360f;
 
             // Set the loading circle to be filled in.
+>>>>>>> 225847647076aea25586628776fc6887ae55b500
             circleImg.fillAmount = fillAmount / 360f;
-
             if (asyncLoad.progress >= 0.9f)
             {
                 if (Input.GetKeyDown(KeyCode.E))
@@ -89,12 +95,9 @@ public class MainMenuController : MonoBehaviour
         asyncLoad.allowSceneActivation = false;
         while (!asyncLoad.isDone)
         {
-
             float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
             float fillAmount = progress * 360f;
-
             circleImg.fillAmount = fillAmount / 360f;
-
             if (asyncLoad.progress >= 0.9f)
             {
                 if (Input.GetKeyDown(KeyCode.E))

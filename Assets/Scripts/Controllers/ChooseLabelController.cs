@@ -10,6 +10,8 @@ public class ChooseLabelController : MonoBehaviour, IPointerClickHandler, IPoint
     private TextMeshProUGUI textMesh; // Посилання на компонент TextMeshProUGUI цього об'єкта
     private ChooseController controller; // Посилання на скріпт ChooseController
 
+    ChooseScene.ChooseLabel currentLabel;
+
     // Awake функція викликається, при створенні екзепляра об'єкта
     void Awake()
     {
@@ -26,6 +28,7 @@ public class ChooseLabelController : MonoBehaviour, IPointerClickHandler, IPoint
     //посиланням на контролер і положенням "y"
     public void Setup(ChooseScene.ChooseLabel label, ChooseController controller, float y)
     {
+        currentLabel = label; // Зберігаємо структуру ChooseLabel
         scene = label.nextScene; // Зберігаємо посилання на наступну сцену
         textMesh.text = label.text; // Встановити текст компонента TextMeshProUGUI в текст мітки
         this.controller = controller; // Зберігаємо посилання на скріпт ChooseController
@@ -38,8 +41,8 @@ public class ChooseLabelController : MonoBehaviour, IPointerClickHandler, IPoint
     // Ця функція викликається, при натисканні на об'єкт
     public void OnPointerClick(PointerEventData eventData)
     {
-        // Викликаємо функцію PerformChoose скріпта ChooseController, передаючи наступну сцену
-        controller.PerformChoose(scene);
+        // Викликаємо функцію PerformChoose скріпта ChooseController, передаючи структуру ChooseLabel
+        controller.PerformChoose(currentLabel);
     }
     // Ця функція викликається, коли вказівник миші наводиться на об'єкт
     public void OnPointerEnter(PointerEventData eventData)

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/Scene-2/Scripts/PlayerMovement.cs.meta
 guid: e5273cd41ac3c5246965ef9469d10dd7
+========
+guid: cec1ea77afc322d4facbe06dd25664bd
+>>>>>>>> 225847647076aea25586628776fc6887ae55b500:Assets/Scripts/Pause/BasePauseMenu.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

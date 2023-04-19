@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/Scene-2/Scripts/LevelManager.cs.meta
+guid: 4b3eedb8a2fe7834d9089b14ef6f6f3d
+========
+guid: e5273cd41ac3c5246965ef9469d10dd7
+>>>>>>>> 225847647076aea25586628776fc6887ae55b500:Assets/Scenes/Scene-2/Scripts/PlayerMovement.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

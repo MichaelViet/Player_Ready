@@ -1820,7 +1820,10 @@ GameObject:
   - component: {fileID: 1149083476}
   - component: {fileID: 1149083475}
   - component: {fileID: 1149083479}
+<<<<<<< HEAD
+=======
   - component: {fileID: 1149083478}
+>>>>>>> 225847647076aea25586628776fc6887ae55b500
   m_Layer: 0
   m_Name: LoadImage
   m_TagString: Untagged
@@ -1887,15 +1890,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+<<<<<<< HEAD
+--- !u!225 &1149083479
+CanvasGroup:
+=======
 --- !u!95 &1149083478
 Animator:
   serializedVersion: 5
+>>>>>>> 225847647076aea25586628776fc6887ae55b500
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1149083474}
   m_Enabled: 1
+<<<<<<< HEAD
+=======
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: cc62e351672ad38458660fe7f32d3971, type: 2}
   m_CullingMode: 0
@@ -1916,6 +1926,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1149083474}
   m_Enabled: 1
+>>>>>>> 225847647076aea25586628776fc6887ae55b500
   m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1

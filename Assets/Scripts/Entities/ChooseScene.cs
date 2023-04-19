@@ -1,8 +1,6 @@
-// скріпт створює розвілку вибору, який використовується в першій 2D сцені для гравця
-
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 
 [CreateAssetMenu(fileName = "NewChooseScene", menuName = "Data/New Choose Scene")]
 [System.Serializable]
@@ -19,5 +17,6 @@ public class ChooseScene : GameScene
 
         // Наступна сцена яка буде відтворена після вибору 
         public StoryScene nextScene;
+        public string nextSceneName;
     }
 }
