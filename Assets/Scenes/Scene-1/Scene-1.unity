@@ -202,6 +202,7 @@ Animator:
   m_WriteDefaultValuesOnDisable: 0
 --- !u!222 &48699397
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -326,6 +327,8 @@ MonoBehaviour:
   m_PixelsPerUnitMultiplier: 1
 --- !u!222 &65302880
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -634,6 +637,7 @@ Transform:
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 --- !u!1 &504114925
 GameObject:
@@ -758,6 +762,8 @@ CanvasRenderer:
   m_GameObject: {fileID: 504114925}
   m_CullTransparentMesh: 1
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,6 +1134,7 @@ Transform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 --- !u!1 &650853596
 GameObject:
@@ -1266,6 +1273,8 @@ CanvasRenderer:
   m_GameObject: {fileID: 650853596}
   m_CullTransparentMesh: 1
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 --- !u!1 &871315569
 GameObject:
   m_ObjectHideFlags: 0
@@ -1342,6 +1351,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 871315569}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 --- !u!1 &877152924
@@ -1480,6 +1490,8 @@ CanvasRenderer:
   m_GameObject: {fileID: 877152924}
   m_CullTransparentMesh: 1
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 --- !u!1 &942406339
 GameObject:
   m_ObjectHideFlags: 0
@@ -1511,6 +1523,7 @@ RectTransform:
   m_Father: {fileID: 1759597900}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1690,11 +1703,14 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 --- !u!114 &1203523755
@@ -1793,6 +1809,8 @@ CanvasRenderer:
   m_GameObject: {fileID: 1203523753}
   m_CullTransparentMesh: 1
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 --- !u!1 &1264748751
 GameObject:
   m_ObjectHideFlags: 0
@@ -1936,16 +1954,22 @@ GameObject:
   - component: {fileID: 1378548070}
   m_Layer: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Name: Menu BTN
   m_TagString: IgnoreTextOutput
 =======
   m_Name: GameMenu
   m_TagString: PauseMenu
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+  m_Name: Menu BTN
+  m_TagString: IgnoreTextOutput
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+<<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!224 &1378548069
 =======
@@ -2122,6 +2146,9 @@ GameObject:
   m_IsActive: 1
 --- !u!224 &1514943344
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+--- !u!224 &1378548069
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2137,12 +2164,16 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.00009918213, y: -0.000014067413}
   m_SizeDelta: {x: 67.5416, y: 47.8413}
   m_Pivot: {x: 0.49999997, y: 0.5}
 --- !u!114 &1378548070
+<<<<<<< HEAD
 =======
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2151,6 +2182,8 @@ RectTransform:
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1514943345
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2227,10 +2260,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: 464822b7ddb65254ea56fea86d619a14, type: 3}
 =======
   m_Sprite: {fileID: 21300000, guid: c31efa10a9cd928468b65f861acadc1b, type: 3}
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+  m_Sprite: {fileID: 21300000, guid: 464822b7ddb65254ea56fea86d619a14, type: 3}
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2369,6 +2406,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1540488342}
+<<<<<<< HEAD
   m_CullTransparentMesh: 1
 --- !u!1 &1540488342
 GameObject:
@@ -2491,6 +2529,8 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1540488342}
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_CullTransparentMesh: 1
 --- !u!1 &1548364059
 GameObject:
@@ -2748,6 +2788,7 @@ Transform:
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 --- !u!1 &1573325974
 GameObject:
@@ -2885,6 +2926,8 @@ CanvasRenderer:
   m_GameObject: {fileID: 1573325974}
   m_CullTransparentMesh: 1
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 --- !u!1 &1578685899
 GameObject:
   m_ObjectHideFlags: 0
@@ -3090,6 +3133,7 @@ Transform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 --- !u!1 &1751549399
 GameObject:
@@ -3227,6 +3271,8 @@ CanvasRenderer:
   m_GameObject: {fileID: 1751549399}
   m_CullTransparentMesh: 1
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 --- !u!1 &1759597896
 GameObject:
   m_ObjectHideFlags: 0
@@ -3351,10 +3397,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 <<<<<<< HEAD
+<<<<<<< HEAD
   currentScene: {fileID: 11400000, guid: d7b90aa4b54b5a74da86ffe3df3e01b6, type: 2}
 =======
   currentScene: {fileID: 11400000, guid: b3e1d1bcf90fdde4298b10d4be3ef878, type: 2}
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+  currentScene: {fileID: 11400000, guid: 2b4130873dff1e040aaecbed4eebe46d, type: 2}
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   bottomBar: {fileID: 455100601}
   backgroundController: {fileID: 48699395}
   chooseController: {fileID: 1548364065}
@@ -3396,12 +3446,16 @@ CanvasRenderer:
 Animator:
   serializedVersion: 5
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1759597896}
+<<<<<<< HEAD
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 8d25dfdac0167aa4daaea1490945656f, type: 2}
@@ -3573,10 +3627,28 @@ MonoBehaviour:
   m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1879380475
 CanvasRenderer:
+=======
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8d25dfdac0167aa4daaea1490945656f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!225 &1759597905
+CanvasGroup:
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 1879380472}
   m_CullTransparentMesh: 1
 --- !u!1 &1879781822
@@ -3627,6 +3699,9 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1879781822}
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+  m_GameObject: {fileID: 1759597896}
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
@@ -3641,12 +3716,16 @@ GameObject:
   serializedVersion: 6
   m_Component:
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   - component: {fileID: 1879380473}
   - component: {fileID: 1879380475}
   - component: {fileID: 1879380474}
   m_Layer: 0
   m_Name: Panel
   m_TagString: Untagged
+<<<<<<< HEAD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3803,6 +3882,13 @@ GameObject:
   m_IsActive: 0
 --- !u!224 &1957026919
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1879380473
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3822,12 +3908,17 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_AnchoredPosition: {x: 801.3372, y: 133.25}
   m_SizeDelta: {x: -1607.1061, y: -133.5}
 =======
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+  m_AnchoredPosition: {x: 801.3372, y: 133.25}
+  m_SizeDelta: {x: -1607.1061, y: -133.5}
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1879380474
 MonoBehaviour:
@@ -3835,6 +3926,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
 <<<<<<< HEAD
   m_GameObject: {fileID: 1879380472}
 =======
@@ -4012,6 +4104,9 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2027632287}
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+  m_GameObject: {fileID: 1879380472}
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -4270,6 +4365,9 @@ CanvasRenderer:
 --- !u!1 &2336685483243901603 stripped
 GameObject:
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_CorrespondingSourceObject: {fileID: 7251192205741801261, guid: cb0b902aa282d9745ae0d4a377c1ea48,
     type: 3}
   m_PrefabInstance: {fileID: 4957614321959087502}
@@ -4433,6 +4531,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb0b902aa282d9745ae0d4a377c1ea48, type: 3}
+<<<<<<< HEAD
 =======
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9435,3 +9534,5 @@ GameObject:
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)

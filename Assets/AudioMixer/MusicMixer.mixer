@@ -68,8 +68,12 @@ AudioMixerSnapshotController:
   m_SnapshotID: a36275614350d3a4294504f4a9b1db98
   m_FloatValues:
 <<<<<<< HEAD
+<<<<<<< HEAD
     f9eea97d8c4077049bc76871b9ea1d3e: -8
 =======
     f9eea97d8c4077049bc76871b9ea1d3e: -5
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+    f9eea97d8c4077049bc76871b9ea1d3e: -8
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_TransitionOverrides: {}

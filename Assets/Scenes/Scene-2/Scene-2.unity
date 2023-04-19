@@ -1812,12 +1812,17 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 126035761}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -21.626732, y: 4.080287, z: 3.23}
 =======
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -22.136467, y: -2.737827, z: -1}
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -21.626732, y: 4.080287, z: 3.23}
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1848,12 +1853,17 @@ Transform:
   - {fileID: 883967425}
   - {fileID: 2058049786}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Father: {fileID: 1625419405}
   m_RootOrder: 4
 =======
   m_Father: {fileID: 0}
   m_RootOrder: 8
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+  m_Father: {fileID: 1625419405}
+  m_RootOrder: 4
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &136611660
 GameObject:
@@ -3048,12 +3058,17 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 239846420}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -31.296576, y: 8.598658, z: -2.0095835}
 =======
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -31.80631, y: 1.7805438, z: -6.2395835}
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -31.296576, y: 8.598658, z: -2.0095835}
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3067,12 +3082,17 @@ Transform:
   - {fileID: 2018525381}
   - {fileID: 1152972096}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Father: {fileID: 1625419405}
   m_RootOrder: 6
 =======
   m_Father: {fileID: 0}
   m_RootOrder: 10
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+  m_Father: {fileID: 1625419405}
+  m_RootOrder: 6
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &240843912
 GameObject:
@@ -3443,6 +3463,9 @@ Light:
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 --- !u!1 &252136756
 GameObject:
   m_ObjectHideFlags: 0
@@ -3572,8 +3595,11 @@ Transform:
   m_Father: {fileID: 1050678031}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 =======
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 --- !u!1 &252629607
 GameObject:
   m_ObjectHideFlags: 0
@@ -7674,6 +7700,9 @@ SpriteRenderer:
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 --- !u!1 &626458284
 GameObject:
   m_ObjectHideFlags: 0
@@ -7803,8 +7832,11 @@ Transform:
   m_Father: {fileID: 1050678031}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 =======
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 --- !u!1 &637992052
 GameObject:
   m_ObjectHideFlags: 0
@@ -9728,6 +9760,9 @@ SpriteRenderer:
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 --- !u!1 &858027787
 GameObject:
   m_ObjectHideFlags: 0
@@ -9857,8 +9892,11 @@ Transform:
   m_Father: {fileID: 1050678031}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 =======
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 --- !u!1 &859850209
 GameObject:
   m_ObjectHideFlags: 0
@@ -9943,6 +9981,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 --- !u!1 &860917228
@@ -10082,6 +10121,8 @@ CanvasRenderer:
   m_GameObject: {fileID: 860917228}
   m_CullTransparentMesh: 1
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 --- !u!1 &866418769
 GameObject:
   m_ObjectHideFlags: 0
@@ -10260,6 +10301,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
 <<<<<<< HEAD
+<<<<<<< HEAD
   - {fileID: 1509470032}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -10268,6 +10310,11 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+  - {fileID: 1509470032}
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -10287,14 +10334,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   pauseMenuUI: {fileID: 1509470031}
   musicSource: {fileID: 626458285}
   soundSource: {fileID: 858027788}
   environmentSource: {fileID: 252136757}
   fadeDuration: 0.5
+<<<<<<< HEAD
 =======
   pauseMenuUI: {fileID: 178029861020299972}
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   playerMovement: {fileID: 1411610407}
 --- !u!1 &883967424
 GameObject:
@@ -11376,6 +11429,9 @@ Light:
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 --- !u!1 &1050678029
 GameObject:
   m_ObjectHideFlags: 0
@@ -11426,8 +11482,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 =======
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 --- !u!1 &1056865285
 GameObject:
   m_ObjectHideFlags: 0
@@ -13216,12 +13275,17 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1220877357}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2.863681, y: 11.673402, z: 114.94875}
 =======
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.3734162, y: 4.855288, z: 110.71875}
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.863681, y: 11.673402, z: 114.94875}
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13236,12 +13300,17 @@ Transform:
   - {fileID: 1885353077}
   - {fileID: 401491334}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Father: {fileID: 1625419405}
   m_RootOrder: 0
 =======
   m_Father: {fileID: 0}
   m_RootOrder: 4
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+  m_Father: {fileID: 1625419405}
+  m_RootOrder: 0
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1230945969
 GameObject:
@@ -13529,12 +13598,17 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1243796717}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -31.759949, y: 1.5533943, z: -8.760359}
 =======
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -32.269684, y: -5.2647195, z: -12.990359}
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -31.759949, y: 1.5533943, z: -8.760359}
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13546,12 +13620,17 @@ Transform:
   - {fileID: 1780990671}
   - {fileID: 1585517765}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Father: {fileID: 1625419405}
   m_RootOrder: 5
 =======
   m_Father: {fileID: 0}
   m_RootOrder: 9
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+  m_Father: {fileID: 1625419405}
+  m_RootOrder: 5
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1246688811
 GameObject:
@@ -14511,12 +14590,17 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1341614029}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.4077303, y: 7.1976933, z: 4.23}
 =======
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.9174654, y: 0.3795797, z: 0}
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.4077303, y: 7.1976933, z: 4.23}
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14551,12 +14635,17 @@ Transform:
   - {fileID: 1796507025}
   - {fileID: 841596975}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Father: {fileID: 1625419405}
   m_RootOrder: 3
 =======
   m_Father: {fileID: 0}
   m_RootOrder: 7
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+  m_Father: {fileID: 1625419405}
+  m_RootOrder: 3
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1348020677
 GameObject:
@@ -16121,6 +16210,7 @@ PrefabInstance:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8d68b077782545439effc638eac1db5, type: 3}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 --- !u!1 &1491689052
 GameObject:
@@ -16258,6 +16348,8 @@ CanvasRenderer:
   m_GameObject: {fileID: 1491689052}
   m_CullTransparentMesh: 1
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 --- !u!1 &1491774751
 GameObject:
   m_ObjectHideFlags: 0
@@ -16415,6 +16507,9 @@ Transform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 --- !u!1 &1509470031 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4957614323362394600, guid: cb0b902aa282d9745ae0d4a377c1ea48,
@@ -16427,8 +16522,11 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1648698887}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
 =======
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 --- !u!1 &1514785803
 GameObject:
   m_ObjectHideFlags: 0
@@ -21993,12 +22091,17 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1571789281}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2.863681, y: 11.673402, z: 114.94875}
 =======
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.3734162, y: 4.855288, z: 110.71875}
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.863681, y: 11.673402, z: 114.94875}
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -22009,12 +22112,17 @@ Transform:
   - {fileID: 1463554935}
   - {fileID: 311223929}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Father: {fileID: 1625419405}
   m_RootOrder: 1
 =======
   m_Father: {fileID: 0}
   m_RootOrder: 5
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+  m_Father: {fileID: 1625419405}
+  m_RootOrder: 1
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1578754882
 GameObject:
@@ -22922,6 +23030,9 @@ Transform:
   m_PrefabInstance: {fileID: 1399558515}
   m_PrefabAsset: {fileID: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 --- !u!1 &1625419404
 GameObject:
   m_ObjectHideFlags: 0
@@ -22975,8 +23086,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelMusic: {fileID: 8300000, guid: 6b909e0655c389947ae4a83ed39bcf37, type: 3}
   levelAmbience: {fileID: 0}
+<<<<<<< HEAD
 =======
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 --- !u!1001 &1630338141
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23263,6 +23377,7 @@ SpriteRenderer:
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 --- !u!1 &1640284125
 GameObject:
@@ -23387,6 +23502,8 @@ CanvasRenderer:
   m_GameObject: {fileID: 1640284125}
   m_CullTransparentMesh: 1
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 --- !u!1 &1643722567
 GameObject:
   m_ObjectHideFlags: 0
@@ -23472,6 +23589,9 @@ SpriteRenderer:
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 --- !u!1001 &1648698887
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23767,8 +23887,11 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 4957614323362394597, guid: cb0b902aa282d9745ae0d4a377c1ea48, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cb0b902aa282d9745ae0d4a377c1ea48, type: 3}
+<<<<<<< HEAD
 =======
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 --- !u!1 &1658023661
 GameObject:
   m_ObjectHideFlags: 0
@@ -28860,10 +28983,14 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_RootOrder: 6
 =======
   m_RootOrder: 11
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+  m_RootOrder: 6
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1983878939
 GameObject:
@@ -30112,12 +30239,17 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2051989692}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -7.990265, y: 22.498114, z: 1.99}
 =======
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.5, y: 15.68, z: -2.24}
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -7.990265, y: 22.498114, z: 1.99}
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -30147,12 +30279,17 @@ Transform:
   - {fileID: 1367607324}
   - {fileID: 1968823507}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Father: {fileID: 1625419405}
   m_RootOrder: 2
 =======
   m_Father: {fileID: 0}
   m_RootOrder: 6
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+  m_Father: {fileID: 1625419405}
+  m_RootOrder: 2
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2053059901
 PrefabInstance:
@@ -30866,6 +31003,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 --- !u!1 &178029860606976564
@@ -37313,3 +37451,5 @@ GameObject:
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 >>>>>>> 225847647076aea25586628776fc6887ae55b500
+=======
+>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)

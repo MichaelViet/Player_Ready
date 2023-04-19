@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/Pause/PauseMenu.cs.meta
 guid: 93782ec1f776c68478bdb8b76bb6a68f
+========
+guid: 4b3eedb8a2fe7834d9089b14ef6f6f3d
+>>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації):Assets/Scenes/Scene-2/Scripts/LevelManager.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
