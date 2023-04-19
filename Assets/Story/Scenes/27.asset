@@ -144,12 +144,4 @@ MonoBehaviour:
     sound: {fileID: 0}
     environment: {fileID: 0}
   background: {fileID: 21300000, guid: 5a66908d3c6ee4c448d70c28a9b3267d, type: 3}
-<<<<<<< HEAD
-<<<<<<< HEAD
   nextScene: {fileID: 11400000, guid: d7b90aa4b54b5a74da86ffe3df3e01b6, type: 2}
-=======
-  nextScene: {fileID: 0}
->>>>>>> 225847647076aea25586628776fc6887ae55b500
-=======
-  nextScene: {fileID: 11400000, guid: d7b90aa4b54b5a74da86ffe3df3e01b6, type: 2}
->>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)

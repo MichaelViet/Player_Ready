@@ -311,15 +311,7 @@ MonoBehaviour:
       \u0434\u043E \u0448\u043A\u043E\u043B\u0438."
     speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
     actions: []
-<<<<<<< HEAD
-<<<<<<< HEAD
     music: {fileID: 8300000, guid: 0ce0be74c04fd8d428cbc3bfc0c932cb, type: 3}
-=======
-    music: {fileID: 8300000, guid: ece84474fdd67334db9e2de8c504dd47, type: 3}
->>>>>>> 225847647076aea25586628776fc6887ae55b500
-=======
-    music: {fileID: 8300000, guid: 0ce0be74c04fd8d428cbc3bfc0c932cb, type: 3}
->>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
     sound: {fileID: 8300000, guid: ee3b53a113db8d94da95751a2c083c69, type: 3}
     environment: {fileID: 0}
   background: {fileID: 21300000, guid: c3919666431c9b84dadc34d4dc6f0c62, type: 3}

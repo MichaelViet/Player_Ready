@@ -1,21 +1,10 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 using System.Collections;
-=======
->>>>>>> 225847647076aea25586628776fc6887ae55b500
-=======
-using System.Collections;
->>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public abstract class BasePauseMenu : MonoBehaviour
 {
     public GameObject pauseMenuUI;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
     private CanvasGroup pauseMenuCanvasGroup;
     public AudioSource musicSource;
     public AudioSource soundSource;
@@ -38,13 +27,6 @@ public abstract class BasePauseMenu : MonoBehaviour
     {
         pauseMenuCanvasGroup = pauseMenuUI.GetComponent<CanvasGroup>();
     }
-<<<<<<< HEAD
-=======
-
-    public static bool isPaused = false;
->>>>>>> 225847647076aea25586628776fc6887ae55b500
-=======
->>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 
     protected virtual void Update()
     {
@@ -68,10 +50,6 @@ public abstract class BasePauseMenu : MonoBehaviour
 
     public virtual void Resume()
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
         StartCoroutine(FadeOutMenu());
     }
 
@@ -105,20 +83,11 @@ public abstract class BasePauseMenu : MonoBehaviour
             yield return null;
         }
         pauseMenuCanvasGroup.alpha = 0;
-<<<<<<< HEAD
-=======
->>>>>>> 225847647076aea25586628776fc6887ae55b500
-=======
->>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
     // корутина для плавності зникнення аудіо
     protected IEnumerator FadeOutAudioSources()
     {
@@ -153,16 +122,6 @@ public abstract class BasePauseMenu : MonoBehaviour
             yield return null;
         }
 
-<<<<<<< HEAD
-=======
-    public virtual void Pause()
-    {
-        pauseMenuUI.SetActive(true);
-        Time.timeScale = 0f;
-        isPaused = true;
->>>>>>> 225847647076aea25586628776fc6887ae55b500
-=======
->>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
     }
 
     public void LoadMenu()
@@ -180,12 +139,4 @@ public abstract class BasePauseMenu : MonoBehaviour
         Debug.Log("Quit");
         Application.Quit();
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 225847647076aea25586628776fc6887ae55b500
-=======
-}
->>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)

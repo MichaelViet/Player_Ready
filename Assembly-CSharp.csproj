@@ -46,14 +46,7 @@
      <Compile Include="Assets\Scenes\Scene-2\Scripts\CharacterController2D.cs" />
      <Compile Include="Assets\Scripts\Controllers\ChooseLabelController.cs" />
      <Compile Include="Assets\Scripts\Pause\BasePauseMenu.cs" />
-<<<<<<< HEAD
-<<<<<<< HEAD
      <Compile Include="Assets\Scenes\Scene-2\Scripts\LevelManager.cs" />
-=======
->>>>>>> 225847647076aea25586628776fc6887ae55b500
-=======
-     <Compile Include="Assets\Scenes\Scene-2\Scripts\LevelManager.cs" />
->>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
      <Compile Include="Assets\Scripts\Entities\StoryScene.cs" />
      <Compile Include="Assets\Scripts\Controllers\AudioController.cs" />
      <Compile Include="Assets\Scripts\Controllers\GameController.cs" />

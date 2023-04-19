@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Story/Scenes/14(don't fight).asset.meta
 guid: 9172de1aa06330a4dad2026ecefd79bd
-========
-guid: d71210729ca00c644aaf7ec0a7fbd51d
->>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації):Assets/Story/Scenes/11.asset.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

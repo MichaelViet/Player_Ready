@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Story/Scenes/14(fight).asset.meta
 guid: d2a5807925e6d5e48972ed74a1e20098
-========
-guid: 85c07291fee5dc14aa59d05fb4f54377
->>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації):Assets/Story/Scenes/12.asset.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

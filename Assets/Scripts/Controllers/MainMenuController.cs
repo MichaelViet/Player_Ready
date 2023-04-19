@@ -50,13 +50,6 @@ public class MainMenuController : MonoBehaviour
         if (SaveManager.IsGameSaved())
         {
             SaveData data = SaveManager.LoadGame();
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-            // Save the loaded position to be used later in PlayerMovement script
->>>>>>> 225847647076aea25586628776fc6887ae55b500
-=======
->>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
             PlayerPrefs.SetFloat("LoadedPlayerPositionX", data.playerPosition.x);
             PlayerPrefs.SetFloat("LoadedPlayerPositionY", data.playerPosition.y);
             PlayerPrefs.SetFloat("LoadedPlayerPositionZ", data.playerPosition.z);
@@ -68,21 +61,8 @@ public class MainMenuController : MonoBehaviour
         asyncLoad.allowSceneActivation = false;
         while (!asyncLoad.isDone)
         {
-<<<<<<< HEAD
-<<<<<<< HEAD
             float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
             float fillAmount = progress * 360f;
-=======
-            // Get the current loading progress and convert it into a range from 0 to 360 degrees.
-            float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
-            float fillAmount = progress * 360f;
-
-            // Set the loading circle to be filled in.
->>>>>>> 225847647076aea25586628776fc6887ae55b500
-=======
-            float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
-            float fillAmount = progress * 360f;
->>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
             circleImg.fillAmount = fillAmount / 360f;
             if (asyncLoad.progress >= 0.9f)
             {

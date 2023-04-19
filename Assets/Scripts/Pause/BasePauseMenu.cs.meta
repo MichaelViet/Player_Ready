@@ -1,13 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-<<<<<<<< HEAD:Assets/Scripts/Pause/BasePauseMenu.cs.meta
 guid: cec1ea77afc322d4facbe06dd25664bd
-========
-guid: 93782ec1f776c68478bdb8b76bb6a68f
->>>>>>>> 225847647076aea25586628776fc6887ae55b500:Assets/Scripts/Pause/PauseMenu.cs.meta
-=======
-guid: cec1ea77afc322d4facbe06dd25664bd
->>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

@@ -1,17 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-<<<<<<<< HEAD:Assets/Story/Choose/Choose3.asset.meta
 guid: 87d5ecc9c7a771a4a8fcd68b1c9a2499
-========
-guid: d71210729ca00c644aaf7ec0a7fbd51d
->>>>>>>> 225847647076aea25586628776fc6887ae55b500:Assets/Story/Scenes/11.asset.meta
-=======
-<<<<<<<< HEAD:Assets/Story/Scenes/13.asset.meta
-guid: 73dfafbd2f5e40e45bf274788952d8c8
-========
-guid: 87d5ecc9c7a771a4a8fcd68b1c9a2499
->>>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації):Assets/Story/Choose/Choose3.asset.meta
->>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

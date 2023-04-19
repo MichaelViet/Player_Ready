@@ -14,13 +14,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Scene-2/Scene-2.unity
     guid: d30fbee988f498842a6e22beea9f1786
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
->>>>>>> 225847647076aea25586628776fc6887ae55b500
-=======
->>>>>>> 7a4223b (Перехід між сценами, рефакторинг, анімації)
   m_configObjects: {}
