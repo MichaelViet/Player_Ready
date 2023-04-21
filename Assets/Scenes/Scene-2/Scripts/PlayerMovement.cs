@@ -12,11 +12,12 @@ public class PlayerMovement : MonoBehaviour
     private float horizontalMove = 0f;
     private bool jump = false;
     private bool crouch = false;
-
+    private BasePauseMenu basePauseMenu;
     private Vector3 savedPosition;
 
     private void Start()
     {
+        basePauseMenu = FindObjectOfType<BasePauseMenu>();
         if (SaveManager.IsGameSaved() && PlayerPrefs.HasKey("LoadedPlayerPositionX"))
         {
             float x = PlayerPrefs.GetFloat("LoadedPlayerPositionX");
@@ -52,16 +53,6 @@ public class PlayerMovement : MonoBehaviour
             crouch = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.F5))
-        {
-            SavePlayerProgress();
-        }
-
-        if (Input.GetKeyDown(KeyCode.F9))
-        {
-            LoadPlayerProgress();
-        }
-
         savedPosition = transform.position;
     }
 
@@ -89,6 +80,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void SavePlayerProgress()
     {
+        Debug.Log("Збереження гри...");
+        basePauseMenu.PlaySaveAnimation();
         SaveData data = new SaveData();
         data.playerPosition = savedPosition;
         data.currentScene = SceneManager.GetActiveScene().buildIndex;

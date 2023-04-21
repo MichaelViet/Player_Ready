@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public abstract class BasePauseMenu : MonoBehaviour
 {
@@ -11,11 +12,14 @@ public abstract class BasePauseMenu : MonoBehaviour
     public AudioSource environmentSource;
     public static bool isPaused = false;
     public float fadeDuration = 0.5f;
+    public Image saveIcon;
     private float initialMusicVolume;
     private float initialSoundVolume;
     private float initialEnvironmentVolume;
 
-    // зберігаємо початкове значення гучності музики, звуків та ефектів
+    [SerializeField]
+    public bool controlCursorVisibility = true;
+
     private void Awake()
     {
         initialMusicVolume = musicSource.volume;
@@ -57,6 +61,11 @@ public abstract class BasePauseMenu : MonoBehaviour
     {
         StartCoroutine(FadeInMenu());
     }
+    public void ToggleCursor(bool visible)
+    {
+        Cursor.visible = visible;
+        Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
+    }
 
     protected IEnumerator FadeInMenu()
     {
@@ -71,6 +80,10 @@ public abstract class BasePauseMenu : MonoBehaviour
         pauseMenuCanvasGroup.alpha = 1;
         Time.timeScale = 0f;
         isPaused = true;
+        if (controlCursorVisibility)
+        {
+            ToggleCursor(true);
+        }
     }
 
     protected IEnumerator FadeOutMenu()
@@ -86,29 +99,29 @@ public abstract class BasePauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+        if (controlCursorVisibility)
+        {
+            ToggleCursor(false);
+        }
     }
 
-    // корутина для плавності зникнення аудіо
     protected IEnumerator FadeOutAudioSources()
     {
         float elapsedTime = 0f;
         while (elapsedTime < fadeDuration)
         {
             elapsedTime += Time.unscaledDeltaTime;
-            musicSource.volume = Mathf.Lerp(initialMusicVolume, 0, elapsedTime / fadeDuration);
+
             soundSource.volume = Mathf.Lerp(initialSoundVolume, 0, elapsedTime / fadeDuration);
             environmentSource.volume = Mathf.Lerp(initialEnvironmentVolume, 0, elapsedTime / fadeDuration);
             yield return null;
         }
-        musicSource.Pause();
         soundSource.Pause();
         environmentSource.Pause();
     }
 
-    // корутина для плавності появлення аудіо
     protected IEnumerator FadeInAudioSources()
     {
-        musicSource.UnPause();
         soundSource.UnPause();
         environmentSource.UnPause();
 
@@ -116,12 +129,10 @@ public abstract class BasePauseMenu : MonoBehaviour
         while (elapsedTime < fadeDuration)
         {
             elapsedTime += Time.unscaledDeltaTime;
-            musicSource.volume = Mathf.Lerp(0, initialMusicVolume, elapsedTime / fadeDuration);
             soundSource.volume = Mathf.Lerp(0, initialSoundVolume, elapsedTime / fadeDuration);
             environmentSource.volume = Mathf.Lerp(0, initialEnvironmentVolume, elapsedTime / fadeDuration);
             yield return null;
         }
-
     }
 
     public void LoadMenu()
@@ -138,5 +149,55 @@ public abstract class BasePauseMenu : MonoBehaviour
     {
         Debug.Log("Quit");
         Application.Quit();
+    }
+
+    public void PlaySaveAnimation()
+    {
+        StartCoroutine(SaveIconAnimation());
+    }
+
+    private IEnumerator SaveIconAnimation()
+    {
+        float fadeInDuration = 0.2f;
+        float rotationDuration = 0.2f;
+        float fadeOutDuration = 0.2f;
+
+        float elapsedTime = 0f;
+        saveIcon.gameObject.SetActive(true);
+
+        // Поява картинки
+        while (elapsedTime < fadeInDuration)
+        {
+            elapsedTime += Time.unscaledDeltaTime;
+            saveIcon.color = new Color(saveIcon.color.r, saveIcon.color.g, saveIcon.color.b, Mathf.Lerp(0, 1, elapsedTime / fadeInDuration));
+            yield return null;
+        }
+        saveIcon.color = new Color(saveIcon.color.r, saveIcon.color.g, saveIcon.color.b, 1);
+
+        elapsedTime = 0f;
+
+        // Обертання картинки
+        float startRotation = saveIcon.rectTransform.eulerAngles.z;
+        float targetRotation = startRotation + 360f;
+        while (elapsedTime < rotationDuration)
+        {
+            elapsedTime += Time.unscaledDeltaTime;
+            float currentRotation = Mathf.Lerp(startRotation, targetRotation, elapsedTime / rotationDuration);
+            saveIcon.rectTransform.eulerAngles = new Vector3(0, 0, currentRotation);
+            yield return null;
+        }
+        saveIcon.rectTransform.eulerAngles = new Vector3(0, 0, targetRotation);
+
+        elapsedTime = 0f;
+
+        // Зникнення картинки
+        while (elapsedTime < fadeOutDuration)
+        {
+            elapsedTime += Time.unscaledDeltaTime;
+            saveIcon.color = new Color(saveIcon.color.r, saveIcon.color.g, saveIcon.color.b, Mathf.Lerp(1, 0, elapsedTime / fadeOutDuration));
+            yield return null;
+        }
+        saveIcon.color = new Color(saveIcon.color.r, saveIcon.color.g, saveIcon.color.b, 0);
+        saveIcon.gameObject.SetActive(false);
     }
 }

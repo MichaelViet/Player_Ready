@@ -9,7 +9,8 @@ public class MainMenuController : MonoBehaviour
     public Image loadingImage, circleImg;
     public Button loadButton;
     public TextMeshProUGUI pressE;
-    public PlayerMovement playerMovement;
+    public AudioController audioController;
+    public TrainAnimation trainAnimation;
     public void Update()
     {
         Time.timeScale = 1;
@@ -19,6 +20,8 @@ public class MainMenuController : MonoBehaviour
     {
         CacheObjects();
         SaveManager.ClearSavedGame();
+        audioController.musicSource.Stop();
+        trainAnimation.StopTrainAnimation();
         StartCoroutine(LoadNewGame());
     }
 
@@ -40,6 +43,8 @@ public class MainMenuController : MonoBehaviour
 
     public void Load()
     {
+        trainAnimation.StopTrainAnimation();
+        audioController.musicSource.Stop();
         StartCoroutine(LoadSavedGame());
     }
 

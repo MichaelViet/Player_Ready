@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using TMPro;
 using UnityEngine.UI;
+
 public class OptionsController : MonoBehaviour
 {
     public TextMeshProUGUI musicValue;
@@ -20,9 +21,8 @@ public class OptionsController : MonoBehaviour
     private bool optionsOpen = false;
     private int _window = 0;
 
-    public void Update()
+    public void LateUpdate()
     {
-
         if (_window == 1)
         {
             _window = 0;
@@ -61,7 +61,7 @@ public class OptionsController : MonoBehaviour
     public void OnMucicChanged(float value)
     {
         musicValue.SetText(value + "");
-        float volume = Mathf.Clamp(-60 + value - 20, -80, 0);
+        float volume = value <= 0 ? -80 : Mathf.Lerp(0, -35, 1 - value / 100);
         musicMixer.SetFloat("volume", volume);
         PlayerPrefs.SetFloat("musicVolume", value);
     }
@@ -69,15 +69,14 @@ public class OptionsController : MonoBehaviour
     public void OnSoundChanged(float value)
     {
         soundValue.SetText(value + "");
-        float volume = Mathf.Clamp(-60 + value - 20, -80, 0);
+        float volume = value <= 0 ? -80 : Mathf.Lerp(0, -35, 1 - value / 100);
         soundMixer.SetFloat("volume", volume);
         PlayerPrefs.SetFloat("soundVolume", value);
-
     }
     public void OnEnvironmentChanged(float value)
     {
         environmentValue.SetText(value + "");
-        float volume = Mathf.Clamp(-60 + value - 20, -80, 0);
+        float volume = value <= 0 ? -80 : Mathf.Lerp(0, -35, 1 - value / 100);
         environmentMixer.SetFloat("volume", volume);
         PlayerPrefs.SetFloat("environmentVolume", value);
     }

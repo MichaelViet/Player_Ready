@@ -20,9 +20,4 @@ public class PauseMenu : BasePauseMenu
     {
         playerMovement.SavePlayerProgress();
     }
-
-    public void LoadPlayerProgress()
-    {
-        playerMovement.LoadPlayerProgress();
-    }
 }

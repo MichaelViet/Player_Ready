@@ -16,7 +16,7 @@ public class GameController : MonoBehaviour
     private bool leftMouseButtonEnabled = true;
     private bool rightMouseButtonEnabled = true;
     private bool spacebarEnabled = true;
-
+    private BasePauseMenu basePauseMenu;
     public static bool GameIsPaused = false;
     public DataHolder data;
 
@@ -42,6 +42,7 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
+        basePauseMenu = FindObjectOfType<BasePauseMenu>();
         StartLevel();
         UnloadUnusedAssets();
         if (SaveManager.IsGameSaved())
@@ -139,6 +140,8 @@ public class GameController : MonoBehaviour
 
     public void SaveGame()
     {
+        Debug.Log("Збереження гри...");
+        basePauseMenu.PlaySaveAnimation();
         List<int> historyIndicies = new List<int>();
         history.ForEach(scene =>
         {

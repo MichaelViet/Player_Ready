@@ -5,7 +5,6 @@ using UnityEngine.EventSystems;
 public class PauseMenuController : BasePauseMenu, IPointerDownHandler
 {
     public GameController gameController;
-    public GameObject optionsPanel;
     public static bool ignoreMouseClick = false;
 
     private void OnEnable()
