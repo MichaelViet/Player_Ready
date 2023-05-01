@@ -17,7 +17,8 @@ public class MainMenuController : MonoBehaviour
     }
 
     public void PlayGame()
-    {
+    {   
+
         CacheObjects();
         SaveManager.ClearSavedGame();
         audioController.musicSource.Stop();
@@ -58,6 +59,13 @@ public class MainMenuController : MonoBehaviour
             PlayerPrefs.SetFloat("LoadedPlayerPositionX", data.playerPosition.x);
             PlayerPrefs.SetFloat("LoadedPlayerPositionY", data.playerPosition.y);
             PlayerPrefs.SetFloat("LoadedPlayerPositionZ", data.playerPosition.z);
+            PlayerPrefs.SetInt("LoadedCurrentDialogIndex", data.currentDialogIndex);
+            PlayerPrefs.SetInt("LoadedCurrentSentenceIndex", data.currentSentenceIndex);
+            DialogReader dialogReader = FindObjectOfType<DialogReader>(); // отримуємо посилання на об'єкт DialogReader
+        if (dialogReader != null)
+        {
+            dialogReader.DisplayDialog();
+        }
             sceneToLoad = data.currentScene != 0 ? data.currentScene : sceneToLoad;
         }
 

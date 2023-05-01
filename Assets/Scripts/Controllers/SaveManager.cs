@@ -33,4 +33,6 @@ public struct SaveData
     public int sentence;
     public Vector3 playerPosition;
     public int currentScene;
+    public int currentDialogIndex;
+    public int currentSentenceIndex;
 }

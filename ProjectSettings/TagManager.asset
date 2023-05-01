@@ -7,14 +7,15 @@ TagManager:
   - IgnoreTextOutput
   - PauseMenu
   - Ground
+  - NPC
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - NPC
   - Water
   - UI
-  - 
+  - Player
   - 
   - 
   - 

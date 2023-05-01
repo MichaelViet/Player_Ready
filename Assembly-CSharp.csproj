@@ -36,6 +36,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scenes\Scene-2\Scripts\WizardController.cs" />
      <Compile Include="Assets\Scripts\Pause\PauseMenuController.cs" />
      <Compile Include="Assets\Scripts\Controllers\SaveManager.cs" />
      <Compile Include="Assets\Scripts\Controllers\OptionsController.cs" />
@@ -51,6 +52,7 @@
      <Compile Include="Assets\Scripts\Pause\BasePauseMenu.cs" />
      <Compile Include="Assets\Scenes\Scene-2\Scripts\LevelManager.cs" />
      <Compile Include="Assets\Scripts\Entities\StoryScene.cs" />
+     <Compile Include="Assets\Scenes\Scene-2\DialogReader.cs" />
      <Compile Include="Assets\Scripts\Animations\SpriteFadeInOut.cs" />
      <Compile Include="Assets\Scripts\Controllers\AudioController.cs" />
      <Compile Include="Assets\Scripts\Controllers\GameController.cs" />

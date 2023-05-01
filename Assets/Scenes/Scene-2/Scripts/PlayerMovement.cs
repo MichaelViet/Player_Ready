@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -12,24 +11,6 @@ public class PlayerMovement : MonoBehaviour
     private float horizontalMove = 0f;
     private bool jump = false;
     private bool crouch = false;
-    private BasePauseMenu basePauseMenu;
-    private Vector3 savedPosition;
-
-    private void Start()
-    {
-        basePauseMenu = FindObjectOfType<BasePauseMenu>();
-        if (SaveManager.IsGameSaved() && PlayerPrefs.HasKey("LoadedPlayerPositionX"))
-        {
-            float x = PlayerPrefs.GetFloat("LoadedPlayerPositionX");
-            float y = PlayerPrefs.GetFloat("LoadedPlayerPositionY");
-            float z = PlayerPrefs.GetFloat("LoadedPlayerPositionZ");
-            Vector3 loadedPosition = new Vector3(x, y, z);
-            SetPlayerPosition(loadedPosition);
-            PlayerPrefs.DeleteKey("LoadedPlayerPositionX");
-            PlayerPrefs.DeleteKey("LoadedPlayerPositionY");
-            PlayerPrefs.DeleteKey("LoadedPlayerPositionZ");
-        }
-    }
 
     private void Update()
     {
@@ -52,14 +33,6 @@ public class PlayerMovement : MonoBehaviour
         {
             crouch = false;
         }
-
-        savedPosition = transform.position;
-    }
-
-    public void SetPlayerPosition(Vector3 position)
-    {
-        savedPosition = position;
-        transform.position = position;
     }
 
     public void OnLanding()
@@ -76,25 +49,5 @@ public class PlayerMovement : MonoBehaviour
     {
         controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
         jump = false;
-    }
-
-    public void SavePlayerProgress()
-    {
-        Debug.Log("Збереження гри...");
-        basePauseMenu.PlaySaveAnimation();
-        SaveData data = new SaveData();
-        data.playerPosition = savedPosition;
-        data.currentScene = SceneManager.GetActiveScene().buildIndex;
-
-        SaveManager.SaveGame(data);
-    }
-
-    public void LoadPlayerProgress()
-    {
-        if (SaveManager.IsGameSaved())
-        {
-            SaveData data = SaveManager.LoadGame();
-            SetPlayerPosition(data.playerPosition);
-        }
     }
 }

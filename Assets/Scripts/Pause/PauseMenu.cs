@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PauseMenu : BasePauseMenu
 {
-    public PlayerMovement playerMovement;
+    public LevelManager levelManager;
 
     public override void Resume()
     {
@@ -18,6 +18,6 @@ public class PauseMenu : BasePauseMenu
 
     public void SavePlayerProgress()
     {
-        playerMovement.SavePlayerProgress();
+        levelManager.SavePlayerProgress();
     }
 }
