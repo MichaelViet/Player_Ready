@@ -20,33 +20,39 @@ public class LevelManager : MonoBehaviour
     {
         playerMovement = FindObjectOfType<PlayerMovement>();
         dialogReader = FindObjectOfType<DialogReader>();
-        WizardController wizard = FindObjectOfType<WizardController>();
-
-        if (dialogReader == null)
-        {
-            Debug.LogError("Не знайдено компонента DialogReader.");
-            return;
-        }
         pauseMenu.ToggleCursor(false);
+        WizardController wizard = FindObjectOfType<WizardController>();
         StartCoroutine(PlayAnimationAndDeactivateCanvas());
 
-        // Завантаження збереження, якщо воно існує
-        if (SaveManager.IsGameSaved())
+        if (SaveManager.IsGameSaved() && PlayerPrefs.HasKey("LoadedPlayerPositionX"))
         {
-            SaveData data = SaveManager.LoadGame();
+            float x = PlayerPrefs.GetFloat("LoadedPlayerPositionX");
+            float y = PlayerPrefs.GetFloat("LoadedPlayerPositionY");
+            float z = PlayerPrefs.GetFloat("LoadedPlayerPositionZ");
+            Vector3 loadedPosition = new Vector3(x, y, z);
+            playerMovement.transform.position = loadedPosition;
+            PlayerPrefs.DeleteKey("LoadedPlayerPositionX");
+            PlayerPrefs.DeleteKey("LoadedPlayerPositionY");
+            PlayerPrefs.DeleteKey("LoadedPlayerPositionZ");
 
-            // Завантаження позиції гравця
-            playerMovement.transform.position = data.playerPosition;
-
-            // Завантаження позиції чарівника
-            if (wizard != null)
+            int loadedCurrentDialogIndex = PlayerPrefs.GetInt("LoadedCurrentDialogIndex");
+            int loadedCurrentSentenceIndex = PlayerPrefs.GetInt("LoadedCurrentSentenceIndex");
+            dialogReader.SetCurrentDialogIndex(loadedCurrentDialogIndex);
+            dialogReader.SetCurrentSentenceIndex(loadedCurrentSentenceIndex);
+            PlayerPrefs.DeleteKey("LoadedCurrentDialogIndex");
+            PlayerPrefs.DeleteKey("LoadedCurrentSentenceIndex");
+            if (PlayerPrefs.HasKey("LoadedWizardPositionX"))
             {
-                wizard.transform.position = data.wizardPosition;
-            }
+                float wizardX = PlayerPrefs.GetFloat("LoadedWizardPositionX");
+                float wizardY = PlayerPrefs.GetFloat("LoadedWizardPositionY");
+                float wizardZ = PlayerPrefs.GetFloat("LoadedWizardPositionZ");
+                Vector3 loadedWizardPosition = new Vector3(wizardX, wizardY, wizardZ);
+                wizard.transform.position = loadedWizardPosition;
 
-            // Завантаження індексів діалогу та речення
-            dialogReader.SetCurrentDialogIndex(data.currentDialogIndex);
-            dialogReader.SetCurrentSentenceIndex(data.currentSentenceIndex);
+                PlayerPrefs.DeleteKey("LoadedWizardPositionX");
+                PlayerPrefs.DeleteKey("LoadedWizardPositionY");
+                PlayerPrefs.DeleteKey("LoadedWizardPositionZ");
+            }
         }
     }
 
@@ -57,6 +63,8 @@ public class LevelManager : MonoBehaviour
         SaveData data = new SaveData();
         data.playerPosition = playerMovement.transform.position;
         data.currentScene = SceneManager.GetActiveScene().buildIndex;
+
+        // Збереження позиції чаклуна
         WizardController wizard = FindObjectOfType<WizardController>();
         if (wizard != null)
         {
@@ -66,11 +74,11 @@ public class LevelManager : MonoBehaviour
         {
             Debug.LogError("Не знайдено компонента WizardController.");
         }
+
         if (dialogReader != null)
         {
             data.currentDialogIndex = dialogReader.GetCurrentDialogIndex();
             data.currentSentenceIndex = dialogReader.GetCurrentSentenceIndex();
-
         }
         else
         {
@@ -79,6 +87,7 @@ public class LevelManager : MonoBehaviour
 
         SaveManager.SaveGame(data);
     }
+
 
     private IEnumerator PlayAnimationAndDeactivateCanvas()
     {
