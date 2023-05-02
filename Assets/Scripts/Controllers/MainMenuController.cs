@@ -17,7 +17,7 @@ public class MainMenuController : MonoBehaviour
     }
 
     public void PlayGame()
-    {   
+    {
 
         CacheObjects();
         SaveManager.ClearSavedGame();
@@ -56,16 +56,19 @@ public class MainMenuController : MonoBehaviour
         if (SaveManager.IsGameSaved())
         {
             SaveData data = SaveManager.LoadGame();
+            PlayerPrefs.SetFloat("LoadedWizardPositionX", data.wizardPosition.x);
+            PlayerPrefs.SetFloat("LoadedWizardPositionY", data.wizardPosition.y);
+            PlayerPrefs.SetFloat("LoadedWizardPositionZ", data.wizardPosition.z);
             PlayerPrefs.SetFloat("LoadedPlayerPositionX", data.playerPosition.x);
             PlayerPrefs.SetFloat("LoadedPlayerPositionY", data.playerPosition.y);
             PlayerPrefs.SetFloat("LoadedPlayerPositionZ", data.playerPosition.z);
             PlayerPrefs.SetInt("LoadedCurrentDialogIndex", data.currentDialogIndex);
             PlayerPrefs.SetInt("LoadedCurrentSentenceIndex", data.currentSentenceIndex);
-            DialogReader dialogReader = FindObjectOfType<DialogReader>(); // отримуємо посилання на об'єкт DialogReader
-        if (dialogReader != null)
-        {
-            dialogReader.DisplayDialog();
-        }
+            DialogReader dialogReader = FindObjectOfType<DialogReader>();
+            if (dialogReader != null)
+            {
+                dialogReader.DisplayDialog();
+            }
             sceneToLoad = data.currentScene != 0 ? data.currentScene : sceneToLoad;
         }
 

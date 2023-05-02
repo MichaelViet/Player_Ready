@@ -20,32 +20,44 @@ public class DialogReader : MonoBehaviour
 {
     public TextMeshProUGUI bottomBarText;
     public TextMeshProUGUI personNameText;
-    public GameObject bottomBar;
+    public CanvasGroup bottomBarCanvasGroup;
+    private Dictionary<string, Color> speakerColors = new Dictionary<string, Color>
+    {
+        { "Джейкоб", new Color(0.898f, 0.3961f, 0.1725f, 1) }, // #E5652C:
+        { "Чаклун", new Color(0.3098f, 0.2667f, 0.5451f, 1) } // #4F448B:
+    };
     private Dialog dialogData;
     private int currentDialogIndex = 0;
     private int currentSentenceIndex = 0;
+    public delegate void DialogCompleteAction();
+    public event DialogCompleteAction OnDialogComplete;
 
     void Start()
     {
         TextAsset dialogJson = Resources.Load<TextAsset>("dialog");
-        string jsonString = dialogJson.text;
-        dialogData = JsonUtility.FromJson<Dialog>(jsonString);
-        DisplayDialog();
+        if (dialogJson != null)
+        {
+            string jsonString = dialogJson.text;
+            dialogData = JsonUtility.FromJson<Dialog>(jsonString);
+            Debug.Log("JSON loaded successfully: " + jsonString);
+            bottomBarCanvasGroup.alpha = 1f; // Встановіть alpha на 1
+            DisplayDialog();
+        }
+        else
+        {
+            Debug.LogError("Failed to load JSON file.");
+        }
     }
 
     void Update()
     {
         if (BasePauseMenu.isPaused)
         {
-            bottomBar.SetActive(false);
+            bottomBarCanvasGroup.alpha = 0f;
             return;
         }
-        else
-        {
-            bottomBar.SetActive(true);
-        }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && bottomBarCanvasGroup.alpha == 1) // Додайте перевірку на alpha
         {
             if (currentDialogIndex < dialogData.dialog.Count)
             {
@@ -57,7 +69,8 @@ public class DialogReader : MonoBehaviour
                     currentSentenceIndex = 0;
                     if (currentDialogIndex >= dialogData.dialog.Count) // перевірка на кінець діалогу
                     {
-                        bottomBar.SetActive(false); // вимкнення bottomBar
+                        bottomBarCanvasGroup.alpha = 0f; // вимкнення bottomBar
+                        OnDialogComplete?.Invoke();
                         return; // вихід з методу
                     }
                 }
@@ -69,9 +82,21 @@ public class DialogReader : MonoBehaviour
 
     public void DisplayDialog()
     {
-        if (currentDialogIndex < dialogData.dialog.Count)
+        if (currentDialogIndex < dialogData.dialog.Count && bottomBarCanvasGroup.alpha == 1) // Додайте перевірку на alpha
         {
-            personNameText.text = dialogData.dialog[currentDialogIndex].speaker;
+            string speaker = dialogData.dialog[currentDialogIndex].speaker;
+            personNameText.text = speaker;
+
+            // Задайте колір тексту спікера, використовуючи словник
+            if (speakerColors.ContainsKey(speaker))
+            {
+                personNameText.color = speakerColors[speaker];
+            }
+            else
+            {
+                personNameText.color = Color.white; // Колір за замовчуванням
+            }
+
             bottomBarText.text = dialogData.dialog[currentDialogIndex].sentences[currentSentenceIndex];
         }
     }

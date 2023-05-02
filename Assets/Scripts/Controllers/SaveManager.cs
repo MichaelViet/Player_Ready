@@ -35,4 +35,5 @@ public struct SaveData
     public int currentScene;
     public int currentDialogIndex;
     public int currentSentenceIndex;
+    public Vector3 wizardPosition;
 }

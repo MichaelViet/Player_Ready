@@ -3,7 +3,6 @@ using UnityEngine;
 public class PauseMenu : BasePauseMenu
 {
     public LevelManager levelManager;
-
     public override void Resume()
     {
         StartCoroutine(FadeOutMenu());

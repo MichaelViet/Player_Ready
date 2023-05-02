@@ -15,33 +15,40 @@ public class LevelManager : MonoBehaviour
     public float musicFadeDuration = 2.0f;
     public PlayerMovement playerMovement;
     public DialogReader dialogReader;
+
     public void Start()
     {
         playerMovement = FindObjectOfType<PlayerMovement>();
         dialogReader = FindObjectOfType<DialogReader>();
+        WizardController wizard = FindObjectOfType<WizardController>();
+
+        if (dialogReader == null)
+        {
+            Debug.LogError("Не знайдено компонента DialogReader.");
+            return;
+        }
         pauseMenu.ToggleCursor(false);
         StartCoroutine(PlayAnimationAndDeactivateCanvas());
 
-        if (SaveManager.IsGameSaved() && PlayerPrefs.HasKey("LoadedPlayerPositionX"))
+        // Завантаження збереження, якщо воно існує
+        if (SaveManager.IsGameSaved())
         {
-            float x = PlayerPrefs.GetFloat("LoadedPlayerPositionX");
-            float y = PlayerPrefs.GetFloat("LoadedPlayerPositionY");
-            float z = PlayerPrefs.GetFloat("LoadedPlayerPositionZ");
-            Vector3 loadedPosition = new Vector3(x, y, z);
-            playerMovement.transform.position = loadedPosition;
-            PlayerPrefs.DeleteKey("LoadedPlayerPositionX");
-            PlayerPrefs.DeleteKey("LoadedPlayerPositionY");
-            PlayerPrefs.DeleteKey("LoadedPlayerPositionZ");
+            SaveData data = SaveManager.LoadGame();
 
-            int loadedCurrentDialogIndex = PlayerPrefs.GetInt("LoadedCurrentDialogIndex");
-            int loadedCurrentSentenceIndex = PlayerPrefs.GetInt("LoadedCurrentSentenceIndex");
-            dialogReader.SetCurrentDialogIndex(loadedCurrentDialogIndex);
-            dialogReader.SetCurrentSentenceIndex(loadedCurrentSentenceIndex);
-            PlayerPrefs.DeleteKey("LoadedCurrentDialogIndex");
-            PlayerPrefs.DeleteKey("LoadedCurrentSentenceIndex");
+            // Завантаження позиції гравця
+            playerMovement.transform.position = data.playerPosition;
+
+            // Завантаження позиції чарівника
+            if (wizard != null)
+            {
+                wizard.transform.position = data.wizardPosition;
+            }
+
+            // Завантаження індексів діалогу та речення
+            dialogReader.SetCurrentDialogIndex(data.currentDialogIndex);
+            dialogReader.SetCurrentSentenceIndex(data.currentSentenceIndex);
         }
     }
-
 
     public void SavePlayerProgress()
     {
@@ -50,8 +57,25 @@ public class LevelManager : MonoBehaviour
         SaveData data = new SaveData();
         data.playerPosition = playerMovement.transform.position;
         data.currentScene = SceneManager.GetActiveScene().buildIndex;
-        data.currentDialogIndex = dialogReader.GetCurrentDialogIndex();
-        data.currentSentenceIndex = dialogReader.GetCurrentSentenceIndex();
+        WizardController wizard = FindObjectOfType<WizardController>();
+        if (wizard != null)
+        {
+            data.wizardPosition = wizard.transform.position;
+        }
+        else
+        {
+            Debug.LogError("Не знайдено компонента WizardController.");
+        }
+        if (dialogReader != null)
+        {
+            data.currentDialogIndex = dialogReader.GetCurrentDialogIndex();
+            data.currentSentenceIndex = dialogReader.GetCurrentSentenceIndex();
+
+        }
+        else
+        {
+            Debug.LogError("Не знайдено компонента DialogReader.");
+        }
 
         SaveManager.SaveGame(data);
     }
