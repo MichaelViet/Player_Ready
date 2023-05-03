@@ -2392,6 +2392,8 @@ MonoBehaviour:
   label: {fileID: 8857755540797146672, guid: 69ad3d5f5553ad646b6b5b186fd800e4, type: 3}
   gameController: {fileID: 1759597901}
   fadeImage: {fileID: 980234340}
+  levelManager: {fileID: 8606381862671350900, guid: 6a434b78e41b6254f8d5c3d573343c45,
+    type: 3}
 --- !u!1 &1572504059
 GameObject:
   m_ObjectHideFlags: 0
@@ -3223,7 +3225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5a431f3b83ce874d9c5174365f51876, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentScene: {fileID: 11400000, guid: f7a1d60b6d988ce458e288123d862089, type: 2}
+  currentScene: {fileID: 11400000, guid: d7b90aa4b54b5a74da86ffe3df3e01b6, type: 2}
   bottomBar: {fileID: 455100601}
   backgroundController: {fileID: 48699395}
   chooseController: {fileID: 1548364065}

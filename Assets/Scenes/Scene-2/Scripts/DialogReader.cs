@@ -31,8 +31,7 @@ public class DialogReader : MonoBehaviour
     private int currentSentenceIndex = 0;
     public delegate void DialogCompleteAction();
     public event DialogCompleteAction OnDialogComplete;
-
-    void Start()
+    private void Awake()
     {
         TextAsset dialogJson = Resources.Load<TextAsset>("dialog");
         if (dialogJson != null)
@@ -47,8 +46,14 @@ public class DialogReader : MonoBehaviour
         {
             Debug.LogError("Failed to load JSON file.");
         }
-    }
 
+        if (PlayerPrefs.HasKey("LoadedCurrentDialogIndex") && PlayerPrefs.HasKey("LoadedCurrentSentenceIndex"))
+        {
+            SetCurrentDialogIndex(PlayerPrefs.GetInt("LoadedCurrentDialogIndex"));
+            SetCurrentSentenceIndex(PlayerPrefs.GetInt("LoadedCurrentSentenceIndex"));
+            DisplayDialog();
+        }
+    }
     void Update()
     {
         if (BasePauseMenu.isPaused)
@@ -92,10 +97,8 @@ public class DialogReader : MonoBehaviour
             {
                 personNameText.color = speakerColors[speaker];
             }
-            else
-            {
-                personNameText.color = Color.white; // Колір за замовчуванням
-            }
+            Debug.Log($"Dialog index: {currentDialogIndex}, Sentence index: {currentSentenceIndex}");
+            Debug.Log($"Sentence: {dialogData.dialog[currentDialogIndex].sentences[currentSentenceIndex]}");
 
             bottomBarText.text = dialogData.dialog[currentDialogIndex].sentences[currentSentenceIndex];
         }

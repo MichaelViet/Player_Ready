@@ -11,7 +11,7 @@ public class WizardController : MonoBehaviour
     private Vector2 currentVelocity;
     private bool inInteractionDistance;
     private bool dialogComplete = false;
-    private float moveSpeed = 5f;
+    private float moveSpeed = 3f;
     private float targetXPosition = -37;
     public DialogReader dialogReader;
     void Start()

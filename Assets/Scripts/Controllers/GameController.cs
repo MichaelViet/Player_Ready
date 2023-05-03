@@ -52,10 +52,14 @@ public class GameController : MonoBehaviour
             {
                 history.Add(this.data.scenes[scene] as StoryScene);
             });
-            currentScene = history[history.Count - 1];
-            history.RemoveAt(history.Count - 1);
-            bottomBar.SetSentenceIndex(data.sentence - 1);
+            if (history.Count > 0) // Перевірте, чи історія не порожня
+            {
+                currentScene = history[history.Count - 1];
+                history.RemoveAt(history.Count - 1);
+                bottomBar.SetSentenceIndex(data.sentence - 1);
+            }
         }
+
         // Перевірка якщо поточна сцена є StoryScene
         if (currentScene is StoryScene)
         {

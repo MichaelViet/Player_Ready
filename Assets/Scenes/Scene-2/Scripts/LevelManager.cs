@@ -34,7 +34,6 @@ public class LevelManager : MonoBehaviour
             PlayerPrefs.DeleteKey("LoadedPlayerPositionX");
             PlayerPrefs.DeleteKey("LoadedPlayerPositionY");
             PlayerPrefs.DeleteKey("LoadedPlayerPositionZ");
-
             int loadedCurrentDialogIndex = PlayerPrefs.GetInt("LoadedCurrentDialogIndex");
             int loadedCurrentSentenceIndex = PlayerPrefs.GetInt("LoadedCurrentSentenceIndex");
             dialogReader.SetCurrentDialogIndex(loadedCurrentDialogIndex);

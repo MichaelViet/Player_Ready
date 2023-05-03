@@ -56,42 +56,48 @@ public class MainMenuController : MonoBehaviour
         if (SaveManager.IsGameSaved())
         {
             SaveData data = SaveManager.LoadGame();
-            PlayerPrefs.SetFloat("LoadedWizardPositionX", data.wizardPosition.x);
-            PlayerPrefs.SetFloat("LoadedWizardPositionY", data.wizardPosition.y);
-            PlayerPrefs.SetFloat("LoadedWizardPositionZ", data.wizardPosition.z);
-            PlayerPrefs.SetFloat("LoadedPlayerPositionX", data.playerPosition.x);
-            PlayerPrefs.SetFloat("LoadedPlayerPositionY", data.playerPosition.y);
-            PlayerPrefs.SetFloat("LoadedPlayerPositionZ", data.playerPosition.z);
-            PlayerPrefs.SetInt("LoadedCurrentDialogIndex", data.currentDialogIndex);
-            PlayerPrefs.SetInt("LoadedCurrentSentenceIndex", data.currentSentenceIndex);
-            DialogReader dialogReader = FindObjectOfType<DialogReader>();
-            if (dialogReader != null)
-            {
-                dialogReader.DisplayDialog();
-            }
-            sceneToLoad = data.currentScene != 0 ? data.currentScene : sceneToLoad;
-        }
 
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Single);
-        loadingImage.gameObject.SetActive(true);
-        asyncLoad.allowSceneActivation = false;
-        while (!asyncLoad.isDone)
-        {
-            float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
-            float fillAmount = progress * 360f;
-            circleImg.fillAmount = fillAmount / 360f;
-            if (asyncLoad.progress >= 0.9f)
+            // Перевірка на Scene-2
+            if (data.currentScene == 2)
             {
-                if (Input.GetKeyDown(KeyCode.E))
+                PlayerPrefs.SetFloat("LoadedWizardPositionX", data.wizardPosition.x);
+                PlayerPrefs.SetFloat("LoadedWizardPositionY", data.wizardPosition.y);
+                PlayerPrefs.SetFloat("LoadedWizardPositionZ", data.wizardPosition.z);
+                PlayerPrefs.SetFloat("LoadedPlayerPositionX", data.playerPosition.x);
+                PlayerPrefs.SetFloat("LoadedPlayerPositionY", data.playerPosition.y);
+                PlayerPrefs.SetFloat("LoadedPlayerPositionZ", data.playerPosition.z);
+                PlayerPrefs.SetInt("LoadedCurrentDialogIndex", data.currentDialogIndex);
+                PlayerPrefs.SetInt("LoadedCurrentSentenceIndex", data.currentSentenceIndex);
+                DialogReader dialogReader = FindObjectOfType<DialogReader>();
+                if (dialogReader != null)
                 {
-                    asyncLoad.allowSceneActivation = true;
+                    dialogReader.SetCurrentDialogIndex(PlayerPrefs.GetInt("LoadedCurrentDialogIndex"));
+                    dialogReader.SetCurrentSentenceIndex(PlayerPrefs.GetInt("LoadedCurrentSentenceIndex"));
+                    dialogReader.DisplayDialog();
                 }
-                pressE.gameObject.SetActive(true);
+                sceneToLoad = data.currentScene != 0 ? data.currentScene : sceneToLoad;
             }
-            yield return null;
+
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Single);
+            loadingImage.gameObject.SetActive(true);
+            asyncLoad.allowSceneActivation = false;
+            while (!asyncLoad.isDone)
+            {
+                float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
+                float fillAmount = progress * 360f;
+                circleImg.fillAmount = fillAmount / 360f;
+                if (asyncLoad.progress >= 0.9f)
+                {
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        asyncLoad.allowSceneActivation = true;
+                    }
+                    pressE.gameObject.SetActive(true);
+                }
+                yield return null;
+            }
         }
     }
-
     IEnumerator LoadNewGame()
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
