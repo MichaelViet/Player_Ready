@@ -43,10 +43,10 @@ public class WizardController : MonoBehaviour
             }
             if (dialogComplete)
             {
-                MoveToTargetXPosition();
+                //MoveToTargetXPosition();
                 FaceDirectionOfMovement();
             }
-            else if (inInteractionDistance) // Only face the player if within interaction distance
+            else if (inInteractionDistance) // Дивимося на гравця, якщо на відстані взаємодії
             {
                 FacePlayer();
             }
@@ -54,18 +54,19 @@ public class WizardController : MonoBehaviour
             if (inInteractionDistance && Input.GetKeyDown(KeyCode.E))
             {
                 pressE.SetActive(false);
-                bottomBarCanvasGroup.alpha = 1; // Замініть на alpha
+                bottomBarCanvasGroup.alpha = 1;
             }
 
-            if (bottomBarCanvasGroup.alpha == 1 && Input.GetKeyDown(KeyCode.X)) // Замініть на alpha
+            if (bottomBarCanvasGroup.alpha == 1 && Input.GetKeyDown(KeyCode.X))
             {
                 pressE.SetActive(true);
-                bottomBarCanvasGroup.alpha = 0; // Замініть на alpha
+                bottomBarCanvasGroup.alpha = 0;
             }
 
             if (dialogComplete)
             {
                 MoveToTargetXPosition();
+                interactionDistance = 0f; // радіус взаємодії стає 0
             }
         }
     }
@@ -103,11 +104,6 @@ public class WizardController : MonoBehaviour
         }
     }
 
-    public void OnDialogComplete()
-    {
-        dialogComplete = true;
-    }
-
     private void MoveToTargetXPosition()
     {
         float step = moveSpeed * Time.deltaTime;
@@ -123,7 +119,10 @@ public class WizardController : MonoBehaviour
             animator.SetFloat("Speed", 0f);
         }
     }
-
+    public void OnDialogComplete()
+    {
+        dialogComplete = true;
+    }
     void OnDrawGizmos()
     {
         Gizmos.color = Color.green;

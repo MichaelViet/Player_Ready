@@ -37,7 +37,6 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scenes\Scene-2\Scripts\WizardController.cs" />
-     <Compile Include="Assets\Scenes\Scene-2\Scripts\FollowWizard.cs" />
      <Compile Include="Assets\Scripts\Pause\PauseMenuController.cs" />
      <Compile Include="Assets\Scripts\Controllers\SaveManager.cs" />
      <Compile Include="Assets\Scripts\Controllers\OptionsController.cs" />
@@ -48,6 +47,7 @@
      <Compile Include="Assets\Scripts\Animations\CloudsAnimation.cs" />
      <Compile Include="Assets\Scripts\Animations\TrainAnimation.cs" />
      <Compile Include="Assets\Scripts\Pause\PauseMenu.cs" />
+     <Compile Include="Assets\Scenes\Scene-2\Scripts\TreeDestruction.cs" />
      <Compile Include="Assets\Scenes\Scene-2\Scripts\CharacterController2D.cs" />
      <Compile Include="Assets\Scripts\Controllers\ChooseLabelController.cs" />
      <Compile Include="Assets\Scripts\Pause\BasePauseMenu.cs" />
@@ -63,6 +63,7 @@
      <Compile Include="Assets\Scripts\Controllers\SpriteController.cs" />
      <Compile Include="Assets\Scripts\Controllers\BottomBarController.cs" />
      <Compile Include="Assets\Scripts\Entities\ChooseScene.cs" />
+     <Compile Include="Assets\Scenes\Scene-2\Scripts\FollowObject.cs" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

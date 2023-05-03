@@ -40,7 +40,6 @@ public class DialogReader : MonoBehaviour
             dialogData = JsonUtility.FromJson<Dialog>(jsonString);
             Debug.Log("JSON loaded successfully: " + jsonString);
             bottomBarCanvasGroup.alpha = 1f; // Встановіть alpha на 1
-            DisplayDialog();
         }
         else
         {
@@ -51,9 +50,10 @@ public class DialogReader : MonoBehaviour
         {
             SetCurrentDialogIndex(PlayerPrefs.GetInt("LoadedCurrentDialogIndex"));
             SetCurrentSentenceIndex(PlayerPrefs.GetInt("LoadedCurrentSentenceIndex"));
-            DisplayDialog();
         }
+        DisplayDialog();
     }
+
     void Update()
     {
         if (BasePauseMenu.isPaused)
@@ -97,6 +97,11 @@ public class DialogReader : MonoBehaviour
             {
                 personNameText.color = speakerColors[speaker];
             }
+            else
+            {
+                personNameText.color = Color.white; // Колір за замовчуванням
+            }
+
             Debug.Log($"Dialog index: {currentDialogIndex}, Sentence index: {currentSentenceIndex}");
             Debug.Log($"Sentence: {dialogData.dialog[currentDialogIndex].sentences[currentSentenceIndex]}");
 

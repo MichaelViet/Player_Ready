@@ -62,7 +62,10 @@ public class LevelManager : MonoBehaviour
         SaveData data = new SaveData();
         data.playerPosition = playerMovement.transform.position;
         data.currentScene = SceneManager.GetActiveScene().buildIndex;
-
+        PlayerPrefs.SetInt("LoadedCurrentDialogIndex", dialogReader.GetCurrentDialogIndex());
+        PlayerPrefs.SetInt("LoadedCurrentSentenceIndex", dialogReader.GetCurrentSentenceIndex());
+        PlayerPrefs.Save();
+        Debug.Log("Saving the game...");
         // Збереження позиції чаклуна
         WizardController wizard = FindObjectOfType<WizardController>();
         if (wizard != null)

@@ -98,6 +98,7 @@ public class MainMenuController : MonoBehaviour
             }
         }
     }
+
     IEnumerator LoadNewGame()
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
