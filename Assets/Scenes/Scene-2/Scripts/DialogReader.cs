@@ -21,25 +21,30 @@ public class DialogReader : MonoBehaviour
     public TextMeshProUGUI bottomBarText;
     public TextMeshProUGUI personNameText;
     public CanvasGroup bottomBarCanvasGroup;
-    public Dictionary<string, Color> speakerColors = new Dictionary<string, Color>
-    {
-        { "Джейкоб", new Color(0.898f, 0.3961f, 0.1725f, 1) }, // #E5652C:
-        { "Чаклун", new Color(0.3098f, 0.2667f, 0.5451f, 1) } // #4F448B:
-    };
     public Dialog dialogData;
+    public TextAsset dialogJson;
+    public List<SpeakerColor> speakerColors;
+
     private int currentDialogIndex = 0;
     private int currentSentenceIndex = 0;
     public delegate void DialogCompleteAction();
     public event DialogCompleteAction OnDialogComplete;
+
+    [System.Serializable]
+    public class SpeakerColor
+    {
+        public string speakerName;
+        public Color color;
+    }
+
     private void Awake()
     {
-        TextAsset dialogJson = Resources.Load<TextAsset>("dialog");
         if (dialogJson != null)
         {
             string jsonString = dialogJson.text;
             dialogData = JsonUtility.FromJson<Dialog>(jsonString);
             Debug.Log("JSON loaded successfully: " + jsonString);
-            bottomBarCanvasGroup.alpha = 1f; // Встановіть alpha на 1
+            bottomBarCanvasGroup.alpha = 1f;
         }
         else
         {
@@ -51,18 +56,8 @@ public class DialogReader : MonoBehaviour
             SetCurrentDialogIndex(PlayerPrefs.GetInt("LoadedCurrentDialogIndex"));
             SetCurrentSentenceIndex(PlayerPrefs.GetInt("LoadedCurrentSentenceIndex"));
         }
-        // Завантажте колір спікера з PlayerPrefs
-        if (PlayerPrefs.HasKey("LoadedSpeakerColor"))
-        {
-            string loadedSpeakerColor = PlayerPrefs.GetString("LoadedSpeakerColor");
-            if (ColorUtility.TryParseHtmlString(loadedSpeakerColor, out Color color))
-            {
-                speakerColors["Чаклун"] = color;
-            }
-        }
         DisplayDialog();
     }
-
 
     void Update()
     {
@@ -72,7 +67,7 @@ public class DialogReader : MonoBehaviour
             return;
         }
 
-        if (Input.GetMouseButtonDown(0) && bottomBarCanvasGroup.alpha == 1) // Додайте перевірку на alpha
+        if (Input.GetMouseButtonDown(0) && bottomBarCanvasGroup.alpha == 1)
         {
             if (currentDialogIndex < dialogData.dialog.Count)
             {
@@ -82,11 +77,11 @@ public class DialogReader : MonoBehaviour
                 {
                     currentDialogIndex++;
                     currentSentenceIndex = 0;
-                    if (currentDialogIndex >= dialogData.dialog.Count) // перевірка на кінець діалогу
+                    if (currentDialogIndex >= dialogData.dialog.Count)
                     {
-                        bottomBarCanvasGroup.alpha = 0f; // вимкнення bottomBar
+                        bottomBarCanvasGroup.alpha = 0f;
                         OnDialogComplete?.Invoke();
-                        return; // вихід з методу
+                        return;
                     }
                 }
 
@@ -97,27 +92,28 @@ public class DialogReader : MonoBehaviour
 
     public void DisplayDialog()
     {
-        if (currentDialogIndex < dialogData.dialog.Count && bottomBarCanvasGroup.alpha == 1) // Додайте перевірку на alpha
+        if (currentDialogIndex < dialogData.dialog.Count && bottomBarCanvasGroup.alpha == 1)
         {
             string speaker = dialogData.dialog[currentDialogIndex].speaker;
             personNameText.text = speaker;
 
-            // Задайте колір тексту спікера, використовуючи словник
-            if (speakerColors.ContainsKey(speaker))
+            Color speakerColor = Color.white;
+            foreach (var entry in speakerColors)
             {
-                personNameText.color = speakerColors[speaker];
+                if (entry.speakerName == speaker)
+                {
+                    speakerColor = entry.color;
+                    break;
+                }
             }
-            else
-            {
-                personNameText.color = Color.white; // Колір за замовчуванням
-            }
-
-            Debug.Log($"Dialog index: {currentDialogIndex}, Sentence index: {currentSentenceIndex}");
+            personNameText.color = speakerColor; Debug.Log($"Dialog index: {currentDialogIndex}, Sentence index: {currentSentenceIndex}");
             Debug.Log($"Sentence: {dialogData.dialog[currentDialogIndex].sentences[currentSentenceIndex]}");
 
             bottomBarText.text = dialogData.dialog[currentDialogIndex].sentences[currentSentenceIndex];
         }
     }
+
+    // Додаємо відкритий метод для отримання поточного індексу діалогу
     public int GetCurrentDialogIndex()
     {
         return currentDialogIndex;
@@ -127,6 +123,7 @@ public class DialogReader : MonoBehaviour
     {
         return currentSentenceIndex;
     }
+
     public void SetCurrentDialogIndex(int index)
     {
         currentDialogIndex = index;
@@ -136,5 +133,4 @@ public class DialogReader : MonoBehaviour
     {
         currentSentenceIndex = index;
     }
-
 }

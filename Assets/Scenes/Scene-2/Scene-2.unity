@@ -1325,7 +1325,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 80533568}
   m_LocalRotation: {x: -0, y: -0, z: 0.06704112, w: 0.9977502}
-  m_LocalPosition: {x: 3.3734162, y: -9.85, z: -96.67}
+  m_LocalPosition: {x: 3.12, y: -7.97, z: -96.67}
   m_LocalScale: {x: 8, y: 8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -49530,7 +49530,7 @@ MonoBehaviour:
   fadeDuration: 3
   musicFadeDuration: 2
   playerMovement: {fileID: 2411065478369797659}
-  dialogReader: {fileID: 6659306329934815359}
+  dialogReader: {fileID: 0}
 --- !u!198 &1627876817
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -66851,6 +66851,7 @@ GameObject:
   - component: {fileID: 2020368551}
   - component: {fileID: 2020368552}
   - component: {fileID: 2020368553}
+  - component: {fileID: 2020368554}
   m_Layer: 3
   m_Name: Wizard
   m_TagString: NPC
@@ -67027,8 +67028,31 @@ MonoBehaviour:
   pressE: {fileID: 1964391071}
   bottomBarCanvasGroup: {fileID: 6659306329934815360}
   dialogComplete: 0
-  dialogReader: {fileID: 6659306329934815359}
+  dialogReader: {fileID: 2020368554}
   Wall: {fileID: 1027213391}
+--- !u!114 &2020368554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2020368546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdc379d04c657bf43a4787def3184c3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bottomBarText: {fileID: 6659306330961935627}
+  personNameText: {fileID: 6659306331441456294}
+  bottomBarCanvasGroup: {fileID: 6659306329934815360}
+  dialogData:
+    dialog: []
+  dialogJson: {fileID: 4900000, guid: e9b9a45510c0fdd4fa9b5619d71be242, type: 3}
+  speakerColors:
+  - speakerName: "\u0414\u0436\u0435\u0439\u043A\u043E\u0431"
+    color: {r: 0.8980392, g: 0.39607844, b: 0.17254902, a: 0}
+  - speakerName: "\u0427\u0430\u043A\u043B\u0443\u043D"
+    color: {r: 0.30980393, g: 0.26666668, b: 0.54509807, a: 0}
 --- !u!1 &2024088122
 GameObject:
   m_ObjectHideFlags: 0
@@ -99884,7 +99908,6 @@ GameObject:
   - component: {fileID: 6659306329934815357}
   - component: {fileID: 6659306329934815356}
   - component: {fileID: 6659306329934815354}
-  - component: {fileID: 6659306329934815359}
   - component: {fileID: 6659306329934815360}
   m_Layer: 0
   m_Name: BottomBar
@@ -99974,23 +99997,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 125}
   m_SizeDelta: {x: -100, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6659306329934815359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6659306329934815345}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdc379d04c657bf43a4787def3184c3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bottomBarText: {fileID: 6659306330961935627}
-  personNameText: {fileID: 6659306331441456294}
-  bottomBarCanvasGroup: {fileID: 6659306329934815360}
-  dialogData:
-    dialog: []
 --- !u!225 &6659306329934815360
 CanvasGroup:
   m_ObjectHideFlags: 0

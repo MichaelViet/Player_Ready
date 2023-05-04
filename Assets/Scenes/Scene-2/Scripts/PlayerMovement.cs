@@ -12,15 +12,22 @@ public class PlayerMovement : MonoBehaviour
     // Швидкість бігу гравця
     [SerializeField] private float runSpeed = 40f;
     // Змінні, які використовуються для зберігання даних про рух гравця
+    private DialogReader dialogReader;
+    private bool canMove = true;
     private float horizontalMove = 0f;
     private bool jump = false;
     private bool crouch = false;
+
+    void Start()
+    {
+        dialogReader = FindObjectOfType<DialogReader>();
+    }
 
     // Функція, яка викликається при кожному кадрі
     private void Update()
     {
         // Якщо гра зупинена, то не продовжуємо виконання коду
-        if (PauseMenu.isPaused) return;
+        if (PauseMenu.isPaused || dialogReader.bottomBarCanvasGroup.alpha == 1) return;
 
         // Отримуємо значення горизонтального входу користувача
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;

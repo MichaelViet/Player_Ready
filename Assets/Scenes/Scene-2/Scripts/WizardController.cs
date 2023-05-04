@@ -6,26 +6,26 @@ public class WizardController : MonoBehaviour
     public float interactionDistance = 3.0f;
     public Animator animator;
     public GameObject pressE;
-    public CanvasGroup bottomBarCanvasGroup; // Змініть на CanvasGroup
+    public CanvasGroup bottomBarCanvasGroup;
+    public DialogReader dialogReader;
+    public GameObject Wall;
+    public bool dialogComplete = false;
     private Rigidbody2D rb;
     private Vector2 currentVelocity;
     private bool inInteractionDistance;
-    public bool dialogComplete = false;
     private float moveSpeed = 3f;
+    private float smoothTime = 0.1f;
     private float targetXPosition = -37;
-    public DialogReader dialogReader;
-    public GameObject Wall;
+    private float currentSpeed;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         pressE.SetActive(false);
-        bottomBarCanvasGroup.alpha = 0; // Замініть на alpha
+        bottomBarCanvasGroup.alpha = 0;
         dialogReader.OnDialogComplete += OnDialogComplete;
     }
-    private void OnDestroy()
-    {
-        dialogReader.OnDialogComplete -= OnDialogComplete; // Відписуємося від події, коли об'єкт знищено
-    }
+
     void Update()
     {
         if (player != null)
@@ -70,6 +70,7 @@ public class WizardController : MonoBehaviour
             }
         }
     }
+
     private void FacePlayer()
     {
         if (inInteractionDistance) // Додаємо перевірку на відстань
@@ -85,7 +86,6 @@ public class WizardController : MonoBehaviour
             }
         }
     }
-
 
     private void FaceDirectionOfMovement()
     {
@@ -111,7 +111,9 @@ public class WizardController : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, step);
 
         float distanceToTarget = Vector2.Distance(transform.position, targetPosition);
-        animator.SetFloat("Speed", moveSpeed * (distanceToTarget > 0.1f ? 1f : 0f));
+        float targetSpeed = moveSpeed * (distanceToTarget > 0.1f ? 1f : 0f);
+        currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref currentVelocity.y, smoothTime); // Використовуємо SmoothDamp замість Lerp
+        animator.SetFloat("Speed", currentSpeed);
 
         if (distanceToTarget <= 0.1f)
         {
@@ -119,10 +121,15 @@ public class WizardController : MonoBehaviour
             animator.SetFloat("Speed", 0f);
         }
     }
+
     public void OnDialogComplete()
     {
         dialogComplete = true;
         Wall.SetActive(false);
+    }
+    private void OnDestroy()
+    {
+        dialogReader.OnDialogComplete -= OnDialogComplete; // Відписуємося від події, коли об'єкт знищено
     }
     void OnDrawGizmos()
     {
