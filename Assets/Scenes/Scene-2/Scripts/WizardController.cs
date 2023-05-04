@@ -10,10 +10,11 @@ public class WizardController : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 currentVelocity;
     private bool inInteractionDistance;
-    private bool dialogComplete = false;
+    public bool dialogComplete = false;
     private float moveSpeed = 3f;
     private float targetXPosition = -37;
     public DialogReader dialogReader;
+    public GameObject Wall;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -66,7 +67,6 @@ public class WizardController : MonoBehaviour
             if (dialogComplete)
             {
                 MoveToTargetXPosition();
-                interactionDistance = 0f; // радіус взаємодії стає 0
             }
         }
     }
@@ -122,6 +122,7 @@ public class WizardController : MonoBehaviour
     public void OnDialogComplete()
     {
         dialogComplete = true;
+        Wall.SetActive(false);
     }
     void OnDrawGizmos()
     {

@@ -21915,6 +21915,64 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!1 &1027213391
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1027213393}
+  - component: {fileID: 1027213392}
+  m_Layer: 0
+  m_Name: Wall
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!61 &1027213392
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1027213391}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.6806545, y: 1.5815201}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5996151, y: 8.72743}
+  m_EdgeRadius: 0
+--- !u!4 &1027213393
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1027213391}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 14.110014, y: 0.0420497, z: -0.1924966}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1029772720
 GameObject:
   m_ObjectHideFlags: 0
@@ -66907,7 +66965,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2020368546}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.2, y: -0.8915329, z: 0.0000076293945}
+  m_LocalPosition: {x: 0.2, y: -0.8395215, z: 0.0000076293945}
   m_LocalScale: {x: -1, y: 0.99999994, z: 0.99999994}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -66968,7 +67026,9 @@ MonoBehaviour:
   animator: {fileID: 2020368552}
   pressE: {fileID: 1964391071}
   bottomBarCanvasGroup: {fileID: 6659306329934815360}
+  dialogComplete: 0
   dialogReader: {fileID: 6659306329934815359}
+  Wall: {fileID: 1027213391}
 --- !u!1 &2024088122
 GameObject:
   m_ObjectHideFlags: 0
@@ -99929,6 +99989,8 @@ MonoBehaviour:
   bottomBarText: {fileID: 6659306330961935627}
   personNameText: {fileID: 6659306331441456294}
   bottomBarCanvasGroup: {fileID: 6659306329934815360}
+  dialogData:
+    dialog: []
 --- !u!225 &6659306329934815360
 CanvasGroup:
   m_ObjectHideFlags: 0

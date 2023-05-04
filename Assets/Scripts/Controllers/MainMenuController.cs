@@ -63,11 +63,14 @@ public class MainMenuController : MonoBehaviour
                 PlayerPrefs.SetFloat("LoadedWizardPositionX", data.wizardPosition.x);
                 PlayerPrefs.SetFloat("LoadedWizardPositionY", data.wizardPosition.y);
                 PlayerPrefs.SetFloat("LoadedWizardPositionZ", data.wizardPosition.z);
+
                 PlayerPrefs.SetFloat("LoadedPlayerPositionX", data.playerPosition.x);
                 PlayerPrefs.SetFloat("LoadedPlayerPositionY", data.playerPosition.y);
                 PlayerPrefs.SetFloat("LoadedPlayerPositionZ", data.playerPosition.z);
+
                 PlayerPrefs.SetInt("LoadedCurrentDialogIndex", data.currentDialogIndex);
                 PlayerPrefs.SetInt("LoadedCurrentSentenceIndex", data.currentSentenceIndex);
+                PlayerPrefs.Save();
                 DialogReader dialogReader = FindObjectOfType<DialogReader>();
                 if (dialogReader != null)
                 {

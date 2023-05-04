@@ -21,12 +21,12 @@ public class DialogReader : MonoBehaviour
     public TextMeshProUGUI bottomBarText;
     public TextMeshProUGUI personNameText;
     public CanvasGroup bottomBarCanvasGroup;
-    private Dictionary<string, Color> speakerColors = new Dictionary<string, Color>
+    public Dictionary<string, Color> speakerColors = new Dictionary<string, Color>
     {
         { "Джейкоб", new Color(0.898f, 0.3961f, 0.1725f, 1) }, // #E5652C:
         { "Чаклун", new Color(0.3098f, 0.2667f, 0.5451f, 1) } // #4F448B:
     };
-    private Dialog dialogData;
+    public Dialog dialogData;
     private int currentDialogIndex = 0;
     private int currentSentenceIndex = 0;
     public delegate void DialogCompleteAction();
@@ -51,8 +51,18 @@ public class DialogReader : MonoBehaviour
             SetCurrentDialogIndex(PlayerPrefs.GetInt("LoadedCurrentDialogIndex"));
             SetCurrentSentenceIndex(PlayerPrefs.GetInt("LoadedCurrentSentenceIndex"));
         }
+        // Завантажте колір спікера з PlayerPrefs
+        if (PlayerPrefs.HasKey("LoadedSpeakerColor"))
+        {
+            string loadedSpeakerColor = PlayerPrefs.GetString("LoadedSpeakerColor");
+            if (ColorUtility.TryParseHtmlString(loadedSpeakerColor, out Color color))
+            {
+                speakerColors["Чаклун"] = color;
+            }
+        }
         DisplayDialog();
     }
+
 
     void Update()
     {

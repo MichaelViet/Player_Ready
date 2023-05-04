@@ -35,5 +35,12 @@ public struct SaveData
     public int currentScene;
     public int currentDialogIndex;
     public int currentSentenceIndex;
+    public bool dialogCompleted;
     public Vector3 wizardPosition;
+    public Vector3 treePosition;
+    public Quaternion treeRotation;
+    public bool isTreeDestroyed;
+    public bool emptyWallActive;
+    public float InteractionRadius;
+    public bool wallActive;
 }

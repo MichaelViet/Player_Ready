@@ -60,6 +60,30 @@ public class TreeDestruction : MonoBehaviour
         emptyWall.SetActive(false);
     }
 
+    public void SetIsDestroyed(bool isDestroyed)
+    {
+        this.isDestroyed = isDestroyed;
+    }
+
+    public void SetEmptyWallActive(bool isActive)
+    {
+        emptyWall.SetActive(isActive);
+    }
+
+    public bool IsDestroyed
+    {
+        get { return isDestroyed; }
+    }
+    public bool emptyWallActive
+    {
+        get { return emptyWall.activeSelf; }
+    }
+    public float InteractionRadius
+    {
+        get { return interactionRadius; }
+        set { interactionRadius = value; }
+    }
+
     void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
