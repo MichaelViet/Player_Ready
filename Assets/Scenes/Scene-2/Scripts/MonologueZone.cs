@@ -5,58 +5,69 @@ using TMPro;
 
 public class MonologueZone : MonoBehaviour
 {
-    public CanvasGroup monologueCanvasGroup;
-    public TMP_Text monologueText;
+    public static MonologueZone currentZone;
+
+    public CanvasGroup sharedMonologueCanvasGroup;
+    public TMP_Text sharedMonologueText;
     public List<string> monologueSentences;
     public int currentSentenceIndex = 0;
     public float radius = 5f;
     public Transform playerTransform;
+    public bool isZoneCompleted;
     private bool zoneDisabled = false;
-
+    public int zoneIndex;
     private void Start()
     {
-        if (monologueCanvasGroup != null)
+        if (sharedMonologueCanvasGroup != null)
         {
-            monologueCanvasGroup.alpha = 0;
-        }
-
-        if (monologueText != null && monologueSentences.Count > 0)
-        {
-            monologueText.text = monologueSentences[currentSentenceIndex];
+            sharedMonologueCanvasGroup.alpha = 0;
         }
     }
 
     private void Update()
     {
-        if (playerTransform != null && monologueCanvasGroup != null && !zoneDisabled)
+        if (playerTransform != null && sharedMonologueCanvasGroup != null && !zoneDisabled)
         {
             float distance = Vector3.Distance(playerTransform.position, transform.position);
 
             if (distance <= radius)
             {
-                monologueCanvasGroup.alpha = 1;
+                if (currentZone != this)
+                {
+                    currentZone = this;
+                    currentSentenceIndex = 0;
+                }
 
-                if (Input.GetMouseButtonDown(0) && monologueText != null)
+                if (sharedMonologueText != null && monologueSentences.Count > 0)
+                {
+                    sharedMonologueText.text = monologueSentences[currentSentenceIndex];
+                }
+
+                sharedMonologueCanvasGroup.alpha = 1;
+
+                if (Input.GetMouseButtonDown(0) && sharedMonologueText != null)
                 {
                     currentSentenceIndex++;
 
                     if (currentSentenceIndex >= monologueSentences.Count)
                     {
-                        monologueCanvasGroup.alpha = 0;
-                        zoneDisabled = true;
-                    }
-                    else
-                    {
-                        monologueText.text = monologueSentences[currentSentenceIndex];
+                        sharedMonologueCanvasGroup.alpha = 0;
+                        isZoneCompleted = true;
+                        radius = 0f;
                     }
                 }
             }
             else
             {
-                monologueCanvasGroup.alpha = 0;
+                if (currentZone == this)
+                {
+                    currentZone = null;
+                    sharedMonologueCanvasGroup.alpha = 0;
+                }
             }
         }
     }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;

@@ -13,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float runSpeed = 40f;
     // Змінні, які використовуються для зберігання даних про рух гравця
     private DialogReader dialogReader;
-    private bool canMove = true;
     private float horizontalMove = 0f;
     private bool jump = false;
     private bool crouch = false;

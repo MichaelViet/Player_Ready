@@ -23,7 +23,6 @@ public class LevelManager : MonoBehaviour
         pauseMenu.ToggleCursor(false);
         WizardController wizard = FindObjectOfType<WizardController>();
         StartCoroutine(PlayAnimationAndDeactivateCanvas());
-
         if (SaveManager.IsGameSaved() && PlayerPrefs.HasKey("LoadedPlayerPositionX"))
         {   // Загрузка гравця
             data = SaveManager.LoadGame();
@@ -88,6 +87,16 @@ public class LevelManager : MonoBehaviour
             {
                 Debug.LogError("Не знайдено компонента TreeDestruction.");
             }
+            // Завантаження радіусів
+            MonologueZone[] monologueZones = FindObjectsOfType<MonologueZone>();
+            for (int i = 0; i < monologueZones.Length; i++)
+            {
+                string key = "Zone" + monologueZones[i].zoneIndex + "Radius";
+                if (PlayerPrefs.HasKey(key))
+                {
+                    monologueZones[i].radius = PlayerPrefs.GetFloat(key);
+                }
+            }
         }
     }
 
@@ -138,10 +147,17 @@ public class LevelManager : MonoBehaviour
         {
             Debug.LogError("Не знайдено компонента TreeDestruction.");
         }
+        // Збереження радіусів
+        MonologueZone[] monologueZones = FindObjectsOfType<MonologueZone>();
+        for (int i = 0; i < monologueZones.Length; i++)
+        {
+            PlayerPrefs.SetFloat("Zone" + monologueZones[i].zoneIndex + "Radius", monologueZones[i].radius);
+        }
 
+        PlayerPrefs.Save();
+        Debug.Log("Saving the game...");
         SaveManager.SaveGame(data);
     }
-
 
     private IEnumerator PlayAnimationAndDeactivateCanvas()
     {

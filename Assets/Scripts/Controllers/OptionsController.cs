@@ -18,7 +18,6 @@ public class OptionsController : MonoBehaviour
     public Slider soundSlider;
     public Slider environmentSlider;
 
-    private bool optionsOpen = false;
     private int _window = 0;
 
     public void LateUpdate()

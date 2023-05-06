@@ -29,8 +29,6 @@ public class BottomBarController : MonoBehaviour
     // Швидкість виводу тексту
     private float speedFactor = 1f;
 
-    bool leftMouseButtonEnabled = true;
-    bool spacebarEnabled = true;
 
     // Enum для відстеження стану анімації
     private enum State

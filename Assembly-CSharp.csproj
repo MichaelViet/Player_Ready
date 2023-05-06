@@ -44,6 +44,7 @@
      <Compile Include="Assets\Scripts\Controllers\MainMenuController.cs" />
      <Compile Include="Assets\Scenes\Scene-2\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\Controllers\SpriteSwitcher.cs" />
+     <Compile Include="Assets\Scenes\Scene-2\Scripts\MonologueZone.cs" />
      <Compile Include="Assets\Scripts\Animations\CloudsAnimation.cs" />
      <Compile Include="Assets\Scripts\Animations\TrainAnimation.cs" />
      <Compile Include="Assets\Scripts\Pause\PauseMenu.cs" />
@@ -64,7 +65,6 @@
      <Compile Include="Assets\Scripts\Controllers\SpriteController.cs" />
      <Compile Include="Assets\Scripts\Controllers\BottomBarController.cs" />
      <Compile Include="Assets\Scripts\Entities\ChooseScene.cs" />
-     <Compile Include="Assets\Scenes\Scene-2\Scripts\MonologueZone.cs" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
