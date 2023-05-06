@@ -6,7 +6,6 @@ public class WizardController : MonoBehaviour
     public float interactionDistance = 3.0f;
     public Animator animator;
     public GameObject pressE;
-    public CanvasGroup bottomBarCanvasGroup;
     public DialogReader dialogReader;
     public GameObject Wall;
     public bool dialogComplete = false;
@@ -22,7 +21,7 @@ public class WizardController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         pressE.SetActive(false);
-        bottomBarCanvasGroup.alpha = 0;
+        dialogReader.bottomBarCanvasGroup.alpha = 0;
         dialogReader.OnDialogComplete += OnDialogComplete;
     }
 
@@ -34,13 +33,13 @@ public class WizardController : MonoBehaviour
             if (distance <= interactionDistance)
             {
                 inInteractionDistance = true;
-                if (bottomBarCanvasGroup.alpha == 0) pressE.SetActive(true); // Замініть на alpha
+                if (dialogReader.bottomBarCanvasGroup.alpha == 0) pressE.SetActive(true); // Замініть на alpha
             }
             else
             {
                 inInteractionDistance = false;
                 pressE.SetActive(false);
-                bottomBarCanvasGroup.alpha = 0; // Замініть на alpha
+                dialogReader.bottomBarCanvasGroup.alpha = 0; // Замініть на alpha
             }
             if (dialogComplete)
             {
@@ -55,18 +54,22 @@ public class WizardController : MonoBehaviour
             if (inInteractionDistance && Input.GetKeyDown(KeyCode.E))
             {
                 pressE.SetActive(false);
-                bottomBarCanvasGroup.alpha = 1;
+                dialogReader.bottomBarCanvasGroup.alpha = 1;
             }
 
-            if (bottomBarCanvasGroup.alpha == 1 && Input.GetKeyDown(KeyCode.X))
+            if (dialogReader.bottomBarCanvasGroup.alpha == 1 && Input.GetKeyDown(KeyCode.X))
             {
                 pressE.SetActive(true);
-                bottomBarCanvasGroup.alpha = 0;
+                dialogReader.bottomBarCanvasGroup.alpha = 0;
             }
 
             if (dialogComplete)
             {
                 MoveToTargetXPosition();
+            }
+            if (transform.position.x <= -34)
+            {
+                interactionDistance = 0;
             }
         }
     }
@@ -112,7 +115,7 @@ public class WizardController : MonoBehaviour
 
         float distanceToTarget = Vector2.Distance(transform.position, targetPosition);
         float targetSpeed = moveSpeed * (distanceToTarget > 0.1f ? 1f : 0f);
-        currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref currentVelocity.y, smoothTime); // Використовуємо SmoothDamp замість Lerp
+        currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref currentVelocity.y, smoothTime);
         animator.SetFloat("Speed", currentSpeed);
 
         if (distanceToTarget <= 0.1f)
@@ -127,6 +130,7 @@ public class WizardController : MonoBehaviour
         dialogComplete = true;
         Wall.SetActive(false);
     }
+
     private void OnDestroy()
     {
         dialogReader.OnDialogComplete -= OnDialogComplete; // Відписуємося від події, коли об'єкт знищено

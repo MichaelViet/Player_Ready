@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         // Якщо гра зупинена, то не продовжуємо виконання коду
-        if (PauseMenu.isPaused || dialogReader.bottomBarCanvasGroup.alpha == 1) return;
+        if (PauseMenu.isPaused) return;
 
         // Отримуємо значення горизонтального входу користувача
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;

@@ -25,14 +25,13 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(PlayAnimationAndDeactivateCanvas());
 
         if (SaveManager.IsGameSaved() && PlayerPrefs.HasKey("LoadedPlayerPositionX"))
-        {
+        {   // Загрузка гравця
             data = SaveManager.LoadGame();
             float x = PlayerPrefs.GetFloat("LoadedPlayerPositionX");
             float y = PlayerPrefs.GetFloat("LoadedPlayerPositionY");
             float z = PlayerPrefs.GetFloat("LoadedPlayerPositionZ");
             int loadedCurrentDialogIndex = PlayerPrefs.GetInt("LoadedCurrentDialogIndex");
             int loadedCurrentSentenceIndex = PlayerPrefs.GetInt("LoadedCurrentSentenceIndex");
-
             Vector3 loadedPosition = new Vector3(x, y, z);
             playerMovement.transform.position = loadedPosition;
             PlayerPrefs.DeleteKey("LoadedPlayerPositionX");
@@ -43,7 +42,25 @@ public class LevelManager : MonoBehaviour
             dialogReader.SetCurrentSentenceIndex(loadedCurrentSentenceIndex);
             PlayerPrefs.DeleteKey("LoadedCurrentDialogIndex");
             PlayerPrefs.DeleteKey("LoadedCurrentSentenceIndex");
+            if (wizard != null)
+            {
+                float wizardX = PlayerPrefs.GetFloat("LoadedWizardPositionX");
+                float wizardY = PlayerPrefs.GetFloat("LoadedWizardPositionY");
+                float wizardZ = PlayerPrefs.GetFloat("LoadedWizardPositionZ");
+                Vector3 loadedWizardPosition = new Vector3(wizardX, wizardY, wizardZ);
+                wizard.transform.position = loadedWizardPosition;
+                wizard.Wall.SetActive(data.wallActive);
+                wizard.dialogComplete = data.dialogCompleted; // відновлюємо стан діалогу
 
+                PlayerPrefs.DeleteKey("LoadedWizardPositionX");
+                PlayerPrefs.DeleteKey("LoadedWizardPositionY");
+                PlayerPrefs.DeleteKey("LoadedWizardPositionZ");
+            }
+            else
+            {
+                Debug.LogError("Не знайдено компонента WizardController.");
+            }
+            // Загрузка дерева
             TreeDestruction treeDestruction = FindObjectOfType<TreeDestruction>();
             if (treeDestruction != null)
             {
@@ -71,21 +88,6 @@ public class LevelManager : MonoBehaviour
             {
                 Debug.LogError("Не знайдено компонента TreeDestruction.");
             }
-
-            if (wizard != null)
-            {
-                float wizardX = PlayerPrefs.GetFloat("LoadedWizardPositionX");
-                float wizardY = PlayerPrefs.GetFloat("LoadedWizardPositionY");
-                float wizardZ = PlayerPrefs.GetFloat("LoadedWizardPositionZ");
-                Vector3 loadedWizardPosition = new Vector3(wizardX, wizardY, wizardZ);
-                wizard.transform.position = loadedWizardPosition;
-                wizard.Wall.SetActive(data.wallActive);
-                wizard.dialogComplete = data.dialogCompleted; // відновлюємо стан діалогу
-                PlayerPrefs.DeleteKey("LoadedWizardPositionX");
-                PlayerPrefs.DeleteKey("LoadedWizardPositionY");
-                PlayerPrefs.DeleteKey("LoadedWizardPositionZ");
-            }
-
         }
     }
 

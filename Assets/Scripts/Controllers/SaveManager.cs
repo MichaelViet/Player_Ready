@@ -43,4 +43,5 @@ public struct SaveData
     public bool emptyWallActive;
     public float InteractionRadius;
     public bool wallActive;
+    public float wizardInteractionDistance;
 }
