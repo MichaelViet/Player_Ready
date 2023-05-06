@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class WizardController : MonoBehaviour
 {
     public Transform player;

@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-
 public class CloudsAnimation : MonoBehaviour
 {
     public GameObject clouds;

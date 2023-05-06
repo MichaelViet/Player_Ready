@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
-
 public class MainMenuController : MonoBehaviour
 {
     public Image loadingImage, circleImg;

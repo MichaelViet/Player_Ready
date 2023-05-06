@@ -9,7 +9,7 @@ public class StoryScene : GameScene
     public List<Sentence> sentences;
     public Sprite background;
     public GameScene nextScene;
-    
+
     [System.Serializable]
     public struct Sentence
     {
@@ -44,7 +44,7 @@ public class StoryScene : GameScene
         }
     }
 
-    
+
 }
 // Визначає базовий клас для ігрової сцени
 public class GameScene : ScriptableObject { }

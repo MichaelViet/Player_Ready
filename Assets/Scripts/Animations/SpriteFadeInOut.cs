@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-
 public class SpriteFadeInOut : MonoBehaviour
 {
     public float fadeDuration = 1.0f;

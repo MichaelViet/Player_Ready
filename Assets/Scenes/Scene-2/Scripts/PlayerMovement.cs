@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // Клас, який відповідає за рух гравця
@@ -16,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private float horizontalMove = 0f;
     private bool jump = false;
     private bool crouch = false;
-
+    public CanvasGroup monologPanel;
     void Start()
     {
         dialogReader = FindObjectOfType<DialogReader>();
@@ -26,8 +24,18 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         // Якщо гра зупинена, то не продовжуємо виконання коду
-        if (PauseMenu.isPaused) return;
-
+        if (PauseMenu.isPaused)
+        {
+            return;
+        }
+        if (monologPanel.alpha == 0)
+        {
+            runSpeed = 40f;
+        }
+        else
+        {
+            runSpeed = 0f;
+        }
         // Отримуємо значення горизонтального входу користувача
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
         // Встановлюємо значення швидкості для анімації бігу
@@ -67,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
     // Функція, яка викликається кожен фіксований кадр
     private void FixedUpdate()
     {
+
         controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
         jump = false;
     }

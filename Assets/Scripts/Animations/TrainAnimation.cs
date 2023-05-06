@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-
 public class TrainAnimation : MonoBehaviour
 {
     public SpriteRenderer leftBarrier;

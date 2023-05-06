@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System;
-using UnityEngine.UI;
 public class BottomBarController : MonoBehaviour
 {
     // Елементи інтерфейсу користувача для відображення діалогу та імені спікера

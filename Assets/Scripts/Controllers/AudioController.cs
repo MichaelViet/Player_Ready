@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 public class AudioController : MonoBehaviour
 {
     public AudioSource musicSource; // Посилання на AudioSource для відтворення музикі

@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections.Generic;
 
 // Цей ScriptableObject представляє спікера в розмові з іменем і списком спрайтів
-
 [CreateAssetMenu(fileName = "NewSpeaker", menuName = "Data/New Speaker")]
 [System.Serializable]
 public class Speaker : ScriptableObject

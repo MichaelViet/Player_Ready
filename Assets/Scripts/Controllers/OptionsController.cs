@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using TMPro;
 using UnityEngine.UI;
-
 public class OptionsController : MonoBehaviour
 {
     public TextMeshProUGUI musicValue;
