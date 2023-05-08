@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private bool jump = false;
     private bool crouch = false;
     public CanvasGroup monologPanel;
+    private bool canMove = true;
     void Start()
     {
         dialogReader = FindObjectOfType<DialogReader>();
@@ -28,33 +29,34 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-        if (monologPanel.alpha == 0)
+        // Перевіртка playerStop в поточному MonologueZone і блокування хотьби, якщо це потрібно
+        if (MonologueZone.currentZone != null)
         {
-            runSpeed = 40f;
+            canMove = !MonologueZone.currentZone.playerStop;
         }
         else
         {
-            runSpeed = 0f;
+            canMove = true;
         }
-        // Отримуємо значення горизонтального входу користувача
-        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
+        // Отримуємо значення горизонтального входу користувача, якщо можна рухатися
+        horizontalMove = canMove ? Input.GetAxisRaw("Horizontal") * runSpeed : 0;
         // Встановлюємо значення швидкості для анімації бігу
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
-        // Якщо користувач натиснув кнопку пробіл, то позначаємо, що гравець хоче зробити прижок
-        if (Input.GetButtonDown("Jump"))
+        // Якщо можна рухатися і користувач натиснув кнопку пробіл, то позначаємо, що гравець хоче зробити прижок
+        if (canMove && Input.GetButtonDown("Jump"))
         {
             jump = true;
             animator.SetBool("IsJumping", true);
         }
 
-        // Якщо користувач натиснув кнопку присідання, то позначаємо, що гравець хоче присісти
-        if (Input.GetButtonDown("Crouch"))
+        // Якщо можна рухатися і користувач натиснув кнопку присідання, то позначаємо, що гравець хоче присісти
+        if (canMove && Input.GetButtonDown("Crouch"))
         {
             crouch = true;
         }
-        // Якщо користувач відпустив кнопку присідання, то позначаємо, що гравець більше не хоче присідати
-        else if (Input.GetButtonUp("Crouch"))
+        // Якщо можна рухатися і користувач відпустив кнопку присідання, то позначаємо, що гравець більше не хоче присідати
+        else if (canMove && Input.GetButtonUp("Crouch"))
         {
             crouch = false;
         }
