@@ -1,7 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
 public class WizardController : MonoBehaviour
 {
-    public Transform player;
+    public List<Transform> players;
     public float interactionDistance = 3.0f;
     public Animator animator;
     public GameObject pressE;
@@ -26,9 +27,10 @@ public class WizardController : MonoBehaviour
 
     void Update()
     {
-        if (player != null)
+        if (players != null && players.Count > 0)
         {
-            float distance = Vector2.Distance(transform.position, player.position);
+            Transform closestPlayer = GetClosestPlayer();
+            float distance = Vector2.Distance(transform.position, closestPlayer.position);
             if (distance <= interactionDistance)
             {
                 inInteractionDistance = true;
@@ -47,7 +49,7 @@ public class WizardController : MonoBehaviour
             }
             else if (inInteractionDistance) // Дивимося на гравця, якщо на відстані взаємодії
             {
-                FacePlayer();
+                FacePlayer(closestPlayer);
             }
 
             if (inInteractionDistance && Input.GetKeyDown(KeyCode.E))
@@ -72,8 +74,25 @@ public class WizardController : MonoBehaviour
             }
         }
     }
+    private Transform GetClosestPlayer()
+    {
+        Transform closestPlayer = null;
+        float minDistance = float.MaxValue;
 
-    private void FacePlayer()
+        foreach (Transform player in players)
+        {
+            float distance = Vector2.Distance(transform.position, player.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                closestPlayer = player;
+            }
+        }
+
+        return closestPlayer;
+    }
+
+    private void FacePlayer(Transform player)
     {
         if (inInteractionDistance) // Додаємо перевірку на відстань
         {

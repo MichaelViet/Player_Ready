@@ -12,14 +12,13 @@ public class MonologueZone : MonoBehaviour
     public List<string> monologueSentences;
     public int currentSentenceIndex = 0;
     public float radius = 5f;
-    public Transform playerTransform;
+    public List<Transform> playerTransforms;
     public bool isZoneCompleted;
     private bool zoneDisabled = false;
     public int zoneIndex;
     public bool playerStop;
     public Image mouseClickHover;
     public bool showMouseClickHover = false; // по замовчуванню - вимкнуто
-
     private bool wasPlayerInside = false; // зберігає, чи був гравець у зоні на попередній кадрі
 
     private void Start()
@@ -37,9 +36,10 @@ public class MonologueZone : MonoBehaviour
 
     private void Update()
     {
-        if (playerTransform != null && sharedMonologueCanvasGroup != null && !zoneDisabled)
+        if (playerTransforms != null && sharedMonologueCanvasGroup != null && !zoneDisabled)
         {
-            float distance = Vector3.Distance(playerTransform.position, transform.position);
+            Transform closestPlayer = GetClosestPlayer(playerTransforms);
+            float distance = Vector3.Distance(closestPlayer.position, transform.position);
             bool isPlayerInside = distance <= radius; // перевіряє, чи гравець у зоні на поточному кадрі
 
             if (isPlayerInside && !wasPlayerInside)
@@ -93,6 +93,23 @@ public class MonologueZone : MonoBehaviour
 
             wasPlayerInside = isPlayerInside; // зберігаємо, що було на поточному кадрі для порівняння з наступним
         }
+    }
+    private Transform GetClosestPlayer(List<Transform> players)
+    {
+        Transform closest = null;
+        float minDistance = Mathf.Infinity;
+
+        foreach (Transform player in players)
+        {
+            float distance = Vector3.Distance(player.position, transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                closest = player;
+            }
+        }
+
+        return closest;
     }
 
     private IEnumerator AutoChangeSentence()

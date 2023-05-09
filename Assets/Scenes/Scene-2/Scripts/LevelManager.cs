@@ -13,6 +13,7 @@ public class LevelManager : MonoBehaviour
     public float musicFadeDuration = 2.0f;
     public PlayerMovement playerMovement;
     public DialogReader dialogReader;
+
     SaveData data = new SaveData();
     public void Start()
     {

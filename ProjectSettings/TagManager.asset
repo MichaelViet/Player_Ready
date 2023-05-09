@@ -18,8 +18,8 @@ TagManager:
   - Player
   - bottomBar
   - Ground
-  - 
-  - 
+  - LineRenderer
+  - Bullet
   - 
   - 
   - 

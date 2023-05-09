@@ -77,7 +77,6 @@ public class PlayerMovement : MonoBehaviour
     // Функція, яка викликається кожен фіксований кадр
     private void FixedUpdate()
     {
-
         controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
         jump = false;
     }
