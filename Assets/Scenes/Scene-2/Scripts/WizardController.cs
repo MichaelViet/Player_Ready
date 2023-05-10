@@ -16,6 +16,7 @@ public class WizardController : MonoBehaviour
     private float smoothTime = 0.1f;
     private float targetXPosition = -37;
     private float currentSpeed;
+    public RayCastWeapon playerWeapon;
 
     void Start()
     {
@@ -34,18 +35,19 @@ public class WizardController : MonoBehaviour
             if (distance <= interactionDistance)
             {
                 inInteractionDistance = true;
-                if (dialogReader.bottomBarCanvasGroup.alpha == 0) pressE.SetActive(true); // Замініть на alpha
+                if (dialogReader.bottomBarCanvasGroup.alpha == 0) pressE.SetActive(true);
             }
             else
             {
                 inInteractionDistance = false;
                 pressE.SetActive(false);
-                dialogReader.bottomBarCanvasGroup.alpha = 0; // Замініть на alpha
+                dialogReader.bottomBarCanvasGroup.alpha = 0;
             }
             if (dialogComplete)
             {
-                //MoveToTargetXPosition();
+                MoveToTargetXPosition();
                 FaceDirectionOfMovement();
+                SetCanShoot(true);
             }
             else if (inInteractionDistance) // Дивимося на гравця, якщо на відстані взаємодії
             {
@@ -56,17 +58,14 @@ public class WizardController : MonoBehaviour
             {
                 pressE.SetActive(false);
                 dialogReader.bottomBarCanvasGroup.alpha = 1;
+                SetCanShoot(false);
             }
 
             if (dialogReader.bottomBarCanvasGroup.alpha == 1 && Input.GetKeyDown(KeyCode.X))
             {
                 pressE.SetActive(true);
                 dialogReader.bottomBarCanvasGroup.alpha = 0;
-            }
-
-            if (dialogComplete)
-            {
-                MoveToTargetXPosition();
+                SetCanShoot(true);
             }
             if (transform.position.x <= -34)
             {
@@ -142,11 +141,18 @@ public class WizardController : MonoBehaviour
             animator.SetFloat("Speed", 0f);
         }
     }
-
+    private void SetCanShoot(bool value)
+    {
+        if (playerWeapon != null)
+        {
+            playerWeapon.SetCanShoot(value);
+        }
+    }
     public void OnDialogComplete()
     {
         dialogComplete = true;
         Wall.SetActive(false);
+        SetCanShoot(true); // дозволити стрільбу після завершення діалогу
     }
 
     private void OnDestroy()
@@ -158,4 +164,5 @@ public class WizardController : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, interactionDistance);
     }
+
 }

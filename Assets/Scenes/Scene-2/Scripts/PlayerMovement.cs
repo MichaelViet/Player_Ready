@@ -14,7 +14,6 @@ public class PlayerMovement : MonoBehaviour
     private float horizontalMove = 0f;
     private bool jump = false;
     private bool crouch = false;
-    public CanvasGroup monologPanel;
     private bool canMove = true;
     public bool isSoldier = false;
     public bool isFoxPlayer = false;

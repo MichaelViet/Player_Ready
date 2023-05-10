@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
 
 [System.Serializable]
 public class DialogEntry
@@ -57,7 +58,16 @@ public class DialogReader : MonoBehaviour
         }
         DisplayDialog();
     }
+    private bool IsPointerOverUIElement()
+    {
+        // Перевіряємо, чи натискання миші відбувається на елемент UI
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return true;
+        }
 
+        return false;
+    }
     void Update()
     {
         if (BasePauseMenu.isPaused)
@@ -66,7 +76,7 @@ public class DialogReader : MonoBehaviour
             return;
         }
 
-        if (Input.GetMouseButtonDown(0) && bottomBarCanvasGroup.alpha == 1)
+        if (Input.GetMouseButtonDown(0) && bottomBarCanvasGroup.alpha == 1 && !IsPointerOverUIElement())
         {
             if (currentDialogIndex < dialogData.dialog.Count)
             {

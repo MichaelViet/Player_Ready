@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-
+using UnityEngine.EventSystems;
 public class MonologueZone : MonoBehaviour
 {
     public static MonologueZone currentZone;
@@ -20,6 +20,7 @@ public class MonologueZone : MonoBehaviour
     public Image mouseClickHover;
     public bool showMouseClickHover = false; // по замовчуванню - вимкнуто
     private bool wasPlayerInside = false; // зберігає, чи був гравець у зоні на попередній кадрі
+    public RayCastWeapon playerWeapon;
 
     private void Start()
     {
@@ -40,11 +41,10 @@ public class MonologueZone : MonoBehaviour
         {
             Transform closestPlayer = GetClosestPlayer(playerTransforms);
             float distance = Vector3.Distance(closestPlayer.position, transform.position);
-            bool isPlayerInside = distance <= radius; // перевіряє, чи гравець у зоні на поточному кадрі
+            bool isPlayerInside = distance <= radius;
 
             if (isPlayerInside && !wasPlayerInside)
             {
-                // якщо гравець тільки заходить у зону
                 currentZone = this;
                 currentSentenceIndex = 0;
 
@@ -52,11 +52,15 @@ public class MonologueZone : MonoBehaviour
                 {
                     StartCoroutine(AutoChangeSentence());
                 }
+
+                if (playerWeapon != null)
+                {
+                    playerWeapon.SetCanShoot(false);
+                }
             }
 
             if (isPlayerInside)
             {
-                // якщо гравець перебуває у зоні
                 if (sharedMonologueText != null && monologueSentences.Count > 0)
                 {
                     sharedMonologueText.text = monologueSentences[currentSentenceIndex];
@@ -66,7 +70,11 @@ public class MonologueZone : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(0) && sharedMonologueText != null && playerStop)
                 {
-                    ChangeSentence();
+                    // Додаємо перевірку на UI рейкаст перед зміною речення
+                    if (!EventSystem.current.IsPointerOverGameObject())
+                    {
+                        ChangeSentence();
+                    }
                 }
 
                 if (mouseClickHover != null)
@@ -76,7 +84,6 @@ public class MonologueZone : MonoBehaviour
             }
             else if (wasPlayerInside)
             {
-                // якщо гравець тільки виходить із зони
                 currentZone = null;
                 sharedMonologueCanvasGroup.alpha = 0;
 
@@ -89,9 +96,13 @@ public class MonologueZone : MonoBehaviour
                 {
                     mouseClickHover.enabled = false;
                 }
+                if (playerWeapon != null)
+                {
+                    playerWeapon.SetCanShoot(true);
+                }
             }
 
-            wasPlayerInside = isPlayerInside; // зберігаємо, що було на поточному кадрі для порівняння з наступним
+            wasPlayerInside = isPlayerInside;
         }
     }
     private Transform GetClosestPlayer(List<Transform> players)
