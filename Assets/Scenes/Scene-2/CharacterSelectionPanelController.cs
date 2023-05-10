@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -13,14 +14,14 @@ public class CharacterSelectionPanelController : MonoBehaviour
     private float altHoldTime = 0f;
     private bool gamePaused = false;
     private BasePauseMenu isPaused;
-    private PlayerController playerController;
+    private PlayerSwitchController playerSwitchController;
 
     private void Start()
     {
-        playerController = FindObjectOfType<PlayerController>();
+        playerSwitchController = FindObjectOfType<PlayerSwitchController>();
         isPaused = FindObjectOfType<PauseMenu>();
-        AddEventTrigger(foxImage, () => playerController.SwitchToFox());
-        AddEventTrigger(soldierImage, () => playerController.SwitchToSoldaten());
+        AddEventTrigger(foxImage, () => playerSwitchController.SwitchToFox());
+        AddEventTrigger(soldierImage, () => playerSwitchController.SwitchToSoldaten());
     }
 
     private void Update()
@@ -32,8 +33,8 @@ public class CharacterSelectionPanelController : MonoBehaviour
 
             if (altHoldTime >= altHoldDuration)
             {
-                characterPanelCanvasGroup.alpha = 1f;
-                characterPanelCanvasGroup.blocksRaycasts = true;
+                StopCoroutine("FadeOut");
+                StartCoroutine("FadeIn");
                 if (!gamePaused)
                 {
                     PauseGame();
@@ -43,13 +44,35 @@ public class CharacterSelectionPanelController : MonoBehaviour
         else
         {
             altHoldTime = 0f;
-            characterPanelCanvasGroup.alpha = 0f;
-            characterPanelCanvasGroup.blocksRaycasts = false;
+            StopCoroutine("FadeIn");
+            StartCoroutine("FadeOut");
             if (gamePaused)
             {
                 ResumeGame();
             }
         }
+    }
+
+    private IEnumerator FadeIn()
+    {
+        while (characterPanelCanvasGroup.alpha < 1f)
+        {
+            characterPanelCanvasGroup.alpha += Time.unscaledDeltaTime;
+            yield return null;
+        }
+        characterPanelCanvasGroup.alpha = 1f;
+        characterPanelCanvasGroup.blocksRaycasts = true;
+    }
+
+    private IEnumerator FadeOut()
+    {
+        characterPanelCanvasGroup.blocksRaycasts = false;
+        while (characterPanelCanvasGroup.alpha > 0f)
+        {
+            characterPanelCanvasGroup.alpha -= Time.unscaledDeltaTime;
+            yield return null;
+        }
+        characterPanelCanvasGroup.alpha = 0f;
     }
 
     private void AddEventTrigger(Image image, UnityAction action)
@@ -60,7 +83,7 @@ public class CharacterSelectionPanelController : MonoBehaviour
         entry.callback.AddListener((eventData) =>
         {
             action();
-            playerController.ToggleCursor(image == soldierImage);
+            playerSwitchController.ToggleCursor(image == soldierImage);
         });
         eventTrigger.triggers.Add(entry);
     }

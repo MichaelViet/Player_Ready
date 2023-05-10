@@ -122,4 +122,19 @@ public class CharacterController2D : MonoBehaviour
         transform.Rotate(0f, 180f, 0f);
     }
 
+    public void FlipToDirection(bool faceRight)
+    {
+        if (faceRight && !m_FacingRight)
+        {
+            m_FacingRight = true;
+            transform.Rotate(0f, 180f, 0f);
+        }
+        else if (!faceRight && m_FacingRight)
+        {
+            m_FacingRight = false;
+            transform.Rotate(0f, 180f, 0f);
+        }
+    }
+
+
 }

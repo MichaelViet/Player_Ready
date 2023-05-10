@@ -10,6 +10,13 @@ public class MainMenuController : MonoBehaviour
     public TextMeshProUGUI pressE;
     public AudioController audioController;
     public TrainAnimation trainAnimation;
+
+    public void Start()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        loadButton.interactable = SaveManager.IsGameSaved();
+    }
     public void Update()
     {
         Time.timeScale = 1;
@@ -17,7 +24,6 @@ public class MainMenuController : MonoBehaviour
 
     public void PlayGame()
     {
-
         CacheObjects();
         SaveManager.ClearSavedGame();
         audioController.musicSource.Stop();
@@ -34,11 +40,6 @@ public class MainMenuController : MonoBehaviour
     public void CacheObjects()
     {
         Resources.UnloadUnusedAssets();
-    }
-
-    public void Start()
-    {
-        loadButton.interactable = SaveManager.IsGameSaved();
     }
 
     public void Load()

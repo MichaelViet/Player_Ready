@@ -16,6 +16,9 @@ public class PlayerMovement : MonoBehaviour
     private bool crouch = false;
     public CanvasGroup monologPanel;
     private bool canMove = true;
+    public bool isSoldier = false;
+    public bool isFoxPlayer = false;
+
     void Start()
     {
         dialogReader = FindObjectOfType<DialogReader>();
@@ -28,6 +31,10 @@ public class PlayerMovement : MonoBehaviour
         if (PauseMenu.isPaused)
         {
             return;
+        }
+        if (isFoxPlayer)
+        {
+            Cursor.visible = false;
         }
         // Перевіртка playerStop в поточному MonologueZone і блокування хотьби, якщо це потрібно
         if (MonologueZone.currentZone != null)
@@ -42,7 +49,19 @@ public class PlayerMovement : MonoBehaviour
         horizontalMove = canMove ? Input.GetAxisRaw("Horizontal") * runSpeed : 0;
         // Встановлюємо значення швидкості для анімації бігу
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
-
+        // Додаємо код для повороту персонажа в напрямку миші, якщо це солдат
+        if (isSoldier)
+        {
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (mousePosition.x < transform.position.x)
+            {
+                controller.FlipToDirection(false);
+            }
+            else
+            {
+                controller.FlipToDirection(true);
+            }
+        }
         // Якщо можна рухатися і користувач натиснув кнопку пробіл, то позначаємо, що гравець хоче зробити прижок
         if (canMove && Input.GetButtonDown("Jump"))
         {

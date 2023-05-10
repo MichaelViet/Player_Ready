@@ -135,7 +135,7 @@ public abstract class BasePauseMenu : MonoBehaviour
         }
     }
 
-    public void LoadMenu()
+    public void ToMainMenu()
     {
         Time.timeScale = 1f;
         if (isPaused)

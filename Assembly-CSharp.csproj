@@ -36,8 +36,10 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scenes\Scene-2\Scripts\EmptyPlayer.cs" />
      <Compile Include="Assets\Scenes\Scene-2\Scripts\WizardController.cs" />
      <Compile Include="Assets\Scripts\Pause\PauseMenuController.cs" />
+     <Compile Include="Assets\Scripts\Bullet.cs" />
      <Compile Include="Assets\Scripts\Controllers\SaveManager.cs" />
      <Compile Include="Assets\Scripts\Controllers\OptionsController.cs" />
      <Compile Include="Assets\Scripts\Animations\TextUnderlineController.cs" />
@@ -53,24 +55,22 @@
      <Compile Include="Assets\Scenes\Scene-2\Scripts\CharacterController2D.cs" />
      <Compile Include="Assets\Scripts\Controllers\ChooseLabelController.cs" />
      <Compile Include="Assets\Scripts\Pause\BasePauseMenu.cs" />
+     <Compile Include="Assets\Scripts\Enemy.cs" />
      <Compile Include="Assets\Scenes\Scene-2\Scripts\LevelManager.cs" />
+     <Compile Include="Assets\Scripts\RayCastWeapon.cs" />
      <Compile Include="Assets\Scripts\Entities\StoryScene.cs" />
      <Compile Include="Assets\Scenes\Scene-2\Scripts\DialogReader.cs" />
      <Compile Include="Assets\Scripts\Animations\SpriteFadeInOut.cs" />
      <Compile Include="Assets\Scripts\Controllers\AudioController.cs" />
      <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
+     <Compile Include="Assets\Scenes\Scene-2\Scripts\PlayerSwitchController.cs" />
+     <Compile Include="Assets\Scenes\Scene-2\CharacterSelectionPanelController.cs" />
      <Compile Include="Assets\Scripts\Entities\Speaker.cs" />
      <Compile Include="Assets\Scripts\Controllers\ChooseController.cs" />
      <Compile Include="Assets\Scripts\Entities\DataHolder.cs" />
      <Compile Include="Assets\Scripts\Controllers\SpriteController.cs" />
      <Compile Include="Assets\Scripts\Controllers\BottomBarController.cs" />
      <Compile Include="Assets\Scripts\Entities\ChooseScene.cs" />
-     <Compile Include="Assets\Scripts\Bullet.cs" />
-     <Compile Include="Assets\Scripts\RayCastWeapon.cs" />
-     <Compile Include="Assets\Scripts\Enemy.cs" />
-     <Compile Include="Assets\Scenes\Scene-2\Scripts\PlayerController.cs" />
-     <Compile Include="Assets\Scenes\Scene-2\Scripts\EmptyPlayer.cs" />
-     <Compile Include="Assets\Scenes\Scene-2\CharacterSelectionPanelController.cs" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

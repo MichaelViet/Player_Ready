@@ -16,15 +16,15 @@ public class RayCastWeapon : MonoBehaviour
     [Header("Bullet Settings")]
     public int bulletDamage = 20;
     public float bulletFireRate = 1.5f;
-
     private bool isLineRendererMode = true;
     private float nextFireTime;
-
+    private PlayerMovement playerMovement;
     private LayerMask raycastLayerMask;
 
     private void Awake()
     {
         raycastLayerMask = ~LayerMask.GetMask("Player");
+        playerMovement = GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
