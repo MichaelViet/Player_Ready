@@ -93,7 +93,6 @@ public class DialogReader : MonoBehaviour
                         return;
                     }
                 }
-
                 DisplayDialog();
             }
         }

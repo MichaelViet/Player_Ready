@@ -1,29 +1,22 @@
 using UnityEngine;
 
-// Клас, який відповідає за рух гравця
 public class PlayerMovement : MonoBehaviour
 {
-    // Посилання на CharacterController2D компонент
     [SerializeField] private CharacterController2D controller;
-    // Посилання на Animator компонент
     [SerializeField] private Animator animator;
-    // Швидкість бігу гравця
     [SerializeField] private float runSpeed = 40f;
-    // Змінні, які використовуються для зберігання даних про рух гравця
     private DialogReader dialogReader;
     private float horizontalMove = 0f;
     private bool jump = false;
     private bool crouch = false;
     private bool canMove = true;
     public bool isSoldier = false;
-    public bool isFoxPlayer = false;
 
     void Start()
     {
         dialogReader = FindObjectOfType<DialogReader>();
     }
 
-    // Функція, яка викликається при кожному кадрі
     private void Update()
     {
         // Якщо гра зупинена, то не продовжуємо виконання коду
@@ -31,10 +24,7 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-        if (isFoxPlayer)
-        {
-            Cursor.visible = false;
-        }
+
         // Перевіртка playerStop в поточному MonologueZone і блокування хотьби, якщо це потрібно
         if (MonologueZone.currentZone != null)
         {
