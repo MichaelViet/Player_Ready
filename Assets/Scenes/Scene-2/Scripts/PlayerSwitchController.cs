@@ -8,12 +8,13 @@ public class PlayerSwitchController : MonoBehaviour
     public GameObject currentPlayer;
     public CinemachineVirtualCamera virtualCamera;
     private BasePauseMenu pauseMenu;
-
+    private InventoryUI inventoryController;
     void Start()
     {
         currentPlayer = foxPlayer;
         soldatenPlayer.SetActive(false);
         pauseMenu = FindObjectOfType<BasePauseMenu>();
+        inventoryController = FindObjectOfType<InventoryUI>();
     }
 
     void Update()
@@ -81,6 +82,10 @@ public class PlayerSwitchController : MonoBehaviour
             {
                 ToggleCursor(true);
             }
+        }
+        if (inventoryController.inventoryPanel.alpha > 0)
+        {
+            ToggleCursor(true);
         }
     }
 }

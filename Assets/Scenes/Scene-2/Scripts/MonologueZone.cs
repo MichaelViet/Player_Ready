@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+
 public class MonologueZone : MonoBehaviour
 {
     public static MonologueZone currentZone;
@@ -18,10 +19,11 @@ public class MonologueZone : MonoBehaviour
     public int zoneIndex;
     public bool playerStop;
     public Image mouseClickHover;
-    public bool showMouseClickHover = false; // по замовчуванню - вимкнуто
-    private bool wasPlayerInside = false; // зберігає, чи був гравець у зоні на попередній кадрі
+    public bool showMouseClickHover = false;
+    private bool wasPlayerInside = false;
     public RayCastWeapon playerWeapon;
-
+    private QuestSystem questSystem;
+    private bool fadeInCalled = false;
     private void Start()
     {
         if (sharedMonologueCanvasGroup != null)
@@ -33,6 +35,7 @@ public class MonologueZone : MonoBehaviour
         {
             mouseClickHover.enabled = false;
         }
+        questSystem = FindObjectOfType<QuestSystem>();
     }
 
     private void Update()
@@ -70,7 +73,6 @@ public class MonologueZone : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(0) && sharedMonologueText != null && playerStop)
                 {
-                    // Додаємо перевірку на UI рейкаст перед зміною речення
                     if (!EventSystem.current.IsPointerOverGameObject())
                     {
                         ChangeSentence();
@@ -103,6 +105,7 @@ public class MonologueZone : MonoBehaviour
             }
 
             wasPlayerInside = isPlayerInside;
+
         }
     }
     private Transform GetClosestPlayer(List<Transform> players)
@@ -147,6 +150,7 @@ public class MonologueZone : MonoBehaviour
             {
                 StopCoroutine(AutoChangeSentence());
             }
+
         }
     }
 

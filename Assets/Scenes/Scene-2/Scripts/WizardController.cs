@@ -17,13 +17,14 @@ public class WizardController : MonoBehaviour
     private float targetXPosition = -37;
     private float currentSpeed;
     public RayCastWeapon playerWeapon;
-
+    private QuestSystem questSystem;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         pressE.SetActive(false);
         dialogReader.bottomBarCanvasGroup.alpha = 0;
         dialogReader.OnDialogComplete += OnDialogComplete;
+        questSystem = FindObjectOfType<QuestSystem>();
     }
 
     void Update()
@@ -43,6 +44,12 @@ public class WizardController : MonoBehaviour
                 pressE.SetActive(false);
                 dialogReader.bottomBarCanvasGroup.alpha = 0;
             }
+            if (inInteractionDistance && Input.GetKeyDown(KeyCode.E))
+            {
+                pressE.SetActive(false);
+                dialogReader.bottomBarCanvasGroup.alpha = 1;
+                SetCanShoot(false);
+            }
             if (dialogComplete)
             {
                 MoveToTargetXPosition();
@@ -53,14 +60,6 @@ public class WizardController : MonoBehaviour
             {
                 FacePlayer(closestPlayer);
             }
-
-            if (inInteractionDistance && Input.GetKeyDown(KeyCode.E))
-            {
-                pressE.SetActive(false);
-                dialogReader.bottomBarCanvasGroup.alpha = 1;
-                SetCanShoot(false);
-            }
-
             if (dialogReader.bottomBarCanvasGroup.alpha == 1 && Input.GetKeyDown(KeyCode.X))
             {
                 pressE.SetActive(true);
@@ -153,6 +152,19 @@ public class WizardController : MonoBehaviour
         dialogComplete = true;
         Wall.SetActive(false);
         SetCanShoot(true); // дозволити стрільбу після завершення діалогу
+        Quest activeQuest = questSystem.GetActiveQuest();
+        if (activeQuest != null)
+        {
+            questSystem.CompleteQuest(activeQuest);
+        }
+
+        Quest nextQuest = questSystem.GetActiveQuest();
+        if (nextQuest != null)
+        {
+            questSystem.StartQuest(nextQuest);
+        }
+
+        StartCoroutine(questSystem.FadeIn());
     }
 
     private void OnDestroy()
