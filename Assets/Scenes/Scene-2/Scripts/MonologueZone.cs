@@ -24,6 +24,8 @@ public class MonologueZone : MonoBehaviour
     public RayCastWeapon playerWeapon;
     private QuestSystem questSystem;
     private bool fadeInCalled = false;
+
+
     private void Start()
     {
         if (sharedMonologueCanvasGroup != null)
@@ -151,8 +153,13 @@ public class MonologueZone : MonoBehaviour
                 StopCoroutine(AutoChangeSentence());
             }
 
+            if (zoneIndex == 0)
+            {
+                StartCoroutine(questSystem.FadeIn());
+            }
         }
     }
+
 
     private void OnDrawGizmos()
     {

@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private bool crouch = false;
     private bool canMove = true;
     public bool isSoldier = false;
+    public int health;
 
     void Start()
     {

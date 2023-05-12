@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - NPC
   - SwitchPlayer
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - Ground
   - LineRenderer
   - Bullet
-  - 
+  - Boss
   - 
   - 
   - 

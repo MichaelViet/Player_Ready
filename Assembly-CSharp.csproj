@@ -37,7 +37,6 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scenes\Scene-2\Scripts\PowerStone.cs" />
-     <Compile Include="Assets\Scenes\Scene-2\Scripts\EmptyPlayer.cs" />
      <Compile Include="Assets\Scenes\Scene-2\Scripts\WizardController.cs" />
      <Compile Include="Assets\Scenes\Scene-2\Scripts\InventoryUI.cs" />
      <Compile Include="Assets\Scripts\Pause\PauseMenuController.cs" />
@@ -47,6 +46,7 @@
      <Compile Include="Assets\Scripts\Controllers\OptionsController.cs" />
      <Compile Include="Assets\Scripts\Animations\TextUnderlineController.cs" />
      <Compile Include="Assets\Scripts\Controllers\MainMenuController.cs" />
+     <Compile Include="Assets\Scenes\Scene-2\Scripts\QuestTrigger.cs" />
      <Compile Include="Assets\Scenes\Scene-2\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\Controllers\SpriteSwitcher.cs" />
      <Compile Include="Assets\Scenes\Scene-2\Scripts\MonologueZone.cs" />
@@ -59,7 +59,6 @@
      <Compile Include="Assets\Scripts\Controllers\ChooseLabelController.cs" />
      <Compile Include="Assets\Scenes\Scene-2\Scripts\InventoryManager.cs" />
      <Compile Include="Assets\Scripts\Pause\BasePauseMenu.cs" />
-     <Compile Include="Assets\Scripts\Enemy.cs" />
      <Compile Include="Assets\Scenes\Scene-2\Scripts\LevelManager.cs" />
      <Compile Include="Assets\Scripts\Entities\RayCastWeapon.cs" />
      <Compile Include="Assets\Scenes\Scene-2\Scripts\QuestSystem.cs" />
@@ -76,7 +75,12 @@
      <Compile Include="Assets\Scripts\Controllers\SpriteController.cs" />
      <Compile Include="Assets\Scripts\Controllers\BottomBarController.cs" />
      <Compile Include="Assets\Scripts\Entities\ChooseScene.cs" />
-     <Compile Include="Assets\Scenes\Scene-2\Scripts\QuestTrigger.cs" />
+     <Compile Include="Assets\Scripts\introBehavior.cs" />
+     <Compile Include="Assets\Scripts\Boss.cs" />
+     <Compile Include="Assets\Scripts\DeathBehavior.cs" />
+     <Compile Include="Assets\Scripts\JumpBehavior.cs" />
+     <Compile Include="Assets\Scripts\IdleBehavior.cs" />
+     <Compile Include="Assets\Scripts\Entities\LaserBullet.cs" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

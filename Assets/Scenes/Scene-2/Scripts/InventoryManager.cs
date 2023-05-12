@@ -5,6 +5,12 @@ public class InventoryManager : MonoBehaviour
     public InventorySlot[] inventorySlots;
     public KeyCode pickupKey = KeyCode.E;
     public PowerStone powerStone;
+    private QuestSystem questSystem;
+
+    private void Start()
+    {
+        questSystem = FindObjectOfType<QuestSystem>();
+    }
 
     private void Update()
     {
@@ -36,6 +42,17 @@ public class InventoryManager : MonoBehaviour
                 powerStone.gameObject.SetActive(false);
                 break;
             }
+        }
+        Quest activeQuest = questSystem.GetActiveQuest();
+        if (activeQuest != null)
+        {
+            questSystem.CompleteQuest(activeQuest);
+        }
+
+        Quest nextQuest = questSystem.GetActiveQuest();
+        if (nextQuest != null)
+        {
+            questSystem.StartQuest(nextQuest);
         }
     }
 }
