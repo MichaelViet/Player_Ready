@@ -16,7 +16,7 @@ public class QuestSystem : MonoBehaviour
     public float displayDuration = 3f;
     private float fadeOutDelay;
     private bool isPanelVisible;
-
+    private bool hintShown = false;
     private void Start()
     {
         foreach (var quest in questList)
@@ -99,6 +99,7 @@ public class QuestSystem : MonoBehaviour
         }
     }
 
+
     public IEnumerator FadeIn()
     {
         float elapsedTime = 0;
@@ -111,6 +112,17 @@ public class QuestSystem : MonoBehaviour
         questPanel.alpha = 1;
         isPanelVisible = true;
         fadeOutDelay = displayDuration;
+
+        // Показати підказку після FadeIn, але лише один раз
+        if (!hintShown)
+        {
+            HintManager hintManager = FindObjectOfType<HintManager>();
+            if (hintManager != null)
+            {
+                hintManager.SetHint("Щоб відкрити панель квестів, натисніть клавішу Tab");
+            }
+            hintShown = true;
+        }
     }
 
     public IEnumerator FadeOut()

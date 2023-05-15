@@ -6,7 +6,6 @@ public class PowerStone : MonoBehaviour
     public float speed = 1f;
     public float pickupRadius = 3f;
     public delegate void PowerStoneTakenHandler();
-    public event PowerStoneTakenHandler OnPowerStoneTaken;
     private Rigidbody2D rb;
     private bool isFloating = true;
     private Vector3 initialPosition;

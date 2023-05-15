@@ -16,6 +16,7 @@ public class WizardController : MonoBehaviour
     private float smoothTime = 0.1f;
     private float targetXPosition = -37;
     private float currentSpeed;
+    private bool hintShown = false;
     public RayCastWeapon playerWeapon;
     private QuestSystem questSystem;
     void Start()
@@ -55,6 +56,17 @@ public class WizardController : MonoBehaviour
                 MoveToTargetXPosition();
                 FaceDirectionOfMovement();
                 SetCanShoot(true);
+                // Показати підказку після FadeIn, але лише один раз
+                if (!hintShown)
+                {
+                    HintManager hintManager = FindObjectOfType<HintManager>();
+                    if (hintManager != null)
+                    {
+                        hintManager.SetHint("Щоб змінити облік персонажа, зажміть ALT і оберіть персонажа.");
+                    }
+                    hintShown = true;
+                }
+
             }
             else if (inInteractionDistance) // Дивимося на гравця, якщо на відстані взаємодії
             {

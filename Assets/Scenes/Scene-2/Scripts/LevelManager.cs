@@ -11,13 +11,13 @@ public class LevelManager : MonoBehaviour
     public CanvasGroup canvasGroup;
     public float fadeDuration = 3.0f;
     public float musicFadeDuration = 2.0f;
-    public PlayerMovement playerMovement;
+    public Player player;
     public DialogReader dialogReader;
 
     SaveData data = new SaveData();
     public void Start()
     {
-        playerMovement = FindObjectOfType<PlayerMovement>();
+        player = FindObjectOfType<Player>();
         dialogReader = FindObjectOfType<DialogReader>();
         pauseMenu.ToggleCursor(false);
         WizardController wizard = FindObjectOfType<WizardController>();
@@ -31,7 +31,7 @@ public class LevelManager : MonoBehaviour
             int loadedCurrentDialogIndex = PlayerPrefs.GetInt("LoadedCurrentDialogIndex");
             int loadedCurrentSentenceIndex = PlayerPrefs.GetInt("LoadedCurrentSentenceIndex");
             Vector3 loadedPosition = new Vector3(x, y, z);
-            playerMovement.transform.position = loadedPosition;
+            player.transform.position = loadedPosition;
             PlayerPrefs.DeleteKey("LoadedPlayerPositionX");
             PlayerPrefs.DeleteKey("LoadedPlayerPositionY");
             PlayerPrefs.DeleteKey("LoadedPlayerPositionZ");
@@ -103,7 +103,7 @@ public class LevelManager : MonoBehaviour
     {
         Debug.Log("Збереження гри...");
         pauseMenu.PlaySaveAnimation();
-        data.playerPosition = playerMovement.transform.position;
+        data.playerPosition = player.transform.position;
         data.currentScene = SceneManager.GetActiveScene().buildIndex;
         PlayerPrefs.SetInt("LoadedCurrentDialogIndex", dialogReader.GetCurrentDialogIndex());
         PlayerPrefs.SetInt("LoadedCurrentSentenceIndex", dialogReader.GetCurrentSentenceIndex());

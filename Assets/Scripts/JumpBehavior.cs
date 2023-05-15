@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class JumpBehavior : StateMachineBehaviour
 {
@@ -9,6 +7,7 @@ public class JumpBehavior : StateMachineBehaviour
     public float maxTime;
     private Transform playerPos;
     public float speed;
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();

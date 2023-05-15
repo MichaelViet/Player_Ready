@@ -23,8 +23,6 @@ public class MonologueZone : MonoBehaviour
     private bool wasPlayerInside = false;
     public RayCastWeapon playerWeapon;
     private QuestSystem questSystem;
-    private bool fadeInCalled = false;
-
 
     private void Start()
     {

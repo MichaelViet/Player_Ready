@@ -44,4 +44,5 @@ public struct SaveData
     public float wizardInteractionDistance;
     public List<bool> monologueZonesCompleted;
     public List<float> monologueZonesRadii;
+
 }

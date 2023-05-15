@@ -19,5 +19,15 @@ public class LaserBullet : MonoBehaviour
             Instantiate(impactEffect, transform.position, transform.rotation);
             Destroy(gameObject);
         }
+        if (hitInfo.gameObject.layer == LayerMask.NameToLayer("Default"))
+        {
+            Instantiate(impactEffect, transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
+        if (hitInfo.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            Instantiate(impactEffect, transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
     }
 }

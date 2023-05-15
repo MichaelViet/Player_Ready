@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -6811152623743558712}
   - component: {fileID: -7803230679955814937}
   - component: {fileID: -5406389416597819863}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LaserBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

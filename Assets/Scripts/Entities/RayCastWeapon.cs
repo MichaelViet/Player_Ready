@@ -6,39 +6,37 @@ public class RayCastWeapon : MonoBehaviour
     public Transform firePoint;
     public GameObject impactEffect;
     public GameObject bulletPrefab;
-    public GameObject laserBulletPrefab;  // New
+    public GameObject laserBulletPrefab;
 
-    [Header("LaserBullet Settings")]  // Changed
-    public int laserBulletDamage = 2;  // Changed
-    public float laserBulletSpeed = 10f;  // Changed
-    public float laserBulletLifeTime = 1f;  // New
+    [Header("LaserBullet Settings")]
+    public int laserBulletDamage = 2;
+    public float laserBulletSpeed = 10f;
+    public float laserBulletLifeTime = 1f;
 
     [Header("Bullet Settings")]
     public int bulletDamage = 20;
     public float bulletFireRate = 1.5f;
-    private bool isLaserBulletMode = true;  // Changed
+    private bool isLaserBulletMode = true;
     private float nextFireTime;
-    private PlayerMovement playerMovement;
+    private Player player;
     private LayerMask raycastLayerMask;
     private bool canShoot = true;
-    private Animator camAnim;
+
     private void Awake()
     {
         raycastLayerMask = ~LayerMask.GetMask("Player");
-        playerMovement = GetComponent<PlayerMovement>();
-        camAnim = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Animator>();
+        player = GetComponent<Player>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            isLaserBulletMode = true;  // Changed
+            isLaserBulletMode = true;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            isLaserBulletMode = false;  // Changed
+            isLaserBulletMode = false;
         }
 
         if (Input.GetButton("Fire1") && Time.time >= nextFireTime && canShoot)
@@ -46,10 +44,10 @@ public class RayCastWeapon : MonoBehaviour
             Vector2 shootingDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - firePoint.position);
             shootingDirection.Normalize();
 
-            if (isLaserBulletMode)  // Changed
+            if (isLaserBulletMode)
             {
-                nextFireTime = Time.time + 1f / laserBulletSpeed;  // Changed
-                ShootLaserBullet(shootingDirection);  // Changed
+                nextFireTime = Time.time + 1f / laserBulletSpeed;
+                ShootLaserBullet(shootingDirection);
             }
             else
             {
@@ -64,7 +62,7 @@ public class RayCastWeapon : MonoBehaviour
         canShoot = value;
     }
 
-    void ShootLaserBullet(Vector2 shootingDirection)  // New
+    void ShootLaserBullet(Vector2 shootingDirection)
     {
         GameObject laserBullet = Instantiate(laserBulletPrefab, firePoint.position, Quaternion.Euler(0, 0, Mathf.Atan2(shootingDirection.y, shootingDirection.x) * Mathf.Rad2Deg));
         LaserBullet laserBulletScript = laserBullet.GetComponent<LaserBullet>();
@@ -73,17 +71,6 @@ public class RayCastWeapon : MonoBehaviour
         Destroy(laserBullet, laserBulletLifeTime);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Boss"))
-        {
-            camAnim = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Animator>();
-            camAnim.SetTrigger("shake");
-            other.GetComponent<Boss>().health -= bulletDamage;
-            Instantiate(impactEffect, transform.position, transform.rotation);
-            Destroy(gameObject);
-        }
-    }
     void ShootBullet(Vector2 shootingDirection)
     {
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.Euler(0, 0, Mathf.Atan2(shootingDirection.y, shootingDirection.x) * Mathf.Rad2Deg));
