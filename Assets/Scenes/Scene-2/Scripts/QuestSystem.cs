@@ -25,14 +25,6 @@ public class QuestSystem : MonoBehaviour
                 quest.TriggerObject.enabled = false; // Вимкнути всі квести на початку
             quest.OnQuestComplete += HandleQuestComplete;
         }
-
-        // Activate the first quest
-        if (questList.Count > 0)
-        {
-            questList[0].IsActive = true;
-            if (questList[0].TriggerObject != null)
-                questList[0].TriggerObject.enabled = true;
-        }
     }
 
     public Quest GetActiveQuest()
@@ -45,6 +37,25 @@ public class QuestSystem : MonoBehaviour
             }
         }
         return null; // Повертає null, якщо активний квест не знайдено
+    }
+
+    public int GetActiveQuestIndex()
+    {
+        Quest activeQuest = GetActiveQuest();
+        if (activeQuest != null)
+        {
+            return activeQuest.Index;
+        }
+        return -1; // повернути -1, якщо активний квест не знайдено
+    }
+    public Quest GetQuestByIndex(int questIndex)
+    {
+        // Проверьте, входит ли индекс в допустимый диапазон
+        if (questIndex >= 0 && questIndex < questList.Count)
+        {
+            return questList[questIndex];
+        }
+        return null; // Вернуть null, если квест с таким индексом не найден
     }
 
     private void Update()
@@ -98,7 +109,6 @@ public class QuestSystem : MonoBehaviour
             }
         }
     }
-
 
     public IEnumerator FadeIn()
     {
@@ -164,10 +174,10 @@ public class QuestSystem : MonoBehaviour
     }
 }
 
-
 [System.Serializable]
 public class Quest
 {
+    public int Index;
     public string Name;
     public string Description;
     public bool IsActive;

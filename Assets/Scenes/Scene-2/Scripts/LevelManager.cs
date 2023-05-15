@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -96,6 +97,28 @@ public class LevelManager : MonoBehaviour
                     monologueZones[i].radius = PlayerPrefs.GetFloat(key);
                 }
             }
+            // Завантаження квесту
+            QuestSystem questSystem = FindObjectOfType<QuestSystem>();
+            if (questSystem != null)
+            {
+                for (int i = 0; i < data.questStates.Count; i++)
+                {
+                    questSystem.questList[i].IsComplete = data.questStates[i].IsComplete;
+                    if (!questSystem.questList[i].IsComplete)
+                    {
+                        questSystem.questList[i].IsActive = data.questStates[i].IsActive;
+                    }
+                    else
+                    {
+                        questSystem.questList[i].IsActive = false;
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("QuestSystem not found.");
+            }
+
         }
     }
 
@@ -152,7 +175,20 @@ public class LevelManager : MonoBehaviour
         {
             PlayerPrefs.SetFloat("Zone" + monologueZones[i].zoneIndex + "Radius", monologueZones[i].radius);
         }
-
+        // Збереження квестів
+        QuestSystem questSystem = FindObjectOfType<QuestSystem>();
+        if (questSystem != null)
+        {
+            data.questStates = new List<Quest>();
+            foreach (var quest in questSystem.questList)
+            {
+                data.questStates.Add(new Quest { IsActive = quest.IsActive, IsComplete = quest.IsComplete });
+            }
+        }
+        else
+        {
+            Debug.LogError("QuestSystem not found.");
+        }
         PlayerPrefs.Save();
         Debug.Log("Saving the game...");
         SaveManager.SaveGame(data);

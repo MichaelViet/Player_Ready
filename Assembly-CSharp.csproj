@@ -65,6 +65,7 @@
      <Compile Include="Assets\Scripts\introBehavior.cs" />
      <Compile Include="Assets\Scripts\IdleBehavior.cs" />
      <Compile Include="Assets\Scenes\Scene-2\Scripts\LevelManager.cs" />
+     <Compile Include="Assets\Scenes\Scene-2\Scripts\HintManager.cs" />
      <Compile Include="Assets\Scripts\Entities\RayCastWeapon.cs" />
      <Compile Include="Assets\Scenes\Scene-2\Scripts\QuestSystem.cs" />
      <Compile Include="Assets\Scripts\Entities\StoryScene.cs" />
@@ -81,7 +82,6 @@
      <Compile Include="Assets\Scripts\Controllers\SpriteController.cs" />
      <Compile Include="Assets\Scripts\Controllers\BottomBarController.cs" />
      <Compile Include="Assets\Scripts\Entities\ChooseScene.cs" />
-     <Compile Include="Assets\Scenes\Scene-2\Scripts\HintManager.cs" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
