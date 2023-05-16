@@ -129,7 +129,7 @@ public class QuestSystem : MonoBehaviour
             HintManager hintManager = FindObjectOfType<HintManager>();
             if (hintManager != null)
             {
-                hintManager.SetHint("Щоб відкрити панель квестів, натисніть клавішу Tab");
+                hintManager.ShowHint(0);
             }
             hintShown = true;
         }

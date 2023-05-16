@@ -5,19 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
+    public float fadeDuration = 3.0f;
+    public float musicFadeDuration = 2.0f;
     public AudioClip levelMusic; // Музика для рівня
     public AudioClip levelAmbience; // Звук оточення для рівня
     public BasePauseMenu pauseMenu;
     private AudioController audioController;
     public CanvasGroup canvasGroup;
-    public float fadeDuration = 3.0f;
-    public float musicFadeDuration = 2.0f;
     public Player player;
     public DialogReader dialogReader;
-
+    public Boss boss;
+    public PowerStone powerStone;
+    public InventoryManager inventoryManager;
+    public QuestSystem questSystem;
+    private bool questActivated = false;
     SaveData data = new SaveData();
     public void Start()
     {
+        questActivated = false;
+        powerStone = FindObjectOfType<PowerStone>(); // Додайте цей рядок
         player = FindObjectOfType<Player>();
         dialogReader = FindObjectOfType<DialogReader>();
         pauseMenu.ToggleCursor(false);
@@ -59,6 +65,7 @@ public class LevelManager : MonoBehaviour
             {
                 Debug.LogError("Не знайдено компонента WizardController.");
             }
+
             // Загрузка дерева
             TreeDestruction treeDestruction = FindObjectOfType<TreeDestruction>();
             if (treeDestruction != null)
@@ -87,7 +94,8 @@ public class LevelManager : MonoBehaviour
             {
                 Debug.LogError("Не знайдено компонента TreeDestruction.");
             }
-            // Завантаження радіусів
+
+            // Завантаження радіусів монологу
             MonologueZone[] monologueZones = FindObjectsOfType<MonologueZone>();
             for (int i = 0; i < monologueZones.Length; i++)
             {
@@ -97,21 +105,15 @@ public class LevelManager : MonoBehaviour
                     monologueZones[i].radius = PlayerPrefs.GetFloat(key);
                 }
             }
+
             // Завантаження квесту
-            QuestSystem questSystem = FindObjectOfType<QuestSystem>();
             if (questSystem != null)
             {
                 for (int i = 0; i < data.questStates.Count; i++)
                 {
+                    questSystem.questList[i].IsActive = data.questStates[i].IsActive;
                     questSystem.questList[i].IsComplete = data.questStates[i].IsComplete;
-                    if (!questSystem.questList[i].IsComplete)
-                    {
-                        questSystem.questList[i].IsActive = data.questStates[i].IsActive;
-                    }
-                    else
-                    {
-                        questSystem.questList[i].IsActive = false;
-                    }
+                    inventoryManager.questActivated = data.questActivated;
                 }
             }
             else
@@ -119,6 +121,53 @@ public class LevelManager : MonoBehaviour
                 Debug.LogError("QuestSystem not found.");
             }
 
+            // Завантаження стану підказок
+            HintManager hintManager = FindObjectOfType<HintManager>();
+            if (hintManager != null)
+            {
+                for (int i = 0; i < hintManager.hints.Count; i++)
+                {
+                    string key = "Hint" + i;
+                    if (PlayerPrefs.HasKey(key))
+                    {
+                        hintManager.hints[i].hasBeenShown = PlayerPrefs.GetInt(key) == 1;
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("HintManager not found.");
+            }
+
+            // загрузка стану боса
+            if (boss != null)
+            {
+                boss.LoadBossState();
+            }
+            else
+            {
+                Debug.LogError("Не знайдено компонента Boss.");
+            }
+
+            // Завантаження стану інвентаря
+            if (inventoryManager != null)
+            {
+                if (data.isPowerStoneInInventory)
+                {
+                    inventoryManager.AddPowerStoneToInventory();
+                    inventoryManager.questActivated = data.questActivated;
+                }
+                else
+                {
+                    inventoryManager.powerStone.gameObject.SetActive(data.isPowerStoneActive);
+                }
+                inventoryManager.powerStone.transform.position = data.powerStonePosition;
+
+            }
+            else
+            {
+                Debug.LogError("InventoryManager not found.");
+            }
         }
     }
 
@@ -146,6 +195,7 @@ public class LevelManager : MonoBehaviour
             Debug.LogError("Не знайдено компонента WizardController.");
         }
 
+        // Збереження діалогу
         if (dialogReader != null)
         {
             data.currentDialogIndex = dialogReader.GetCurrentDialogIndex();
@@ -155,6 +205,7 @@ public class LevelManager : MonoBehaviour
         {
             Debug.LogError("Не знайдено компонента DialogReader.");
         }
+
         // Зберігання стану дерева
         TreeDestruction treeDestruction = FindObjectOfType<TreeDestruction>();
         if (treeDestruction != null)
@@ -169,25 +220,58 @@ public class LevelManager : MonoBehaviour
         {
             Debug.LogError("Не знайдено компонента TreeDestruction.");
         }
+
         // Збереження радіусів
         MonologueZone[] monologueZones = FindObjectsOfType<MonologueZone>();
         for (int i = 0; i < monologueZones.Length; i++)
         {
             PlayerPrefs.SetFloat("Zone" + monologueZones[i].zoneIndex + "Radius", monologueZones[i].radius);
         }
-        // Збереження квестів
-        QuestSystem questSystem = FindObjectOfType<QuestSystem>();
-        if (questSystem != null)
+
+        // Збереження стану квестів
+        data.questStates = new List<Quest>();
+        foreach (var quest in questSystem.questList)
         {
-            data.questStates = new List<Quest>();
-            foreach (var quest in questSystem.questList)
+            data.questStates.Add(new Quest { IsActive = quest.IsActive, IsComplete = quest.IsComplete });
+            data.questActivated = inventoryManager.questActivated;
+        }
+
+
+        // Збереження стану підказок
+        HintManager hintManager = FindObjectOfType<HintManager>();
+        if (hintManager != null)
+        {
+            for (int i = 0; i < hintManager.hints.Count; i++)
             {
-                data.questStates.Add(new Quest { IsActive = quest.IsActive, IsComplete = quest.IsComplete });
+                PlayerPrefs.SetInt("Hint" + i, hintManager.hints[i].hasBeenShown ? 1 : 0);
             }
         }
         else
         {
-            Debug.LogError("QuestSystem not found.");
+            Debug.LogError("HintManager not found.");
+        }
+
+        // Збереження стану боса
+        if (boss != null)
+        {
+            boss.SaveBossState();
+        }
+        else
+        {
+            Debug.LogError("Не знайдено компонента Boss.");
+        }
+
+        // Збереження стану інвентаря
+        if (inventoryManager != null)
+        {
+            data.isPowerStoneInInventory = inventoryManager.IsPowerStoneInInventory();
+            data.powerStonePosition = inventoryManager.powerStone.transform.position;
+            data.isPowerStoneActive = inventoryManager.powerStone.gameObject.activeSelf;
+            data.questActivated = inventoryManager.questActivated;
+        }
+        else
+        {
+            Debug.LogError("InventoryManager not found.");
         }
         PlayerPrefs.Save();
         Debug.Log("Saving the game...");

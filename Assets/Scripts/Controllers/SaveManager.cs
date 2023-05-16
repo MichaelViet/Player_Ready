@@ -46,4 +46,9 @@ public struct SaveData
     public List<float> monologueZonesRadii;
     public int currentQuestIndex;
     public List<Quest> questStates;
+    public List<bool> hintStates;
+    public bool isPowerStoneInInventory;
+    public Vector3 powerStonePosition;
+    public bool isPowerStoneActive;
+    public bool questActivated;
 }

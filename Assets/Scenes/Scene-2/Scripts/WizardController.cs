@@ -19,6 +19,7 @@ public class WizardController : MonoBehaviour
     private bool hintShown = false;
     public RayCastWeapon playerWeapon;
     private QuestSystem questSystem;
+    private bool questActivated;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -26,6 +27,7 @@ public class WizardController : MonoBehaviour
         dialogReader.bottomBarCanvasGroup.alpha = 0;
         dialogReader.OnDialogComplete += OnDialogComplete;
         questSystem = FindObjectOfType<QuestSystem>();
+        questActivated = false;
     }
 
     void Update()
@@ -62,7 +64,7 @@ public class WizardController : MonoBehaviour
                     HintManager hintManager = FindObjectOfType<HintManager>();
                     if (hintManager != null)
                     {
-                        hintManager.SetHint("Щоб змінити облік персонажа, зажміть ALT і оберіть персонажа.");
+                        hintManager.ShowHint(1);
                     }
                     hintShown = true;
                 }
@@ -168,6 +170,7 @@ public class WizardController : MonoBehaviour
         if (activeQuest != null)
         {
             questSystem.CompleteQuest(activeQuest);
+
         }
 
         Quest nextQuest = questSystem.GetActiveQuest();
@@ -175,6 +178,7 @@ public class WizardController : MonoBehaviour
         {
             questSystem.StartQuest(nextQuest);
         }
+        questActivated = true;
 
         StartCoroutine(questSystem.FadeIn());
     }

@@ -11,9 +11,9 @@ public class Boss : MonoBehaviour
     public bool isDead;
     private RayCastWeapon rayCastWeapon;
     public CanvasGroup BossSlider;
-    private QuestSystem questSystem;
-    private bool questActivated;
     private InventoryManager inventoryManager;
+    private QuestSystem questSystem;
+    private bool questActivated = false;
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -21,9 +21,8 @@ public class Boss : MonoBehaviour
         healthBar.value = health;
         SetBossSliderVisibility(false);
         rayCastWeapon = GetComponent<RayCastWeapon>();
-        questSystem = FindObjectOfType<QuestSystem>();
-        questActivated = false;
         inventoryManager = FindObjectOfType<InventoryManager>();
+        questSystem = FindObjectOfType<QuestSystem>();
     }
 
     private void Update()
@@ -54,6 +53,7 @@ public class Boss : MonoBehaviour
                 }
                 questActivated = true;
             }
+
         }
 
         if (timeBtwDamage > 0)
@@ -91,15 +91,30 @@ public class Boss : MonoBehaviour
     private void SetBossSliderVisibility(bool isVisible)
     {
         BossSlider.alpha = isVisible ? 1 : 0;
+    }
 
-        // Start the current quest when the boss appears
-        if (isVisible)
+    public void SaveBossState()
+    {
+        PlayerPrefs.SetInt("BossActive", this.gameObject.activeSelf ? 1 : 0);
+        PlayerPrefs.SetFloat("BossPosX", this.transform.position.x);
+        PlayerPrefs.SetFloat("BossPosY", this.transform.position.y);
+        PlayerPrefs.SetFloat("BossPosZ", this.transform.position.z);
+        PlayerPrefs.SetInt("BossIsDead", isDead ? 1 : 0);
+        PlayerPrefs.SetInt("BossHealth", health);
+        PlayerPrefs.Save();
+    }
+
+    public void LoadBossState()
+    {
+        if (PlayerPrefs.HasKey("BossActive"))
         {
-            Quest activeQuest = questSystem.GetActiveQuest();
-            if (activeQuest != null)
-            {
-                questSystem.StartQuest(activeQuest);
-            }
+            this.gameObject.SetActive(PlayerPrefs.GetInt("BossActive") == 1);
+            float x = PlayerPrefs.GetFloat("BossPosX");
+            float y = PlayerPrefs.GetFloat("BossPosY");
+            float z = PlayerPrefs.GetFloat("BossPosZ");
+            this.transform.position = new Vector3(x, y, z);
+            isDead = PlayerPrefs.GetInt("BossIsDead") == 1;
+            health = PlayerPrefs.GetInt("BossHealth");
         }
     }
 }
