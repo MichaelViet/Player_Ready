@@ -11,6 +11,7 @@ public class TreeDestruction : MonoBehaviour
     public GameObject emptyWall;
     public GameObject canvasE;
     private bool isDestroyed = false;
+    private int eKeyPressCount = 0; // Кількість натискань клавіші E
 
     private void Update()
     {
@@ -18,11 +19,15 @@ public class TreeDestruction : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E) && withinInteractionRadius && !isDestroyed)
         {
-            StartCoroutine(DestroyTree());
-            interactionRadius = 0f; // змінюємо значення interactionRadius на 0
+            eKeyPressCount++; // Збільшуємо кількість натискань клавіші E
+
+            if (eKeyPressCount >= 5) // Перевіряємо, чи кількість натискань досягла 5
+            {
+                StartCoroutine(DestroyTree());
+                interactionRadius = 0f;
+            }
         }
 
-        // Вимкніть buttonE, коли гравець натисне кнопку E або вийде з радіусу interactionRadius
         if (canvasE.activeSelf && (!withinInteractionRadius || Input.GetKeyDown(KeyCode.E)))
         {
             canvasE.SetActive(false);
@@ -34,7 +39,6 @@ public class TreeDestruction : MonoBehaviour
         float distance = Vector3.Distance(transform.position, playerTransform.position);
         bool withinInteractionRadius = distance <= interactionRadius;
 
-        // Включіть buttonE, коли гравець знаходиться всередині interactionRadius
         if (withinInteractionRadius && !canvasE.activeSelf)
         {
             canvasE.SetActive(true);
@@ -74,10 +78,12 @@ public class TreeDestruction : MonoBehaviour
     {
         get { return isDestroyed; }
     }
-    public bool emptyWallActive
+
+    public bool EmptyWallActive
     {
         get { return emptyWall.activeSelf; }
     }
+
     public float InteractionRadius
     {
         get { return interactionRadius; }

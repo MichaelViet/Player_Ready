@@ -10,6 +10,9 @@ TagManager:
   - NPC
   - SwitchPlayer
   - Boss
+  - LaserBullet
+  - ImpactEffect
+  - Bullet
   layers:
   - Default
   - TransparentFX

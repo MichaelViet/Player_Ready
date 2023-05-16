@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,7 @@ public class LevelManager : MonoBehaviour
     public float fadeDuration = 3.0f;
     public float musicFadeDuration = 2.0f;
     public AudioClip levelMusic; // Музика для рівня
+    public AudioClip levelSound; // Звуковий ефект для рівня
     public AudioClip levelAmbience; // Звук оточення для рівня
     public BasePauseMenu pauseMenu;
     private AudioController audioController;
@@ -20,8 +22,11 @@ public class LevelManager : MonoBehaviour
     public QuestSystem questSystem;
     private bool questActivated = false;
     SaveData data = new SaveData();
+    private CameraOffsetAnimator cameraOffsetAnimator;
     public void Start()
     {
+        cameraOffsetAnimator = FindObjectOfType<CameraOffsetAnimator>();
+        audioController = FindObjectOfType<AudioController>();
         questActivated = false;
         powerStone = FindObjectOfType<PowerStone>(); // Додайте цей рядок
         player = FindObjectOfType<Player>();
@@ -61,10 +66,6 @@ public class LevelManager : MonoBehaviour
                 PlayerPrefs.DeleteKey("LoadedWizardPositionY");
                 PlayerPrefs.DeleteKey("LoadedWizardPositionZ");
             }
-            else
-            {
-                Debug.LogError("Не знайдено компонента WizardController.");
-            }
 
             // Загрузка дерева
             TreeDestruction treeDestruction = FindObjectOfType<TreeDestruction>();
@@ -90,10 +91,6 @@ public class LevelManager : MonoBehaviour
                 PlayerPrefs.DeleteKey("LoadedWizardPositionY");
                 PlayerPrefs.DeleteKey("LoadedWizardPositionZ");
             }
-            else
-            {
-                Debug.LogError("Не знайдено компонента TreeDestruction.");
-            }
 
             // Завантаження радіусів монологу
             MonologueZone[] monologueZones = FindObjectsOfType<MonologueZone>();
@@ -116,10 +113,6 @@ public class LevelManager : MonoBehaviour
                     inventoryManager.questActivated = data.questActivated;
                 }
             }
-            else
-            {
-                Debug.LogError("QuestSystem not found.");
-            }
 
             // Завантаження стану підказок
             HintManager hintManager = FindObjectOfType<HintManager>();
@@ -134,19 +127,11 @@ public class LevelManager : MonoBehaviour
                     }
                 }
             }
-            else
-            {
-                Debug.LogError("HintManager not found.");
-            }
 
             // загрузка стану боса
             if (boss != null)
             {
                 boss.LoadBossState();
-            }
-            else
-            {
-                Debug.LogError("Не знайдено компонента Boss.");
             }
 
             // Завантаження стану інвентаря
@@ -164,23 +149,32 @@ public class LevelManager : MonoBehaviour
                 inventoryManager.powerStone.transform.position = data.powerStonePosition;
 
             }
-            else
+
+            // Завантаження стану камери
+            if (cameraOffsetAnimator != null)
             {
-                Debug.LogError("InventoryManager not found.");
+                if (PlayerPrefs.HasKey("CameraPositionX") && PlayerPrefs.HasKey("CameraPositionY") && PlayerPrefs.HasKey("CameraPositionZ") && PlayerPrefs.HasKey("isAnimationPlayed"))
+                {
+                    cameraOffsetAnimator.isAnimationPlayed = data.isAnimationPlayed;
+                    float CameraX = PlayerPrefs.GetFloat("CameraPositionX");
+                    float CameraY = PlayerPrefs.GetFloat("CameraPositionY");
+                    float CameraZ = PlayerPrefs.GetFloat("CameraPositionZ");
+                    cameraOffsetAnimator.virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset = new Vector3(CameraX, CameraY, CameraZ);
+                }
             }
+
         }
     }
 
     public void SavePlayerProgress()
     {
-        Debug.Log("Збереження гри...");
         pauseMenu.PlaySaveAnimation();
         data.playerPosition = player.transform.position;
         data.currentScene = SceneManager.GetActiveScene().buildIndex;
         PlayerPrefs.SetInt("LoadedCurrentDialogIndex", dialogReader.GetCurrentDialogIndex());
         PlayerPrefs.SetInt("LoadedCurrentSentenceIndex", dialogReader.GetCurrentSentenceIndex());
         PlayerPrefs.Save();
-        Debug.Log("Saving the game...");
+        Debug.Log("Збереження гри...");
 
         // Збереження позиції чаклуна
         WizardController wizard = FindObjectOfType<WizardController>();
@@ -190,20 +184,12 @@ public class LevelManager : MonoBehaviour
             data.wallActive = wizard.Wall.activeSelf;
             data.dialogCompleted = wizard.dialogComplete;
         }
-        else
-        {
-            Debug.LogError("Не знайдено компонента WizardController.");
-        }
 
         // Збереження діалогу
         if (dialogReader != null)
         {
             data.currentDialogIndex = dialogReader.GetCurrentDialogIndex();
             data.currentSentenceIndex = dialogReader.GetCurrentSentenceIndex();
-        }
-        else
-        {
-            Debug.LogError("Не знайдено компонента DialogReader.");
         }
 
         // Зберігання стану дерева
@@ -213,12 +199,8 @@ public class LevelManager : MonoBehaviour
             data.treePosition = treeDestruction.transform.position;
             data.treeRotation = treeDestruction.transform.rotation;
             data.isTreeDestroyed = treeDestruction.IsDestroyed;
-            data.emptyWallActive = treeDestruction.emptyWallActive;
+            data.emptyWallActive = treeDestruction.EmptyWallActive;
             data.InteractionRadius = treeDestruction.InteractionRadius;
-        }
-        else
-        {
-            Debug.LogError("Не знайдено компонента TreeDestruction.");
         }
 
         // Збереження радіусів
@@ -236,7 +218,6 @@ public class LevelManager : MonoBehaviour
             data.questActivated = inventoryManager.questActivated;
         }
 
-
         // Збереження стану підказок
         HintManager hintManager = FindObjectOfType<HintManager>();
         if (hintManager != null)
@@ -246,19 +227,11 @@ public class LevelManager : MonoBehaviour
                 PlayerPrefs.SetInt("Hint" + i, hintManager.hints[i].hasBeenShown ? 1 : 0);
             }
         }
-        else
-        {
-            Debug.LogError("HintManager not found.");
-        }
 
         // Збереження стану боса
         if (boss != null)
         {
             boss.SaveBossState();
-        }
-        else
-        {
-            Debug.LogError("Не знайдено компонента Boss.");
         }
 
         // Збереження стану інвентаря
@@ -269,46 +242,43 @@ public class LevelManager : MonoBehaviour
             data.isPowerStoneActive = inventoryManager.powerStone.gameObject.activeSelf;
             data.questActivated = inventoryManager.questActivated;
         }
-        else
+
+        // Збереження стану камери
+        if (cameraOffsetAnimator != null)
         {
-            Debug.LogError("InventoryManager not found.");
+            Vector3 cameraPosition = cameraOffsetAnimator.virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset;
+            PlayerPrefs.SetFloat("CameraPositionX", cameraPosition.x);
+            PlayerPrefs.SetFloat("CameraPositionY", cameraPosition.y);
+            PlayerPrefs.SetFloat("CameraPositionZ", cameraPosition.z);
+            data.isAnimationPlayed = cameraOffsetAnimator.isAnimationPlayed;
         }
+
         PlayerPrefs.Save();
-        Debug.Log("Saving the game...");
         SaveManager.SaveGame(data);
     }
 
-    private IEnumerator PlayAnimationAndDeactivateCanvas()
-    {
-
-        yield return StartCoroutine(FadeInLevel());
-
-        canvasGroup.gameObject.SetActive(false);
-
-        audioController = FindObjectOfType<AudioController>();
-
-        if (audioController != null)
-        {
-            audioController.PlayAudio(levelMusic, null, levelAmbience);
-        }
-        else
-        {
-            Debug.LogWarning("Не знайдено компонента AudioController.");
-        }
-    }
     private IEnumerator FadeInLevel()
     {
+        audioController = FindObjectOfType<AudioController>();
+        if (audioController != null)
+        {
+            audioController.PlayAudio(levelMusic, levelSound, levelAmbience);
+        }
+
         float elapsedTime = 0f;
 
         while (elapsedTime < fadeDuration)
         {
-            {
-                elapsedTime += Time.deltaTime;
-                canvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
-                yield return null;
-            }
-            canvasGroup.alpha = 0f;
+            elapsedTime += Time.deltaTime;
+            canvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+            yield return null;
         }
+        canvasGroup.alpha = 0f;
+    }
 
+    private IEnumerator PlayAnimationAndDeactivateCanvas()
+    {
+        yield return StartCoroutine(FadeInLevel());
+        canvasGroup.gameObject.SetActive(false);
     }
 }

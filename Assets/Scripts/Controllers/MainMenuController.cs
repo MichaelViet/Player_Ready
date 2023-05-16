@@ -70,6 +70,7 @@ public class MainMenuController : MonoBehaviour
 
                 PlayerPrefs.SetInt("LoadedCurrentDialogIndex", data.currentDialogIndex);
                 PlayerPrefs.SetInt("LoadedCurrentSentenceIndex", data.currentSentenceIndex);
+
                 PlayerPrefs.Save();
                 DialogReader dialogReader = FindObjectOfType<DialogReader>();
                 if (dialogReader != null)

@@ -51,4 +51,5 @@ public struct SaveData
     public Vector3 powerStonePosition;
     public bool isPowerStoneActive;
     public bool questActivated;
+    public bool isAnimationPlayed;
 }
