@@ -5,14 +5,15 @@ public class Boss : MonoBehaviour
 {
     public int health;
     public int damage;
-    private float timeBtwDamage = 1.5f;
     public Slider healthBar;
-    private Animator anim;
-    public bool isDead;
-    private RayCastWeapon rayCastWeapon;
     public CanvasGroup BossSlider;
+    public bool isDead;
+    private float timeBtwDamage = 1.5f;
+    private Animator anim;
+    private RayCastWeapon rayCastWeapon;
     private InventoryManager inventoryManager;
     private QuestSystem questSystem;
+    private WizzardController wizzardController;
     private bool questActivated = false;
     private void Start()
     {
@@ -23,6 +24,7 @@ public class Boss : MonoBehaviour
         rayCastWeapon = GetComponent<RayCastWeapon>();
         inventoryManager = FindObjectOfType<InventoryManager>();
         questSystem = FindObjectOfType<QuestSystem>();
+        wizzardController = FindObjectOfType<WizzardController>();
     }
 
     private void Update()
@@ -53,6 +55,13 @@ public class Boss : MonoBehaviour
                 }
                 questActivated = true;
             }
+            if (wizzardController.dialogComplete && isDead)
+            {
+                wizzardController.interactionDistance = 4.66f;
+                wizzardController.dialogComplete = true;
+            }
+
+            wizzardController.bossIsDead = true; // Змінюємо стан босса у WizzardController
 
         }
 
@@ -82,11 +91,13 @@ public class Boss : MonoBehaviour
         Debug.Log("Boss health: " + health);
         healthBar.value = health;
         Instantiate(rayCastWeapon.impactEffect, transform.position, transform.rotation);
-        if (health <= 0)
+        if (!isDead)
         {
             isDead = true;
+
         }
     }
+
 
     private void SetBossSliderVisibility(bool isVisible)
     {

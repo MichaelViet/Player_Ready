@@ -37,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scenes\Scene-2\Scripts\PowerStone.cs" />
-     <Compile Include="Assets\Scenes\Scene-2\Scripts\WizardController.cs" />
+     <Compile Include="Assets\Scenes\Scene-2\Scripts\WizzardController.cs" />
      <Compile Include="Assets\Scenes\Scene-2\Scripts\InventoryUI.cs" />
      <Compile Include="Assets\Scenes\Scene-2\Scripts\CameraOffsetAnimator.cs" />
      <Compile Include="Assets\Scripts\Pause\PauseMenuController.cs" />

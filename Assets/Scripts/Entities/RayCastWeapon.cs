@@ -24,7 +24,7 @@ public class RayCastWeapon : MonoBehaviour
     private Player player;
     private LayerMask raycastLayerMask;
     private bool canShoot = true;
-
+    private CharacterSelectionPanelController characterSelectionPanelController;
     private ObjectPool<GameObject> bulletPool;
     private ObjectPool<GameObject> laserBulletPool;
     private ObjectPool<GameObject> impactEffectPool;
@@ -37,6 +37,10 @@ public class RayCastWeapon : MonoBehaviour
         bulletPool = new ObjectPool<GameObject>(() => Instantiate(bulletPrefab), null, DestroyObject);
         laserBulletPool = new ObjectPool<GameObject>(() => Instantiate(laserBulletPrefab), null, DestroyObject);
         impactEffectPool = new ObjectPool<GameObject>(() => Instantiate(impactEffect), null, DestroyObject);
+    }
+    private void Start()
+    {
+        characterSelectionPanelController = FindObjectOfType<CharacterSelectionPanelController>();
     }
 
     private void DestroyObject(GameObject obj)
@@ -56,7 +60,8 @@ public class RayCastWeapon : MonoBehaviour
             isLaserBulletMode = false;
         }
 
-        if (Input.GetButton("Fire1") && Time.time >= nextFireTime && canShoot)
+        // Додайте перевірку на isPaused тут
+        if (Input.GetButton("Fire1") && Time.time >= nextFireTime && canShoot && !BasePauseMenu.isPaused && !characterSelectionPanelController.characterPanelCanvasGroup.alpha.Equals(1f))
         {
             Vector2 shootingDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - firePoint.position);
             shootingDirection.Normalize();
@@ -72,7 +77,6 @@ public class RayCastWeapon : MonoBehaviour
                 ShootBullet(shootingDirection);
             }
         }
-
     }
 
     public void SetCanShoot(bool value)

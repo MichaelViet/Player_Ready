@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -12,16 +14,34 @@ public class Player : MonoBehaviour
     public bool canMove = false;
     private Rigidbody2D rb;
     public bool isSoldier = false;
+    public Slider healthSlider;
     public int health;
+    public CanvasGroup healthSliderCanvasGroup;
+    private float lastDamageTime;
+    public float healthRegenDelay = 5f;  // здоров'я відновлюється кожні 5 секунд
+    public int healthRegenAmount = 2;  // кількість здоров'я, що відновлюється за один раз
     private CameraOffsetAnimator cameraOffsetAnimator;
+
     void Start()
     {
         cameraOffsetAnimator = FindObjectOfType<CameraOffsetAnimator>();
         CameraOffsetAnimator.OnAnimationEnd += EnableMovement;
         dialogReader = FindObjectOfType<DialogReader>();
         rb = GetComponent<Rigidbody2D>();
+        healthSlider.maxValue = 250;
+        healthSlider.value = health;
+        lastDamageTime = Time.time;
+        healthSliderCanvasGroup = healthSlider.GetComponent<CanvasGroup>();
+        UpdateHealthSliderVisibility();
+        StartCoroutine(RegenHealth());
     }
-
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        healthSlider.value = health;
+        lastDamageTime = Time.time;
+        UpdateHealthSliderVisibility();
+    }
     private void Update()
     {
         // Якщо гра зупинена, то не продовжуємо виконання коду
@@ -72,6 +92,38 @@ public class Player : MonoBehaviour
         else if (canMove && !cameraOffsetAnimator.isCameraAnimating && Input.GetButtonUp("Crouch"))
         {
             crouch = false;
+        }
+        healthSlider.value = health;
+    }
+
+    IEnumerator RegenHealth()
+    {
+        while (true)  // постійний цикл
+        {
+            if (Time.time - lastDamageTime >= healthRegenDelay && health < 250)
+            {
+                RegenerateHealth();
+            }
+            yield return new WaitForSeconds(healthRegenDelay);
+        }
+    }
+
+    private void RegenerateHealth()
+    {
+        health += healthRegenAmount;
+        healthSlider.value = health;
+        UpdateHealthSliderVisibility();
+    }
+
+    private void UpdateHealthSliderVisibility()
+    {
+        if (health < 250)
+        {
+            healthSliderCanvasGroup.alpha = 1;
+        }
+        else
+        {
+            healthSliderCanvasGroup.alpha = 0;
         }
     }
 

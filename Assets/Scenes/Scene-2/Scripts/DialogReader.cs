@@ -29,6 +29,8 @@ public class DialogReader : MonoBehaviour
     private int currentSentenceIndex = 0;
     public delegate void DialogCompleteAction();
     public event DialogCompleteAction OnDialogComplete;
+    private bool newDialogLoaded = false;
+    public TextAsset dialogJsonAfterBossDies; // Додаємо новий JSON файл для діалогу після смерті босса
 
     [System.Serializable]
     public class SpeakerColor
@@ -97,7 +99,20 @@ public class DialogReader : MonoBehaviour
             }
         }
     }
-
+    public void LoadDialog(TextAsset dialogJsonFile)
+    {
+        string jsonString = dialogJsonFile.text;
+        dialogData = JsonUtility.FromJson<Dialog>(jsonString);
+        Debug.Log("JSON loaded successfully: " + jsonString);
+        bottomBarCanvasGroup.alpha = 1f;
+        SetCurrentDialogIndex(0);
+        SetCurrentSentenceIndex(0);
+        DisplayDialog();
+        // Встановити новий прапорець завантаженого діалогового вікна на true
+        newDialogLoaded = true;
+        // Виклик DisplayDialog, щоб показати перше речення нового діалогу
+        DisplayDialog();
+    }
     public void DisplayDialog()
     {
         if (currentDialogIndex < dialogData.dialog.Count && bottomBarCanvasGroup.alpha == 1)

@@ -9,7 +9,6 @@ public class CharacterSelectionPanelController : MonoBehaviour
     public CanvasGroup characterPanelCanvasGroup;
     public Image foxImage;
     public Image soldierImage;
-
     private float altHoldDuration = 0.2f;
     private float altHoldTime = 0f;
     private bool gamePaused = false;

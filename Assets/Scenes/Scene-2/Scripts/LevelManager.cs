@@ -9,11 +9,9 @@ public class LevelManager : MonoBehaviour
     public float fadeDuration = 3.0f;
     public float musicFadeDuration = 2.0f;
     public AudioClip levelMusic; // Музика для рівня
-    public AudioClip levelSound; // Звуковий ефект для рівня
-    public AudioClip levelAmbience; // Звук оточення для рівня
     public BasePauseMenu pauseMenu;
     private AudioController audioController;
-    public CanvasGroup canvasGroup;
+    public CanvasGroup StartCanvasGroup;
     public Player player;
     public DialogReader dialogReader;
     public Boss boss;
@@ -23,6 +21,7 @@ public class LevelManager : MonoBehaviour
     private bool questActivated = false;
     SaveData data = new SaveData();
     private CameraOffsetAnimator cameraOffsetAnimator;
+
     public void Start()
     {
         cameraOffsetAnimator = FindObjectOfType<CameraOffsetAnimator>();
@@ -32,7 +31,7 @@ public class LevelManager : MonoBehaviour
         player = FindObjectOfType<Player>();
         dialogReader = FindObjectOfType<DialogReader>();
         pauseMenu.ToggleCursor(false);
-        WizardController wizard = FindObjectOfType<WizardController>();
+        WizzardController wizard = FindObjectOfType<WizzardController>();
         StartCoroutine(PlayAnimationAndDeactivateCanvas());
         if (SaveManager.IsGameSaved() && PlayerPrefs.HasKey("LoadedPlayerPositionX"))
         {   // Загрузка гравця
@@ -44,14 +43,15 @@ public class LevelManager : MonoBehaviour
             int loadedCurrentSentenceIndex = PlayerPrefs.GetInt("LoadedCurrentSentenceIndex");
             Vector3 loadedPosition = new Vector3(x, y, z);
             player.transform.position = loadedPosition;
+            player.health = data.playerHealth;
+            player.healthSlider.value = player.health;
             PlayerPrefs.DeleteKey("LoadedPlayerPositionX");
             PlayerPrefs.DeleteKey("LoadedPlayerPositionY");
             PlayerPrefs.DeleteKey("LoadedPlayerPositionZ");
 
-            dialogReader.SetCurrentDialogIndex(loadedCurrentDialogIndex);
-            dialogReader.SetCurrentSentenceIndex(loadedCurrentSentenceIndex);
             PlayerPrefs.DeleteKey("LoadedCurrentDialogIndex");
             PlayerPrefs.DeleteKey("LoadedCurrentSentenceIndex");
+            // загрузка чаклуна
             if (wizard != null)
             {
                 float wizardX = PlayerPrefs.GetFloat("LoadedWizardPositionX");
@@ -61,7 +61,8 @@ public class LevelManager : MonoBehaviour
                 wizard.transform.position = loadedWizardPosition;
                 wizard.Wall.SetActive(data.wallActive);
                 wizard.dialogComplete = data.dialogCompleted; // відновлюємо стан діалогу
-
+                dialogReader.SetCurrentDialogIndex(loadedCurrentDialogIndex);
+                dialogReader.SetCurrentSentenceIndex(loadedCurrentSentenceIndex);
                 PlayerPrefs.DeleteKey("LoadedWizardPositionX");
                 PlayerPrefs.DeleteKey("LoadedWizardPositionY");
                 PlayerPrefs.DeleteKey("LoadedWizardPositionZ");
@@ -76,7 +77,7 @@ public class LevelManager : MonoBehaviour
                 treeDestruction.SetIsDestroyed(data.isTreeDestroyed);
                 treeDestruction.SetEmptyWallActive(data.emptyWallActive);
                 treeDestruction.InteractionRadius = data.InteractionRadius;
-                wizard.dialogComplete = data.dialogCompleted; // відновлюємо стан діалогу
+
                 if (wizard.dialogComplete)
                 {
                     int lastIndex = dialogReader.dialogData.dialog.Count - 1;
@@ -161,6 +162,11 @@ public class LevelManager : MonoBehaviour
                     float CameraZ = PlayerPrefs.GetFloat("CameraPositionZ");
                     cameraOffsetAnimator.virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset = new Vector3(CameraX, CameraY, CameraZ);
                     cameraOffsetAnimator.isCameraAnimating = data.isCameraAnimating;
+                    // Якщо анімація вже була відтворена, відключаємо StartCanvasGroup
+                    if (cameraOffsetAnimator.isAnimationPlayed)
+                    {
+                        StartCanvasGroup.gameObject.SetActive(false);
+                    }
                 }
             }
 
@@ -171,6 +177,7 @@ public class LevelManager : MonoBehaviour
     {
         pauseMenu.PlaySaveAnimation();
         data.playerPosition = player.transform.position;
+        data.playerHealth = player.health;
         data.currentScene = SceneManager.GetActiveScene().buildIndex;
         PlayerPrefs.SetInt("LoadedCurrentDialogIndex", dialogReader.GetCurrentDialogIndex());
         PlayerPrefs.SetInt("LoadedCurrentSentenceIndex", dialogReader.GetCurrentSentenceIndex());
@@ -178,7 +185,7 @@ public class LevelManager : MonoBehaviour
         Debug.Log("Збереження гри...");
 
         // Збереження позиції чаклуна
-        WizardController wizard = FindObjectOfType<WizardController>();
+        WizzardController wizard = FindObjectOfType<WizzardController>();
         if (wizard != null)
         {
             data.wizardPosition = wizard.transform.position;
@@ -254,17 +261,18 @@ public class LevelManager : MonoBehaviour
             data.isAnimationPlayed = cameraOffsetAnimator.isAnimationPlayed;
             data.isCameraAnimating = cameraOffsetAnimator.isCameraAnimating;
         }
-
         PlayerPrefs.Save();
         SaveManager.SaveGame(data);
     }
 
     private IEnumerator FadeInLevel()
     {
+        yield return new WaitForSeconds(2);
+
         audioController = FindObjectOfType<AudioController>();
         if (audioController != null)
         {
-            audioController.PlayAudio(levelMusic, levelSound, levelAmbience);
+            audioController.PlayAudio(levelMusic, null, null);
         }
 
         float elapsedTime = 0f;
@@ -272,15 +280,15 @@ public class LevelManager : MonoBehaviour
         while (elapsedTime < fadeDuration)
         {
             elapsedTime += Time.deltaTime;
-            canvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+            StartCanvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
             yield return null;
         }
-        canvasGroup.alpha = 0f;
+        StartCanvasGroup.alpha = 0f;
     }
 
     private IEnumerator PlayAnimationAndDeactivateCanvas()
     {
         yield return StartCoroutine(FadeInLevel());
-        canvasGroup.gameObject.SetActive(false);
+        StartCanvasGroup.gameObject.SetActive(false);
     }
 }

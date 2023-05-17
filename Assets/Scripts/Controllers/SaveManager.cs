@@ -44,7 +44,6 @@ public class SaveManager : MonoBehaviour
     }
 }
 
-
 public struct SaveData
 {
     public List<int> prevScenes;
@@ -73,4 +72,5 @@ public struct SaveData
     public bool questActivated;
     public bool isAnimationPlayed;
     public bool isCameraAnimating;
+    public int playerHealth;
 }

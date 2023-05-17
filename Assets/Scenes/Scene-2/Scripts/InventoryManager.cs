@@ -15,7 +15,7 @@ public class InventoryManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(pickupKey) && powerStone != null && powerStone.IsPlayerInRange(3f) && !IsPowerStoneInInventory()) // Додано перевірку нової змінної
+        if (Input.GetKeyDown(pickupKey) && powerStone != null && powerStone.IsPlayerInRange(5f) && !IsPowerStoneInInventory()) // Додано перевірку нової змінної
         {
             AddPowerStoneToInventory();
         }
