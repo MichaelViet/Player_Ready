@@ -23,7 +23,7 @@ public class MonologueZone : MonoBehaviour
     private bool wasPlayerInside = false; // Прапорець, що позначає, чи гравець був всередині зони
     public RayCastWeapon playerWeapon; // Зброя гравця
     private QuestSystem questSystem; // Система квестів
-
+    private bool interactionEnabled = false;
     private void Start()
     {
         if (sharedMonologueCanvasGroup != null)
@@ -36,75 +36,88 @@ public class MonologueZone : MonoBehaviour
             mouseClickHover.enabled = false; // Вимикаємо підказку про клік мишею
         }
         questSystem = FindObjectOfType<QuestSystem>(); // Ініціалізуємо систему квестів
+        CameraOffsetAnimator.OnAnimationEnd += EnableInteraction;
     }
 
     private void Update()
     {
-        if (playerTransforms != null && sharedMonologueCanvasGroup != null && !zoneDisabled)
+        if (interactionEnabled)
         {
-            Transform closestPlayer = GetClosestPlayer(playerTransforms); // Знаходимо найближчого гравця
-            float distance = Vector3.Distance(closestPlayer.position, transform.position); // Відстань до найближчого гравця
-            bool isPlayerInside = distance <= radius; // Перевіряємо, чи гравець всередині зони
-
-            if (isPlayerInside && !wasPlayerInside)
+            if (playerTransforms != null && sharedMonologueCanvasGroup != null && !zoneDisabled)
             {
-                currentZone = this;
-                currentSentenceIndex = 0;
+                Transform closestPlayer = GetClosestPlayer(playerTransforms); // Знаходимо найближчого гравця
+                float distance = Vector3.Distance(closestPlayer.position, transform.position); // Відстань до найближчого гравця
+                bool isPlayerInside = distance <= radius; // Перевіряємо, чи гравець всередині зони
 
-                if (!playerStop)
+                if (isPlayerInside && !wasPlayerInside)
                 {
-                    StartCoroutine(AutoChangeSentence()); // Запускаємо автоматичну зміну речень
-                }
+                    currentZone = this;
+                    currentSentenceIndex = 0;
 
-                if (playerWeapon != null)
-                {
-                    playerWeapon.SetCanShoot(false); // Вимикаємо можливість стріляти гравця
-                }
-            }
-
-            if (isPlayerInside)
-            {
-                if (sharedMonologueText != null && monologueSentences.Count > 0)
-                {
-                    sharedMonologueText.text = monologueSentences[currentSentenceIndex]; // Встановлюємо текс монологу
-                }
-
-                sharedMonologueCanvasGroup.alpha = 1; // Відображаємо канвас монологу
-
-                if (Input.GetMouseButtonDown(0) && sharedMonologueText != null && playerStop)
-                {
-                    if (!EventSystem.current.IsPointerOverGameObject())
+                    if (!playerStop)
                     {
-                        ChangeSentence(); // Змінюємо речення при кліку мишею
+                        StartCoroutine(AutoChangeSentence()); // Запускаємо автоматичну зміну речень
+                    }
+
+                    if (playerWeapon != null)
+                    {
+                        playerWeapon.SetCanShoot(false); // Вимикаємо можливість стріляти гравця
                     }
                 }
 
-                if (mouseClickHover != null)
+                if (isPlayerInside)
                 {
-                    mouseClickHover.enabled = showMouseClickHover && currentZone == this; // Встановлюємо видимість підказки про клік мишею
-                }
-            }
-            else if (wasPlayerInside)
-            {
-                currentZone = null;
-                sharedMonologueCanvasGroup.alpha = 0; // Приховуємо канвас монологу
+                    if (sharedMonologueText != null && monologueSentences.Count > 0)
+                    {
+                        sharedMonologueText.text = monologueSentences[currentSentenceIndex]; // Встановлюємо текс монологу
+                    }
 
-                if (!playerStop)
-                {
-                    StopCoroutine(AutoChangeSentence()); // Зупиняємо автоматичну зміну речень
-                }
+                    sharedMonologueCanvasGroup.alpha = 1; // Відображаємо канвас монологу
 
-                if (mouseClickHover != null)
-                {
-                    mouseClickHover.enabled = false; // Вимикаємо підказку про клік мишею
+                    if (Input.GetMouseButtonDown(0) && sharedMonologueText != null && playerStop)
+                    {
+                        if (!EventSystem.current.IsPointerOverGameObject())
+                        {
+                            ChangeSentence(); // Змінюємо речення при кліку мишею
+                        }
+                    }
+
+                    if (mouseClickHover != null)
+                    {
+                        mouseClickHover.enabled = showMouseClickHover && currentZone == this; // Встановлюємо видимість підказки про клік мишею
+                    }
                 }
-                if (playerWeapon != null)
+                else if (wasPlayerInside)
                 {
-                    playerWeapon.SetCanShoot(true); // Увімкнюємо можливість стріляти гравця
+                    currentZone = null;
+                    sharedMonologueCanvasGroup.alpha = 0; // Приховуємо канвас монологу
+
+                    if (!playerStop)
+                    {
+                        StopCoroutine(AutoChangeSentence()); // Зупиняємо автоматичну зміну речень
+                    }
+
+                    if (mouseClickHover != null)
+                    {
+                        mouseClickHover.enabled = false; // Вимикаємо підказку про клік мишею
+                    }
+                    if (playerWeapon != null)
+                    {
+                        playerWeapon.SetCanShoot(true); // Увімкнюємо можливість стріляти гравця
+                    }
                 }
+                wasPlayerInside = isPlayerInside;
             }
-            wasPlayerInside = isPlayerInside;
         }
+    }
+
+    private void OnDestroy()
+    {
+        CameraOffsetAnimator.OnAnimationEnd -= EnableInteraction;
+    }
+    private void EnableInteraction()
+    {
+        interactionEnabled = true;
     }
 
     private Transform GetClosestPlayer(List<Transform> players)

@@ -72,6 +72,7 @@ public class RayCastWeapon : MonoBehaviour
                 ShootBullet(shootingDirection);
             }
         }
+
     }
 
     public void SetCanShoot(bool value)

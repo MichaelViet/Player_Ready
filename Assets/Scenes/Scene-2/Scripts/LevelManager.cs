@@ -160,6 +160,7 @@ public class LevelManager : MonoBehaviour
                     float CameraY = PlayerPrefs.GetFloat("CameraPositionY");
                     float CameraZ = PlayerPrefs.GetFloat("CameraPositionZ");
                     cameraOffsetAnimator.virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset = new Vector3(CameraX, CameraY, CameraZ);
+                    cameraOffsetAnimator.isCameraAnimating = data.isCameraAnimating;
                 }
             }
 
@@ -251,6 +252,7 @@ public class LevelManager : MonoBehaviour
             PlayerPrefs.SetFloat("CameraPositionY", cameraPosition.y);
             PlayerPrefs.SetFloat("CameraPositionZ", cameraPosition.z);
             data.isAnimationPlayed = cameraOffsetAnimator.isAnimationPlayed;
+            data.isCameraAnimating = cameraOffsetAnimator.isCameraAnimating;
         }
 
         PlayerPrefs.Save();

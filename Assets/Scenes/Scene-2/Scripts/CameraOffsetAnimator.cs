@@ -1,18 +1,25 @@
 using System.Collections;
 using UnityEngine;
 using Cinemachine;
+using System;
 
 public class CameraOffsetAnimator : MonoBehaviour
 {
     public CinemachineVirtualCamera virtualCamera;
     public float duration = 20f;
-    private Vector3 startPosition = new Vector3(257.6798f, 44.42f, 0f);
-    private Vector3 endPosition = new Vector3(0f, 4f, 0f);
+    private Vector3 startPosition = new Vector3(257.6f, 44.42f, 0f);
+    private Vector3 endPosition = new Vector3(0f, 3f, 0f);
     public bool isAnimationPlayed = false;
+    public static event Action OnAnimationEnd;
+    public bool isCameraAnimating = true;
 
     void Start()
     {
-
+        Player player = FindObjectOfType<Player>();  // знайти гравця
+        if (player != null)
+        {
+            isCameraAnimating = true;  // встановити isCameraAnimating на true
+        }
         if (isAnimationPlayed == false)
         {
             StartCoroutine(AnimateOffset());
@@ -20,6 +27,7 @@ public class CameraOffsetAnimator : MonoBehaviour
         else
         {
             LoadCameraPositionAndState();
+            isCameraAnimating = false;  // встановити isCameraAnimating на false
         }
     }
 
@@ -34,6 +42,8 @@ public class CameraOffsetAnimator : MonoBehaviour
             yield return null;
         }
         isAnimationPlayed = true;
+        isCameraAnimating = false;  // встановити isCameraAnimating на false після завершення анімації
+        OnAnimationEnd?.Invoke();
     }
 
     void SaveCameraPositionAndState()
@@ -56,5 +66,3 @@ public class CameraOffsetAnimator : MonoBehaviour
         }
     }
 }
-
-

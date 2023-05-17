@@ -9,13 +9,15 @@ public class Player : MonoBehaviour
     private float horizontalMove = 0f;
     private bool jump = false;
     private bool crouch = false;
-    private bool canMove = true;
+    public bool canMove = false;
     private Rigidbody2D rb;
     public bool isSoldier = false;
     public int health;
-
+    private CameraOffsetAnimator cameraOffsetAnimator;
     void Start()
     {
+        cameraOffsetAnimator = FindObjectOfType<CameraOffsetAnimator>();
+        CameraOffsetAnimator.OnAnimationEnd += EnableMovement;
         dialogReader = FindObjectOfType<DialogReader>();
         rb = GetComponent<Rigidbody2D>();
     }
@@ -38,7 +40,7 @@ public class Player : MonoBehaviour
             canMove = true;
         }
         // Отримуємо значення горизонтального входу користувача, якщо можна рухатися
-        horizontalMove = canMove ? Input.GetAxisRaw("Horizontal") * runSpeed : 0;
+        horizontalMove = canMove && !cameraOffsetAnimator.isCameraAnimating ? Input.GetAxisRaw("Horizontal") * runSpeed : 0;
         // Встановлюємо значення швидкості для анімації бігу
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
         // Додаємо код для повороту персонажа в напрямку миші, якщо це солдат
@@ -54,20 +56,20 @@ public class Player : MonoBehaviour
                 controller.FlipToDirection(true);
             }
         }
-        // Якщо можна рухатися і користувач натиснув кнопку пробіл, то позначаємо, що гравець хоче зробити прижок
-        if (canMove && Input.GetButtonDown("Jump"))
+        // Якщо можна рухатися, камера не анімується, і користувач натиснув кнопку пробіл, то позначаємо, що гравець хоче зробити прижок
+        if (canMove && !cameraOffsetAnimator.isCameraAnimating && Input.GetButtonDown("Jump"))
         {
             jump = true;
             animator.SetBool("IsJumping", true);
         }
 
-        // Якщо можна рухатися і користувач натиснув кнопку присідання, то позначаємо, що гравець хоче присісти
-        if (canMove && Input.GetButtonDown("Crouch"))
+        // Якщо можна рухатися, камера не анімується, і користувач натиснув кнопку присідання, то позначаємо, що гравець хоче присісти
+        if (canMove && !cameraOffsetAnimator.isCameraAnimating && Input.GetButtonDown("Crouch"))
         {
             crouch = true;
         }
-        // Якщо можна рухатися і користувач відпустив кнопку присідання, то позначаємо, що гравець більше не хоче присідати
-        else if (canMove && Input.GetButtonUp("Crouch"))
+        // Якщо можна рухатися, камера не анімується, і користувач відпустив кнопку присідання, то позначаємо, що гравець більше не хоче присідати
+        else if (canMove && !cameraOffsetAnimator.isCameraAnimating && Input.GetButtonUp("Crouch"))
         {
             crouch = false;
         }
@@ -91,5 +93,13 @@ public class Player : MonoBehaviour
         controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
         jump = false;
     }
+    void OnDestroy()
+    {
+        CameraOffsetAnimator.OnAnimationEnd -= EnableMovement;  // відписатися від події
+    }
 
+    void EnableMovement()
+    {
+        canMove = true;
+    }
 }

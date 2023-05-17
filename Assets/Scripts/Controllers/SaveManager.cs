@@ -1,29 +1,49 @@
+using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class SaveManager : MonoBehaviour
 {
-    private static string SAVED_GAME = "savedGame";
+    private static string SAVED_GAME = "/saveData.json";
 
     public static void SaveGame(SaveData data)
     {
-        PlayerPrefs.SetString(SAVED_GAME, JsonUtility.ToJson(data));
+        string json = JsonUtility.ToJson(data);
+        File.WriteAllText(Application.persistentDataPath + SAVED_GAME, json);
     }
 
     public static SaveData LoadGame()
     {
-        return JsonUtility.FromJson<SaveData>(PlayerPrefs.GetString(SAVED_GAME));
+        string path = Application.persistentDataPath + SAVED_GAME;
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            Debug.Log(Application.persistentDataPath);
+            return JsonUtility.FromJson<SaveData>(json);
+        }
+        else
+        {
+            Debug.LogError("Save file not found in " + path);
+            return new SaveData();
+        }
     }
 
     public static bool IsGameSaved()
     {
-        return PlayerPrefs.HasKey(SAVED_GAME);
+        string path = Application.persistentDataPath + SAVED_GAME;
+        return File.Exists(path);
     }
 
     public static void ClearSavedGame()
     {
-        PlayerPrefs.DeleteKey(SAVED_GAME);
+        string path = Application.persistentDataPath + SAVED_GAME;
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
     }
 }
+
 
 public struct SaveData
 {
@@ -52,4 +72,5 @@ public struct SaveData
     public bool isPowerStoneActive;
     public bool questActivated;
     public bool isAnimationPlayed;
+    public bool isCameraAnimating;
 }
