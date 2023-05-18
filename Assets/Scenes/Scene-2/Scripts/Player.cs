@@ -16,7 +16,6 @@ public class Player : MonoBehaviour
     public bool isSoldier = false;
     public Slider healthSlider;
     public int health;
-    public CanvasGroup healthSliderCanvasGroup;
     private float lastDamageTime;
     public float healthRegenDelay = 5f;  // здоров'я відновлюється кожні 5 секунд
     public int healthRegenAmount = 2;  // кількість здоров'я, що відновлюється за один раз
@@ -31,8 +30,6 @@ public class Player : MonoBehaviour
         healthSlider.maxValue = 250;
         healthSlider.value = health;
         lastDamageTime = Time.time;
-        healthSliderCanvasGroup = healthSlider.GetComponent<CanvasGroup>();
-        UpdateHealthSliderVisibility();
         StartCoroutine(RegenHealth());
     }
     public void TakeDamage(int damage)
@@ -40,7 +37,6 @@ public class Player : MonoBehaviour
         health -= damage;
         healthSlider.value = health;
         lastDamageTime = Time.time;
-        UpdateHealthSliderVisibility();
     }
     private void Update()
     {
@@ -96,9 +92,9 @@ public class Player : MonoBehaviour
         healthSlider.value = health;
     }
 
-    IEnumerator RegenHealth()
+    public IEnumerator RegenHealth()
     {
-        while (true)  // постійний цикл
+        while (true)
         {
             if (Time.time - lastDamageTime >= healthRegenDelay && health < 250)
             {
@@ -108,24 +104,12 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void RegenerateHealth()
+    public void RegenerateHealth()
     {
         health += healthRegenAmount;
         healthSlider.value = health;
-        UpdateHealthSliderVisibility();
     }
 
-    private void UpdateHealthSliderVisibility()
-    {
-        if (health < 250)
-        {
-            healthSliderCanvasGroup.alpha = 1;
-        }
-        else
-        {
-            healthSliderCanvasGroup.alpha = 0;
-        }
-    }
 
     // Функція, яка викликається після завершення прижку гравця
     public void OnLanding()

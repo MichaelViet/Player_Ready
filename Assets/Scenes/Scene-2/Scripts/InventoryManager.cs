@@ -45,6 +45,11 @@ public class InventoryManager : MonoBehaviour
             {
                 slot.AddItem(powerStone);
                 powerStone.gameObject.SetActive(false);
+                if (powerStone.canvasE != null)
+                {
+                    powerStone.canvasE.SetActive(false); // Приховуємо canvasE, коли гравець підіймає камінь
+                }
+                powerStone.gameObject.SetActive(false);
                 if (!questActivated)
                 {
                     Quest activeQuest = questSystem.GetActiveQuest();

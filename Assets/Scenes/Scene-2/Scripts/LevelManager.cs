@@ -11,7 +11,7 @@ public class LevelManager : MonoBehaviour
     public AudioClip levelMusic; // Музика для рівня
     public BasePauseMenu pauseMenu;
     private AudioController audioController;
-    public CanvasGroup StartCanvasGroup;
+    public CanvasGroup StartImage;
     public Player player;
     public DialogReader dialogReader;
     public Boss boss;
@@ -19,11 +19,19 @@ public class LevelManager : MonoBehaviour
     public InventoryManager inventoryManager;
     public QuestSystem questSystem;
     private bool questActivated = false;
-    SaveData data = new SaveData();
     private CameraOffsetAnimator cameraOffsetAnimator;
-
+    private WizzardController wizzard;
+    private TreeDestruction treeDestruction;
+    private MonologueZone[] monologueZones;
+    private HintManager hintManager;
+    SaveData data = new SaveData();
+    public Portal portal;
     public void Start()
     {
+        hintManager = FindObjectOfType<HintManager>();
+        monologueZones = FindObjectsOfType<MonologueZone>();
+        treeDestruction = FindObjectOfType<TreeDestruction>();
+        wizzard = FindObjectOfType<WizzardController>();
         cameraOffsetAnimator = FindObjectOfType<CameraOffsetAnimator>();
         audioController = FindObjectOfType<AudioController>();
         questActivated = false;
@@ -31,7 +39,6 @@ public class LevelManager : MonoBehaviour
         player = FindObjectOfType<Player>();
         dialogReader = FindObjectOfType<DialogReader>();
         pauseMenu.ToggleCursor(false);
-        WizzardController wizard = FindObjectOfType<WizzardController>();
         StartCoroutine(PlayAnimationAndDeactivateCanvas());
         if (SaveManager.IsGameSaved() && PlayerPrefs.HasKey("LoadedPlayerPositionX"))
         {   // Загрузка гравця
@@ -52,20 +59,20 @@ public class LevelManager : MonoBehaviour
             PlayerPrefs.DeleteKey("LoadedCurrentDialogIndex");
             PlayerPrefs.DeleteKey("LoadedCurrentSentenceIndex");
             // загрузка чаклуна
-            if (wizard != null)
+            if (wizzard != null)
             {
-                float wizardX = PlayerPrefs.GetFloat("LoadedWizardPositionX");
-                float wizardY = PlayerPrefs.GetFloat("LoadedWizardPositionY");
-                float wizardZ = PlayerPrefs.GetFloat("LoadedWizardPositionZ");
-                Vector3 loadedWizardPosition = new Vector3(wizardX, wizardY, wizardZ);
-                wizard.transform.position = loadedWizardPosition;
-                wizard.Wall.SetActive(data.wallActive);
-                wizard.dialogComplete = data.dialogCompleted; // відновлюємо стан діалогу
+                float wizzardX = PlayerPrefs.GetFloat("LoadedWizzardPositionX");
+                float wizzardY = PlayerPrefs.GetFloat("LoadedWizzardPositionY");
+                float wizzardZ = PlayerPrefs.GetFloat("LoadedWizzardPositionZ");
+                Vector3 loadedWizzardPosition = new Vector3(wizzardX, wizzardY, wizzardZ);
+                wizzard.transform.position = loadedWizzardPosition;
+                wizzard.Wall.SetActive(data.wallActive);
+                wizzard.dialogComplete = data.dialogCompleted; // відновлюємо стан діалогу
                 dialogReader.SetCurrentDialogIndex(loadedCurrentDialogIndex);
                 dialogReader.SetCurrentSentenceIndex(loadedCurrentSentenceIndex);
-                PlayerPrefs.DeleteKey("LoadedWizardPositionX");
-                PlayerPrefs.DeleteKey("LoadedWizardPositionY");
-                PlayerPrefs.DeleteKey("LoadedWizardPositionZ");
+                PlayerPrefs.DeleteKey("LoadedWizzardPositionX");
+                PlayerPrefs.DeleteKey("LoadedWizzardPositionY");
+                PlayerPrefs.DeleteKey("LoadedWizzardPositionZ");
             }
 
             // Загрузка дерева
@@ -78,7 +85,7 @@ public class LevelManager : MonoBehaviour
                 treeDestruction.SetEmptyWallActive(data.emptyWallActive);
                 treeDestruction.InteractionRadius = data.InteractionRadius;
 
-                if (wizard.dialogComplete)
+                if (wizzard.dialogComplete)
                 {
                     int lastIndex = dialogReader.dialogData.dialog.Count - 1;
                     if (lastIndex >= 0)
@@ -88,9 +95,9 @@ public class LevelManager : MonoBehaviour
                         dialogReader.personNameText.text = lastDialogEntry.speaker;
                     }
                 }
-                PlayerPrefs.DeleteKey("LoadedWizardPositionX");
-                PlayerPrefs.DeleteKey("LoadedWizardPositionY");
-                PlayerPrefs.DeleteKey("LoadedWizardPositionZ");
+                PlayerPrefs.DeleteKey("LoadedWizzardPositionX");
+                PlayerPrefs.DeleteKey("LoadedWizzardPositionY");
+                PlayerPrefs.DeleteKey("LoadedWizzardPositionZ");
             }
 
             // Завантаження радіусів монологу
@@ -162,35 +169,39 @@ public class LevelManager : MonoBehaviour
                     float CameraZ = PlayerPrefs.GetFloat("CameraPositionZ");
                     cameraOffsetAnimator.virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset = new Vector3(CameraX, CameraY, CameraZ);
                     cameraOffsetAnimator.isCameraAnimating = data.isCameraAnimating;
-                    // Якщо анімація вже була відтворена, відключаємо StartCanvasGroup
+                    // Якщо анімація вже була відтворена, відключаємо StartImage
                     if (cameraOffsetAnimator.isAnimationPlayed)
                     {
-                        StartCanvasGroup.gameObject.SetActive(false);
+                        StartImage.gameObject.SetActive(false);
                     }
                 }
             }
-
+            // Завантаження стану порталу
+            if (portal != null)
+            {
+                if (data.isPortalAnimationActive)
+                {
+                    portal.StartAnimation();
+                }
+            }
         }
     }
 
     public void SavePlayerProgress()
     {
         pauseMenu.PlaySaveAnimation();
+
+        // Зберігання даних гравця
         data.playerPosition = player.transform.position;
         data.playerHealth = player.health;
         data.currentScene = SceneManager.GetActiveScene().buildIndex;
-        PlayerPrefs.SetInt("LoadedCurrentDialogIndex", dialogReader.GetCurrentDialogIndex());
-        PlayerPrefs.SetInt("LoadedCurrentSentenceIndex", dialogReader.GetCurrentSentenceIndex());
-        PlayerPrefs.Save();
-        Debug.Log("Збереження гри...");
 
         // Збереження позиції чаклуна
-        WizzardController wizard = FindObjectOfType<WizzardController>();
-        if (wizard != null)
+        if (wizzard != null)
         {
-            data.wizardPosition = wizard.transform.position;
-            data.wallActive = wizard.Wall.activeSelf;
-            data.dialogCompleted = wizard.dialogComplete;
+            data.wizzardPosition = wizzard.transform.position;
+            data.wallActive = wizzard.Wall.activeSelf;
+            data.dialogCompleted = wizzard.dialogComplete;
         }
 
         // Збереження діалогу
@@ -201,7 +212,6 @@ public class LevelManager : MonoBehaviour
         }
 
         // Зберігання стану дерева
-        TreeDestruction treeDestruction = FindObjectOfType<TreeDestruction>();
         if (treeDestruction != null)
         {
             data.treePosition = treeDestruction.transform.position;
@@ -212,7 +222,6 @@ public class LevelManager : MonoBehaviour
         }
 
         // Збереження радіусів
-        MonologueZone[] monologueZones = FindObjectsOfType<MonologueZone>();
         for (int i = 0; i < monologueZones.Length; i++)
         {
             PlayerPrefs.SetFloat("Zone" + monologueZones[i].zoneIndex + "Radius", monologueZones[i].radius);
@@ -227,7 +236,6 @@ public class LevelManager : MonoBehaviour
         }
 
         // Збереження стану підказок
-        HintManager hintManager = FindObjectOfType<HintManager>();
         if (hintManager != null)
         {
             for (int i = 0; i < hintManager.hints.Count; i++)
@@ -261,6 +269,14 @@ public class LevelManager : MonoBehaviour
             data.isAnimationPlayed = cameraOffsetAnimator.isAnimationPlayed;
             data.isCameraAnimating = cameraOffsetAnimator.isCameraAnimating;
         }
+
+        // Збереження стану анімації порталу
+        if (portal != null)
+        {
+            data.isPortalAnimationActive = portal.isAnimating;
+
+        }
+        Debug.Log("Збереження гри...");
         PlayerPrefs.Save();
         SaveManager.SaveGame(data);
     }
@@ -280,15 +296,15 @@ public class LevelManager : MonoBehaviour
         while (elapsedTime < fadeDuration)
         {
             elapsedTime += Time.deltaTime;
-            StartCanvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+            StartImage.alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
             yield return null;
         }
-        StartCanvasGroup.alpha = 0f;
+        StartImage.alpha = 0f;
     }
 
     private IEnumerator PlayAnimationAndDeactivateCanvas()
     {
         yield return StartCoroutine(FadeInLevel());
-        StartCanvasGroup.gameObject.SetActive(false);
+        StartImage.gameObject.SetActive(false);
     }
 }

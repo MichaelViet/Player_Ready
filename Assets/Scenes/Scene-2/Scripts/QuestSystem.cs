@@ -17,6 +17,7 @@ public class QuestSystem : MonoBehaviour
     private float fadeOutDelay;
     private bool isPanelVisible;
     private bool hintShown = false;
+    public CanvasGroup QuestEndedPanel;
     private void Start()
     {
         foreach (var quest in questList)
@@ -62,7 +63,15 @@ public class QuestSystem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab) && !isPanelVisible)
         {
-            StartCoroutine(FadeIn());
+            Quest activeQuest = GetActiveQuest();
+            if (activeQuest != null)
+            {
+                StartCoroutine(FadeIn());
+            }
+            else
+            {
+                StartCoroutine(ShowAndHideQuestEndedPanel());
+            }
         }
 
         if (isPanelVisible)
@@ -112,6 +121,23 @@ public class QuestSystem : MonoBehaviour
 
     public IEnumerator FadeIn()
     {
+        // Перевіряємо, чи є активні квести
+        bool hasActiveQuests = false;
+        foreach (var quest in questList)
+        {
+            if (quest.IsActive && !quest.IsComplete)
+            {
+                hasActiveQuests = true;
+                break;
+            }
+        }
+
+        // Якщо активних квестів немає, не показуємо панель
+        if (!hasActiveQuests)
+        {
+            yield break;
+        }
+
         float elapsedTime = 0;
         while (elapsedTime < fadeInDuration)
         {
@@ -133,6 +159,28 @@ public class QuestSystem : MonoBehaviour
             }
             hintShown = true;
         }
+    }
+    public IEnumerator ShowAndHideQuestEndedPanel()
+    {
+        float elapsedTime = 0;
+        while (elapsedTime < fadeInDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            QuestEndedPanel.alpha = Mathf.Clamp01(elapsedTime / fadeInDuration);
+            yield return null;
+        }
+        QuestEndedPanel.alpha = 1;
+
+        yield return new WaitForSeconds(displayDuration);
+
+        elapsedTime = 0;
+        while (elapsedTime < fadeOutDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            QuestEndedPanel.alpha = Mathf.Clamp01(1 - (elapsedTime / fadeOutDuration));
+            yield return null;
+        }
+        QuestEndedPanel.alpha = 0;
     }
 
     public IEnumerator FadeOut()

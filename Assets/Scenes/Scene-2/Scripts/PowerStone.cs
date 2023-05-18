@@ -11,12 +11,16 @@ public class PowerStone : MonoBehaviour
     private bool isFloating = true;
     private Vector3 initialPosition;
     private float time;
-
+    public GameObject canvasE;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         initialPosition = transform.position;
         time = 0f;
+        if (canvasE != null)
+        {
+            canvasE.SetActive(false); // Приховуємо на початку
+        }
     }
 
     public bool IsPlayerInRange(float range)
@@ -32,7 +36,10 @@ public class PowerStone : MonoBehaviour
             float newY = initialPosition.y + Mathf.Sin(time * speed) * 2;
             transform.position = new Vector3(initialPosition.x, newY, initialPosition.z);
             time += Time.deltaTime;
-
+        }
+        if (canvasE != null)
+        {
+            canvasE.SetActive(IsPlayerInRange(pickupRadius)); // Відображаємо canvasE, якщо гравець в радіусі
         }
     }
     public void SetInitialPosition(Vector3 newPosition)

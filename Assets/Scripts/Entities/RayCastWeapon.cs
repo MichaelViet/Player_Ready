@@ -18,6 +18,7 @@ public class RayCastWeapon : MonoBehaviour
     public GameObject bulletPrefab;
     public float bulletPrefabLifeTime = 3f;
     public int bulletDamage = 20;
+    public float granadeBulletSpeed = 10f;
     public float bulletFireRate = 1.5f;
     private bool isLaserBulletMode = true;
     private float nextFireTime;
@@ -28,7 +29,7 @@ public class RayCastWeapon : MonoBehaviour
     private ObjectPool<GameObject> bulletPool;
     private ObjectPool<GameObject> laserBulletPool;
     private ObjectPool<GameObject> impactEffectPool;
-
+    private MonologueZone monologueZone;
     private void Awake()
     {
         raycastLayerMask = ~LayerMask.GetMask("Player");
@@ -37,6 +38,7 @@ public class RayCastWeapon : MonoBehaviour
         bulletPool = new ObjectPool<GameObject>(() => Instantiate(bulletPrefab), null, DestroyObject);
         laserBulletPool = new ObjectPool<GameObject>(() => Instantiate(laserBulletPrefab), null, DestroyObject);
         impactEffectPool = new ObjectPool<GameObject>(() => Instantiate(impactEffect), null, DestroyObject);
+        monologueZone = FindObjectOfType<MonologueZone>();
     }
     private void Start()
     {
@@ -61,7 +63,7 @@ public class RayCastWeapon : MonoBehaviour
         }
 
         // Додайте перевірку на isPaused тут
-        if (Input.GetButton("Fire1") && Time.time >= nextFireTime && canShoot && !BasePauseMenu.isPaused && !characterSelectionPanelController.characterPanelCanvasGroup.alpha.Equals(1f))
+        if (Input.GetButton("Fire1") && Time.time >= nextFireTime && canShoot && !BasePauseMenu.isPaused && !characterSelectionPanelController.characterPanelCanvasGroup.alpha.Equals(1f) && monologueZone.sharedMonologueCanvasGroup.alpha != 1f)
         {
             Vector2 shootingDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - firePoint.position);
             shootingDirection.Normalize();
@@ -74,7 +76,7 @@ public class RayCastWeapon : MonoBehaviour
             else
             {
                 nextFireTime = Time.time + 1f / bulletFireRate;
-                ShootBullet(shootingDirection);
+                GranadeBullet(shootingDirection);
             }
         }
     }
@@ -98,24 +100,23 @@ public class RayCastWeapon : MonoBehaviour
             // Виконуємо потрібні дії з об'єктом
             Destroy(laserBullet, laserBulletLifeTime);
         }
-        else
-        {
-            // Обробка випадку, коли об'єкт вже був знищений
-        }
     }
 
-    void ShootBullet(Vector2 shootingDirection)
+    void GranadeBullet(Vector2 shootingDirection)
     {
-        // Отримуємо об'єкт кулі з пулу
-        GameObject bullet = bulletPool.Get();
-        bullet.transform.position = firePoint.position;
-        bullet.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(shootingDirection.y, shootingDirection.x) * Mathf.Rad2Deg);
-        // Налаштовуємо параметри кулі
-        Bullet bulletScript = bullet.GetComponent<Bullet>();
-        bulletScript.damage = bulletDamage;
-        bullet.SetActive(true);
-        // Запускаємо відлік часу для знищення кулі після певного інтервалу
-        StartCoroutine(DelayedRelease(bullet, bulletPrefabLifeTime));
+        // Створюємо об'єкт лазерної кулі з пулу
+        GameObject granadeBullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.Euler(0, 0, Mathf.Atan2(shootingDirection.y, shootingDirection.x) * Mathf.Rad2Deg));
+        Bullet granadeBulletScript = granadeBullet.GetComponent<Bullet>();
+        granadeBulletScript.damage = bulletDamage;
+        granadeBulletScript.speed = granadeBulletSpeed;
+
+        // Перевіряємо, чи об'єкт не є null перед доступом до нього
+        if (granadeBullet != null)
+        {
+            // Виконуємо потрібні дії з об'єктом
+            granadeBullet.SetActive(true);
+            StartCoroutine(DelayedRelease(granadeBullet, bulletPrefabLifeTime));
+        }
     }
 
     private IEnumerator DelayedRelease(GameObject obj, float delay)

@@ -15,6 +15,7 @@ public class Boss : MonoBehaviour
     private QuestSystem questSystem;
     private WizzardController wizzardController;
     private bool questActivated = false;
+
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -55,11 +56,6 @@ public class Boss : MonoBehaviour
                 }
                 questActivated = true;
             }
-            if (wizzardController.dialogComplete && isDead)
-            {
-                wizzardController.interactionDistance = 4.66f;
-                wizzardController.dialogComplete = true;
-            }
 
             wizzardController.bossIsDead = true; // Змінюємо стан босса у WizzardController
 
@@ -98,7 +94,6 @@ public class Boss : MonoBehaviour
         }
     }
 
-
     private void SetBossSliderVisibility(bool isVisible)
     {
         BossSlider.alpha = isVisible ? 1 : 0;
@@ -112,6 +107,7 @@ public class Boss : MonoBehaviour
         PlayerPrefs.SetFloat("BossPosZ", this.transform.position.z);
         PlayerPrefs.SetInt("BossIsDead", isDead ? 1 : 0);
         PlayerPrefs.SetInt("BossHealth", health);
+        PlayerPrefs.SetInt("QuestActivated", questActivated ? 1 : 0);
         PlayerPrefs.Save();
     }
 
@@ -126,6 +122,7 @@ public class Boss : MonoBehaviour
             this.transform.position = new Vector3(x, y, z);
             isDead = PlayerPrefs.GetInt("BossIsDead") == 1;
             health = PlayerPrefs.GetInt("BossHealth");
+            questActivated = PlayerPrefs.GetInt("QuestActivated") == 1;
         }
     }
 }

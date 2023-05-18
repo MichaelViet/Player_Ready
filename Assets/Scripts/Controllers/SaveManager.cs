@@ -46,31 +46,31 @@ public class SaveManager : MonoBehaviour
 
 public struct SaveData
 {
-    public List<int> prevScenes;
-    public int sentence;
+    public Vector3 cameraPosition;
     public Vector3 playerPosition;
+    public Vector3 wizzardPosition;
+    public Vector3 treePosition;
+    public Vector3 powerStonePosition;
+    public int sentence;
     public int currentScene;
     public int currentDialogIndex;
     public int currentSentenceIndex;
+    public int currentQuestIndex;
+    public int playerHealth;
+    public float InteractionRadius;
+    public float wizzardInteractionDistance;
     public bool dialogCompleted;
-    public Vector3 wizardPosition;
-    public Vector3 treePosition;
-    public Quaternion treeRotation;
     public bool isTreeDestroyed;
     public bool emptyWallActive;
-    public float InteractionRadius;
     public bool wallActive;
-    public float wizardInteractionDistance;
-    public List<bool> monologueZonesCompleted;
-    public List<float> monologueZonesRadii;
-    public int currentQuestIndex;
-    public List<Quest> questStates;
-    public List<bool> hintStates;
     public bool isPowerStoneInInventory;
-    public Vector3 powerStonePosition;
     public bool isPowerStoneActive;
     public bool questActivated;
     public bool isAnimationPlayed;
     public bool isCameraAnimating;
-    public int playerHealth;
+    public bool isPortalAnimationActive;
+    public List<Quest> questStates;
+    public List<int> prevScenes;
+    public Quaternion treeRotation;
+
 }

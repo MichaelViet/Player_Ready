@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -11,7 +12,6 @@ public class Bullet : MonoBehaviour
     private AudioSource audioSource;
     private ObjectPool<GameObject> impactEffectPool;
     public float impactEffectLifeTime = 2f;
-
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -27,6 +27,7 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         rb.velocity = transform.right * speed;
+
         // Відтворити звук вистрілу
         audioSource.Play();
     }
@@ -35,38 +36,29 @@ public class Bullet : MonoBehaviour
     {
         if (hitInfo.CompareTag("Boss"))
         {
-            hitInfo.GetComponent<Boss>().health -= damage; // Зменшуємо здоров'я боса
-
-            // Отримуємо об'єкт ефекту удару з пулу
+            hitInfo.GetComponent<Boss>().health -= damage;
             GameObject impactEffect = impactEffectPool.Get();
             impactEffect.transform.position = transform.position;
             impactEffect.transform.rotation = transform.rotation;
             impactEffect.SetActive(true);
-
-            // Знищуємо ефект удару через визначений час
             Destroy(impactEffect, impactEffectLifeTime);
             Destroy(gameObject);
         }
         else if (hitInfo.gameObject.layer == LayerMask.NameToLayer("Default"))
         {
-            // Отримуємо об'єкт ефекту удару з пулу
             GameObject impactEffect = impactEffectPool.Get();
             impactEffect.transform.position = transform.position;
             impactEffect.transform.rotation = transform.rotation;
             impactEffect.SetActive(true);
-
-            // Знищуємо ефект удару через визначений час
             Destroy(impactEffect, impactEffectLifeTime);
             Destroy(gameObject);
         }
         else if (hitInfo.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            // Отримуємо об'єкт ефекту удару з пулу
             GameObject impactEffect = impactEffectPool.Get();
             impactEffect.transform.position = transform.position;
             impactEffect.transform.rotation = transform.rotation;
             impactEffect.SetActive(true);
-            // Знищуємо ефект удару через визначений час
             Destroy(impactEffect, impactEffectLifeTime);
             Destroy(gameObject);
         }

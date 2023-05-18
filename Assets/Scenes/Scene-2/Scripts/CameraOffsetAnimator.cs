@@ -11,7 +11,7 @@ public class CameraOffsetAnimator : MonoBehaviour
     private Vector3 endPosition = new Vector3(0f, 3f, 0f);
     public bool isAnimationPlayed = false;
     public static event Action OnAnimationEnd;
-    public bool isCameraAnimating = true;
+    public bool isCameraAnimating = false;
 
     void Start()
     {

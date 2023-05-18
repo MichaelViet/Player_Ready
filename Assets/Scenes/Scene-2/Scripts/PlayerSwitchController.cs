@@ -38,23 +38,24 @@ public class PlayerSwitchController : MonoBehaviour
     public void SwitchToFox()
     {
         currentPlayer = foxPlayer;
+        foxPlayer.SetActive(true);
+        foxPlayerScript.StartCoroutine(foxPlayerScript.RegenHealth());
         int tempHealth = soldatenPlayerScript.health; // Зберігаємо поточне здоров'я солдата
         foxPlayerScript.health = tempHealth; // Встановлюємо здоров'я лисиці таким же, як у солдата
         foxPlayerScript.healthSlider.maxValue = 250; // Встановлюємо максимальне значення слайдера
         foxPlayerScript.healthSlider.value = tempHealth; // Оновлюємо значення слайдера здоров'я
-        foxPlayer.SetActive(true);
         soldatenPlayer.SetActive(false);
-        pauseMenu.ToggleCursor(false);
     }
 
     public void SwitchToSoldaten()
     {
         currentPlayer = soldatenPlayer;
+        soldatenPlayer.SetActive(true);
+        soldatenPlayerScript.StartCoroutine(soldatenPlayerScript.RegenHealth());
         int tempHealth = foxPlayerScript.health; // Зберігаємо поточне здоров'я лисиці
         soldatenPlayerScript.health = tempHealth; // Встановлюємо здоров'я солдата таким же, як у лисиці
         soldatenPlayerScript.healthSlider.maxValue = 250; // Встановлюємо максимальне значення слайдера
         soldatenPlayerScript.healthSlider.value = tempHealth; // Оновлюємо значення слайдера здоров'я
-        soldatenPlayer.SetActive(true);
         foxPlayer.SetActive(false);
         pauseMenu.ToggleCursor(true);
     }

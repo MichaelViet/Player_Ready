@@ -1,14 +1,18 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 public class WizzardController : MonoBehaviour
 {
     public List<Transform> players;
-    public float interactionDistance = 3.0f;
+    public float interactionDistance = 4f;
     public Animator animator;
     public GameObject pressE;
     public DialogReader dialogReader;
     public GameObject Wall;
     public bool dialogComplete = false;
+    public RayCastWeapon playerWeapon;
+    public bool bossIsDead = false; // параметр для відстеження стану босса
+    public bool afterBossDeathDialog = false;
     private Rigidbody2D rb;
     private Vector2 currentVelocity;
     private bool inInteractionDistance;
@@ -17,10 +21,9 @@ public class WizzardController : MonoBehaviour
     private float targetXPosition = -37;
     private float currentSpeed;
     private bool hintShown = false;
-    public RayCastWeapon playerWeapon;
     private QuestSystem questSystem;
-    private bool questActivated;
-    public bool bossIsDead = false; // Додаємо новий параметр для відстеження стану босса
+    private bool questActivated = false;
+    public Portal portal;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -28,7 +31,7 @@ public class WizzardController : MonoBehaviour
         dialogReader.bottomBarCanvasGroup.alpha = 0;
         dialogReader.OnDialogComplete += OnDialogComplete;
         questSystem = FindObjectOfType<QuestSystem>();
-        questActivated = false;
+
     }
 
     void Update()
@@ -84,6 +87,17 @@ public class WizzardController : MonoBehaviour
                 pressE.SetActive(true);
                 dialogReader.bottomBarCanvasGroup.alpha = 0;
                 SetCanShoot(true);
+            }
+            if (bossIsDead && !afterBossDeathDialog)
+            {
+                dialogComplete = false;
+                interactionDistance = 4;
+            }
+
+            if (afterBossDeathDialog && dialogComplete)
+            {
+                dialogComplete = true;
+                interactionDistance = 0;
             }
         }
     }
@@ -167,17 +181,10 @@ public class WizzardController : MonoBehaviour
         dialogComplete = true;
         Wall.SetActive(false);
         SetCanShoot(true); // дозволити стрільбу після завершення діалогу
-
-        if (bossIsDead) // Якщо босс мертвий, то це другий діалог
-        {
-            dialogComplete = false; // Встановлюємо dialog2Complete в true
-
-        }
         Quest activeQuest = questSystem.GetActiveQuest();
         if (activeQuest != null)
         {
             questSystem.CompleteQuest(activeQuest);
-
         }
 
         Quest nextQuest = questSystem.GetActiveQuest();
@@ -186,11 +193,30 @@ public class WizzardController : MonoBehaviour
             questSystem.StartQuest(nextQuest);
         }
         questActivated = true;
+        if (bossIsDead)
+        {
+            afterBossDeathDialog = true;
+            // Завершуємо активний квест, якщо він існує
+            activeQuest = questSystem.GetActiveQuest();
+            if (activeQuest != null)
+            {
+                questSystem.CompleteQuest(activeQuest);
+            }
+            questActivated = true;
+            // Початок анімації wizzard_spell
+            animator.SetBool("Spell", true);
 
+            // Повертаємося до анімації wizzard_idle після завершення wizzard_spell
+            StartCoroutine(PlayIdleAnimation());
+        }
         StartCoroutine(questSystem.FadeIn());
-
     }
-
+    public IEnumerator PlayIdleAnimation()
+    {
+        yield return new WaitForSeconds(1f); // Затримка, потрібно налаштувати для тривалості wizzard_spell анімації
+        animator.SetBool("Spell", false);   // Повернення до анімації wizzard_idle
+        portal.StartAnimation(); // Запуск анімації порталу
+    }
     private void OnDestroy()
     {
         dialogReader.OnDialogComplete -= OnDialogComplete; // Відписуємося від події, коли об'єкт знищено

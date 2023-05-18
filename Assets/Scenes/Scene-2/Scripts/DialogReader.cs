@@ -39,7 +39,7 @@ public class DialogReader : MonoBehaviour
         public Color color;
     }
 
-    private void Awake()
+    private void Start()
     {
         if (dialogJson != null)
         {

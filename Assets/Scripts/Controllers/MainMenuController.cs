@@ -60,9 +60,9 @@ public class MainMenuController : MonoBehaviour
             // Перевірка на Scene-2
             if (data.currentScene == 2)
             {
-                PlayerPrefs.SetFloat("LoadedWizardPositionX", data.wizardPosition.x);
-                PlayerPrefs.SetFloat("LoadedWizardPositionY", data.wizardPosition.y);
-                PlayerPrefs.SetFloat("LoadedWizardPositionZ", data.wizardPosition.z);
+                PlayerPrefs.SetFloat("LoadedWizzardPositionX", data.wizzardPosition.x);
+                PlayerPrefs.SetFloat("LoadedWizzardPositionY", data.wizzardPosition.y);
+                PlayerPrefs.SetFloat("LoadedWizzardPositionZ", data.wizzardPosition.z);
 
                 PlayerPrefs.SetFloat("LoadedPlayerPositionX", data.playerPosition.x);
                 PlayerPrefs.SetFloat("LoadedPlayerPositionY", data.playerPosition.y);
