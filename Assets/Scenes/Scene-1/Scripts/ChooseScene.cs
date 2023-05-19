@@ -17,5 +17,6 @@ public class ChooseScene : GameScene
         // Наступна сцена яка буде відтворена після вибору 
         public StoryScene nextScene;
         public string nextSceneName;
+
     }
 }

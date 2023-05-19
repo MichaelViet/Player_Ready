@@ -3,6 +3,8 @@ using UnityEngine;
 public class PauseMenu : BasePauseMenu
 {
     public LevelManager levelManager;
+    public LevelThreeController levelThreeController;
+
     public override void Resume()
     {
         StartCoroutine(FadeOutMenu());
@@ -18,5 +20,9 @@ public class PauseMenu : BasePauseMenu
     public void SavePlayerProgress()
     {
         levelManager.SavePlayerProgress();
+    }
+    public void SavePlayerProgressLevelThree()
+    {
+        levelThreeController.SavePlayerProgress();
     }
 }

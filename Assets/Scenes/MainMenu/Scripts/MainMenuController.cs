@@ -56,8 +56,8 @@ public class MainMenuController : MonoBehaviour
         if (SaveManager.IsGameSaved())
         {
             SaveData data = SaveManager.LoadGame();
-
             // Перевірка на Scene-2
+
             if (data.currentScene == 2)
             {
                 PlayerPrefs.SetFloat("LoadedWizzardPositionX", data.wizzardPosition.x);
@@ -79,8 +79,16 @@ public class MainMenuController : MonoBehaviour
                     dialogReader.SetCurrentSentenceIndex(PlayerPrefs.GetInt("LoadedCurrentSentenceIndex"));
                     dialogReader.DisplayDialog();
                 }
-                sceneToLoad = data.currentScene != 0 ? data.currentScene : sceneToLoad;
             }
+            else if (data.currentScene == 3)
+            {
+                PlayerPrefs.SetFloat("LoadedPlayerPositionX", data.playerPosition.x);
+                PlayerPrefs.SetFloat("LoadedPlayerPositionY", data.playerPosition.y);
+                PlayerPrefs.SetFloat("LoadedPlayerPositionZ", data.playerPosition.z);
+                PlayerPrefs.Save();
+
+            }
+            sceneToLoad = data.currentScene != 0 ? data.currentScene : sceneToLoad;
 
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Single);
             loadingImage.gameObject.SetActive(true);
