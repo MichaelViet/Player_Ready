@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    public InventorySlot[] inventorySlots;
+    public InventorySlots[] inventorySlots;
     public KeyCode pickupKey = KeyCode.E;
     public PowerStone powerStone;
     public QuestSystem questSystem;
@@ -23,7 +23,7 @@ public class InventoryManager : MonoBehaviour
 
     public bool IsPowerStoneInInventory()
     {
-        foreach (InventorySlot slot in inventorySlots)
+        foreach (InventorySlots slot in inventorySlots)
         {
             if (slot.GetItem() == powerStone)
             {
@@ -39,7 +39,7 @@ public class InventoryManager : MonoBehaviour
         arena.SetActive(true);
         Boss.SetActive(true);
 
-        foreach (InventorySlot slot in inventorySlots)
+        foreach (InventorySlots slot in inventorySlots)
         {
             if (slot.IsEmpty())
             {
@@ -72,7 +72,7 @@ public class InventoryManager : MonoBehaviour
 
     public void DropPowerStone()
     {
-        foreach (InventorySlot slot in inventorySlots)
+        foreach (InventorySlots slot in inventorySlots)
         {
             if (slot.GetItem() == powerStone)
             {

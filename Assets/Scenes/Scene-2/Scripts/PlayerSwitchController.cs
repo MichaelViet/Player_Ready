@@ -9,7 +9,7 @@ public class PlayerSwitchController : MonoBehaviour
     public GameObject currentPlayer;
     public CinemachineVirtualCamera virtualCamera;
     private BasePauseMenu pauseMenu;
-    private InventoryUI inventoryController;
+    private InventoryUIController inventoryController;
     private Player foxPlayerScript;
     private Player soldatenPlayerScript;
     void Start()
@@ -17,7 +17,7 @@ public class PlayerSwitchController : MonoBehaviour
         currentPlayer = foxPlayer;
         soldatenPlayer.SetActive(false);
         pauseMenu = FindObjectOfType<BasePauseMenu>();
-        inventoryController = FindObjectOfType<InventoryUI>();
+        inventoryController = FindObjectOfType<InventoryUIController>();
         foxPlayerScript = foxPlayer.GetComponent<Player>();
         soldatenPlayerScript = soldatenPlayer.GetComponent<Player>();
     }

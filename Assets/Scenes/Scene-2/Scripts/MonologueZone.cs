@@ -18,12 +18,16 @@ public class MonologueZone : MonoBehaviour
     public int zoneIndex;
     public bool playerStop;
     public Image mouseClickHover;
-    public bool showMouseClickHover = false; // по замовчуванню - вимкнуто
-
+    public bool showMouseClickHover = false;
+    private HintManager hintManager;
+    public bool hintShown = false; // Відслідковує, чи був показаний підказка
     private bool wasPlayerInside = false; // зберігає, чи був гравець у зоні на попередній кадрі
-
+    private QuestSystem quest;
+    private bool fadeInCalled = false;
     private void Start()
     {
+        hintManager = FindObjectOfType<HintManager>();
+        quest = FindObjectOfType<QuestSystem>();
         if (sharedMonologueCanvasGroup != null)
         {
             sharedMonologueCanvasGroup.alpha = 0;
@@ -44,7 +48,6 @@ public class MonologueZone : MonoBehaviour
 
             if (isPlayerInside && !wasPlayerInside)
             {
-                // якщо гравець тільки заходить у зону
                 currentZone = this;
                 currentSentenceIndex = 0;
 
@@ -56,7 +59,6 @@ public class MonologueZone : MonoBehaviour
 
             if (isPlayerInside)
             {
-                // якщо гравець перебуває у зоні
                 if (sharedMonologueText != null && monologueSentences.Count > 0)
                 {
                     sharedMonologueText.text = monologueSentences[currentSentenceIndex];
@@ -76,7 +78,6 @@ public class MonologueZone : MonoBehaviour
             }
             else if (wasPlayerInside)
             {
-                // якщо гравець тільки виходить із зони
                 currentZone = null;
                 sharedMonologueCanvasGroup.alpha = 0;
 
@@ -90,6 +91,17 @@ public class MonologueZone : MonoBehaviour
                     mouseClickHover.enabled = false;
                 }
             }
+            if (isZoneCompleted && !hintShown)
+            {
+                if (zoneIndex == 0 && !fadeInCalled) // Перевіряємо, що це перша зона і корутина ще не була викликана
+                {
+                    quest.StartCoroutine(quest.FadeIn()); // Викликаємо корутину FadeIn з QuestSystem
+                    fadeInCalled = true; // Оновлюємо, що корутина FadeIn була викликана
+                }
+
+                hintManager.ShowHint(0); // Викликаємо ShowHint з індексом 0
+                hintShown = true; // Оновлюємо, що підказка була показана
+            }
 
             wasPlayerInside = isPlayerInside; // зберігаємо, що було на поточному кадрі для порівняння з наступним
         }
@@ -99,7 +111,7 @@ public class MonologueZone : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(1.5f);
 
             ChangeSentence();
         }

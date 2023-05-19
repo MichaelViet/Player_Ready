@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class InventoryUI : MonoBehaviour
+public class InventoryUIController : MonoBehaviour
 {
     public CanvasGroup inventoryPanel;
     public float fadeDuration = 1f;

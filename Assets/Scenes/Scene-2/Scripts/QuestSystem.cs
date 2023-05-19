@@ -86,7 +86,7 @@ public class QuestSystem : MonoBehaviour
         UpdateQuestText();
     }
 
-    private void HandleQuestComplete(Quest quest)
+    public void HandleQuestComplete(Quest quest)
     {
         Debug.Log($"Квест {quest.Name} виповнено!");
         quest.IsActive = false;
