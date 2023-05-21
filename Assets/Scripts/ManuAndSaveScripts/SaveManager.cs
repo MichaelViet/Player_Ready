@@ -53,7 +53,7 @@ public struct SaveData
 {
     public Vector3 cameraPosition;
     public Vector3 playerPosition;
-    public Vector3 playerMotor;
+    public Vector3 playerMotorPosition;
     public Vector3 wizzardPosition;
     public Vector3 treePosition;
     public Vector3 powerStonePosition;

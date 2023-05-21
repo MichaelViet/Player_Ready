@@ -38,12 +38,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // Обробка лівої кнопки миші (встановлення фокусу на взаємодію)
-        if (Input.GetMouseButtonDown(0))
+        // Обробка правої кнопки миші (встановлення фокусу на взаємодію)
+        if (Input.GetMouseButtonDown(1))
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-
             // Перевіряємо, чи попадає промінь на об'єкт
             if (Physics.Raycast(ray, out hit, 100))
             {

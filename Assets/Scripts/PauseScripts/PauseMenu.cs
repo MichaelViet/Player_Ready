@@ -27,8 +27,4 @@ public class PauseMenu : BasePauseMenu
         levelThreeController.SavePlayerProgress();
         Debug.Log("Збереження гри відбулося");
     }
-    public void LoadPlayerProgress()
-    {
-        levelManager.LoadLevelProgress();
-    }
 }

@@ -51,11 +51,13 @@ public class MainMenuController : MonoBehaviour
 
     private IEnumerator LoadSavedGame()
     {
+        Debug.Log("LoadSavedGame() called in scene: " + SceneManager.GetActiveScene().name);
         int sceneToLoad = SceneManager.GetActiveScene().buildIndex + 1;
+        SaveData data = SaveManager.LoadGame();
         if (SaveManager.IsGameSaved())
         {
-            SaveData data = SaveManager.LoadGame();
-            if (data.currentScene == 2) // Перевірка на Scene-2
+            // Перевірка на Scene-2
+            if (data.currentScene == 2)
             {
                 PlayerPrefs.SetFloat("LoadedWizzardPositionX", data.wizzardPosition.x);
                 PlayerPrefs.SetFloat("LoadedWizzardPositionY", data.wizzardPosition.y);
@@ -79,12 +81,9 @@ public class MainMenuController : MonoBehaviour
             }
             if (data.currentScene == 3)
             {
-                PlayerPrefs.SetFloat("PlayerPositionX", data.playerMotor.x);
-                PlayerPrefs.SetFloat("PlayerPositionY", data.playerMotor.y);
-                PlayerPrefs.SetFloat("PlayerPositionZ", data.playerMotor.z);
-
-                PlayerPrefs.Save();
-
+                PlayerPrefs.SetFloat("PlayerPositionX", data.playerMotorPosition.x);
+                PlayerPrefs.SetFloat("PlayerPositionY", data.playerMotorPosition.y);
+                PlayerPrefs.SetFloat("PlayerPositionZ", data.playerMotorPosition.z);
             }
             sceneToLoad = data.currentScene != 0 ? data.currentScene : sceneToLoad;
 
@@ -107,7 +106,6 @@ public class MainMenuController : MonoBehaviour
                 yield return null;
             }
         }
-        Debug.Log("LoadSavedGame() called in scene: " + SceneManager.GetActiveScene().name);
     }
 
 

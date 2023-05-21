@@ -48,4 +48,12 @@ public class PlayerMotor : MonoBehaviour
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z)); // Обчислюємо обертання, щоб дивитися в бік цілі
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f); // Плавно обертаємо гравця у бік цілі
     }
+    public void SetPosition(Vector3 position)
+    {
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(position, out hit, 1.0f, NavMesh.AllAreas))
+        {
+            agent.Warp(hit.position);
+        }
+    }
 }
