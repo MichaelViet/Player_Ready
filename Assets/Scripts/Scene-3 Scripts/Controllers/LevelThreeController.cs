@@ -15,6 +15,19 @@ public class LevelThreeController : MonoBehaviour
         pauseMenu = FindObjectOfType<BasePauseMenu>();
         pauseMenu.ToggleCursor(visible: true);
 
+        LoadPlayerProgress();
+    }
+
+    private void Update()
+    {
+        if (PauseMenu.isPaused)
+        {
+            return;
+        }
+    }
+
+    public void LoadPlayerProgress()
+    {
         if (SaveManager.IsGameSaved() && PlayerPrefs.HasKey("PlayerPositionX") && PlayerPrefs.HasKey("PlayerPositionY") && PlayerPrefs.HasKey("PlayerPositionZ"))
         {
             Debug.Log("Завантаження гри...");
@@ -28,15 +41,6 @@ public class LevelThreeController : MonoBehaviour
             }
         }
     }
-
-    private void Update()
-    {
-        if (PauseMenu.isPaused)
-        {
-            return;
-        }
-    }
-
     public void SavePlayerProgress()
     {
         Debug.Log("Збереження гри...");
