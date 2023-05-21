@@ -133,6 +133,7 @@
      <None Include="Assets\Resources\Shader\NormalMappedTileAnimated.shader" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
      <None Include="Assets\Resources\Shaders\FogInclude.cginc" />
+     <None Include="Assets\Hovl Studio\Magic effects pack\Demo scene\Readme.txt" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMP_Sprite.shader" />
     <Reference Include="UnityEngine">
         <HintPath>D:\Program Files\2021.3.20f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
@@ -889,6 +890,12 @@
     </Reference>
     <Reference Include="Unity.2D.SpriteShape.Runtime">
         <HintPath>D:\Graduate project\Ready Player One\Library\ScriptAssemblies\Unity.2D.SpriteShape.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualEffectGraph.Editor">
+        <HintPath>D:\Graduate project\Ready Player One\Library\ScriptAssemblies\Unity.VisualEffectGraph.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualEffectGraph.Runtime">
+        <HintPath>D:\Graduate project\Ready Player One\Library\ScriptAssemblies\Unity.VisualEffectGraph.Runtime.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

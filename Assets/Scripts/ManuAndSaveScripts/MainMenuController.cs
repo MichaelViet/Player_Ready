@@ -84,6 +84,15 @@ public class MainMenuController : MonoBehaviour
                 PlayerPrefs.SetFloat("PlayerPositionX", data.playerMotorPosition.x);
                 PlayerPrefs.SetFloat("PlayerPositionY", data.playerMotorPosition.y);
                 PlayerPrefs.SetFloat("PlayerPositionZ", data.playerMotorPosition.z);
+                PlayerPrefs.Save();
+
+                DialogReader dialogReader = FindObjectOfType<DialogReader>();
+                if (dialogReader != null)
+                {
+                    dialogReader.SetCurrentDialogIndex(PlayerPrefs.GetInt("LoadedCurrentDialogIndex"));
+                    dialogReader.SetCurrentSentenceIndex(PlayerPrefs.GetInt("LoadedCurrentSentenceIndex"));
+                    dialogReader.DisplayDialog();
+                }
             }
             sceneToLoad = data.currentScene != 0 ? data.currentScene : sceneToLoad;
 

@@ -24,9 +24,8 @@ public class DialogReader : MonoBehaviour
     public Dialog dialogData;
     public TextAsset dialogJson;
     public List<SpeakerColor> speakerColors;
-
-    private int currentDialogIndex = 0;
-    private int currentSentenceIndex = 0;
+    public int currentDialogIndex = 0;
+    public int currentSentenceIndex = 0;
     public delegate void DialogCompleteAction();
     public event DialogCompleteAction OnDialogComplete;
     private bool newDialogLoaded = false;

@@ -51,31 +51,32 @@ public class SaveManager : MonoBehaviour
 // Структура для зберігання даних гри
 public struct SaveData
 {
-    public Vector3 cameraPosition;
-    public Vector3 playerPosition;
-    public Vector3 playerMotorPosition;
-    public Vector3 wizzardPosition;
-    public Vector3 treePosition;
-    public Vector3 powerStonePosition;
-    public int sentence;
-    public int currentScene;
-    public int currentDialogIndex;
-    public int currentSentenceIndex;
-    public int currentQuestIndex;
-    public int playerHealth;
-    public float InteractionRadius;
-    public float wizzardInteractionDistance;
-    public bool dialogCompleted;
-    public bool isTreeDestroyed;
-    public bool emptyWallActive;
-    public bool wallActive;
-    public bool isPowerStoneInInventory;
-    public bool isPowerStoneActive;
-    public bool questActivated;
-    public bool isAnimationPlayed;
-    public bool isCameraAnimating;
-    public bool isPortalAnimationActive;
-    public List<Quest> questStates;
-    public List<int> prevScenes;
-    public Quaternion treeRotation;
+    public Vector3 cameraPosition; // Позиція камери
+    public Vector3 playerPosition; // Позиція гравця
+    public Vector3 playerMotorPosition; // Позиція гравця (сцена 3)
+    public Vector3 wizzardPosition; // Позиція чарівника
+    public Vector3 treePosition;// Позиція дерева
+    public Vector3 powerStonePosition; // Позиція каменю сили
+    public int sentence;// Номер речення
+    public int currentScene;// Номер сцени
+    public int currentDialogIndex;// Номер діалогу
+    public int currentSentenceIndex; // Поточний індекс речення
+    public int currentQuestIndex; // Поточний індекс квесту
+    public int playerHealth; // Здоров'я гравця
+    public float InteractionRadius; // Радіус взаємодії
+    public float wizzardInteractionDistance; // Відстань взаємодії з чарівником
+    public bool dialogCompleted; // Діалог завершено
+    public bool isTreeDestroyed; // Дерево знищено
+    public bool emptyWallActive; // Стан стіни
+    public bool wallActive; // Стан стіни
+    public bool isPowerStoneInInventory; // Камінь сили в інвентарі
+    public bool isPowerStoneActive; // Камінь сили активний
+    public bool questActivated; // Квест активовано
+    public bool isAnimationPlayed; // Анімація відтворена
+    public bool isCameraAnimating; // Анімація камери
+    public bool isPortalAnimationActive; // Анімація порталу
+    public List<Quest> questStates; // Список квестів
+    public List<int> prevScenes; // Список попередніх сцен
+    public Quaternion treeRotation;// Поворот дерева
+    public bool fadeInCalled; // Анімація панелі квестів
 }

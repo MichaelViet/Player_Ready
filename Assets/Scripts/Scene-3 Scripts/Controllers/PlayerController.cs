@@ -8,12 +8,17 @@ public class PlayerController : MonoBehaviour
     public LayerMask movementMask;
     Camera cam;
     PlayerMotor motor;
-
+    public bool dialogComplete = false;
+    private DialogReader dialogReader;
+    LevelThreeController levelThreeController;
     void Start()
     {
         // Отримуємо посилання на основну камеру та компонент PlayerMotor
         cam = Camera.main;
         motor = GetComponent<PlayerMotor>();
+        dialogReader = FindObjectOfType<DialogReader>();
+        levelThreeController = FindObjectOfType<LevelThreeController>();
+        dialogReader.OnDialogComplete += OnDialogComplete;
     }
 
     void Update()
@@ -53,6 +58,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+
     }
 
     // Встановлення фокусу на взаємодію з об'єктом
@@ -77,5 +83,10 @@ public class PlayerController : MonoBehaviour
 
         focus = null;
         motor.StopFollowingTarget();
+    }
+    public void OnDialogComplete()
+    {
+        dialogComplete = true;
+        PlayerPrefs.SetInt("DialogComplete", dialogComplete ? 1 : 0); // Збережіть це в PlayerPrefs
     }
 }
