@@ -4,7 +4,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(CharacterStats))]
 public class HealthUI : MonoBehaviour
 {
-
     public GameObject uiPrefab;
     public Transform target;
     float visibleTime = 5;

@@ -39,8 +39,8 @@
      <Compile Include="Assets\Scripts\Scene-2 Scripts\PowerStone.cs" />
      <Compile Include="Assets\Scripts\Scene-2 Scripts\WizzardController.cs" />
      <Compile Include="Assets\Scripts\Scene-3 Scripts\Controllers\PlayerMotor.cs" />
-     <Compile Include="Assets\Scripts\Scene-3 Scripts\Stats\EnemyStats.cs" />
      <Compile Include="Assets\Scripts\Scene-3 Scripts\Controllers\EnemyController.cs" />
+     <Compile Include="Assets\Scripts\Scene-3 Scripts\Stats\EnemyStats.cs" />
      <Compile Include="Assets\Scripts\Scene-2 Scripts\InventoryUIController.cs" />
      <Compile Include="Assets\Scripts\Scene-3 Scripts\Inventory\InventorySlot.cs" />
      <Compile Include="Assets\Scripts\Scene-2 Scripts\CameraOffsetAnimator.cs" />
@@ -109,6 +109,8 @@
      <Compile Include="Assets\Scripts\Scene-1 Scripts\SpriteController.cs" />
      <Compile Include="Assets\Scripts\Scene-1 Scripts\BottomBarController.cs" />
      <Compile Include="Assets\Scripts\Scene-1 Scripts\ChooseScene.cs" />
+     <Compile Include="Assets\Scenes\Scene-3\PlayerStatsUI.cs" />
+     <Compile Include="Assets\Scenes\Scene-3\CharacterDialogue.cs" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
@@ -762,6 +764,9 @@
     <Reference Include="Unity.2D.Animation.Editor">
         <HintPath>D:\Graduate project\Ready Player One\Library\ScriptAssemblies\Unity.2D.Animation.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.VisualEffectGraph.Editor">
+        <HintPath>D:\Graduate project\Ready Player One\Library\ScriptAssemblies\Unity.VisualEffectGraph.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.InternalAPIEngineBridge.001">
         <HintPath>D:\Graduate project\Ready Player One\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.001.dll</HintPath>
     </Reference>
@@ -789,8 +794,8 @@
     <Reference Include="Unity.VisualStudio.Editor">
         <HintPath>D:\Graduate project\Ready Player One\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="PPv2URPConverters">
-        <HintPath>D:\Graduate project\Ready Player One\Library\ScriptAssemblies\PPv2URPConverters.dll</HintPath>
+    <Reference Include="Unity.VisualEffectGraph.Runtime">
+        <HintPath>D:\Graduate project\Ready Player One\Library\ScriptAssemblies\Unity.VisualEffectGraph.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
         <HintPath>D:\Graduate project\Ready Player One\Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
@@ -846,6 +851,9 @@
     <Reference Include="Unity.ShaderGraph.Editor">
         <HintPath>D:\Graduate project\Ready Player One\Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="PPv2URPConverters">
+        <HintPath>D:\Graduate project\Ready Player One\Library\ScriptAssemblies\PPv2URPConverters.dll</HintPath>
+    </Reference>
     <Reference Include="Cinemachine">
         <HintPath>D:\Graduate project\Ready Player One\Library\ScriptAssemblies\Cinemachine.dll</HintPath>
     </Reference>
@@ -890,12 +898,6 @@
     </Reference>
     <Reference Include="Unity.2D.SpriteShape.Runtime">
         <HintPath>D:\Graduate project\Ready Player One\Library\ScriptAssemblies\Unity.2D.SpriteShape.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualEffectGraph.Editor">
-        <HintPath>D:\Graduate project\Ready Player One\Library\ScriptAssemblies\Unity.VisualEffectGraph.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualEffectGraph.Runtime">
-        <HintPath>D:\Graduate project\Ready Player One\Library\ScriptAssemblies\Unity.VisualEffectGraph.Runtime.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

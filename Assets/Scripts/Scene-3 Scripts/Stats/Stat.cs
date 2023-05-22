@@ -2,37 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/* Класс, используемый для всех характеристик, где мы хотим иметь возможность добавлять/удалять модификаторы */
 
 [System.Serializable]
-public class Stat {
+public class Stat
+{
 
-	[SerializeField]
-	private int baseValue;  // Начальное значение
+    [SerializeField]
+    private int baseValue;
 
-	// Список модификаторов, изменяющих baseValue
-	private List<int> modifiers = new List<int>();
 
-	// Получить окончательное значение после применения модификаторов
-	public int GetValue ()
-	{
-		int finalValue = baseValue;
-		modifiers.ForEach(x => finalValue += x);
-		return finalValue;
-	}
+    private List<int> modifiers = new List<int>();
 
-	// Добавить новый модификатор
-	public void AddModifier (int modifier)
-	{
-		if (modifier != 0)
-			modifiers.Add(modifier);
-	}
+    public int GetValue()
+    {
+        int finalValue = baseValue;
+        modifiers.ForEach(x => finalValue += x);
+        return finalValue;
+    }
 
-	// Удалить модификатор
-	public void RemoveModifier (int modifier)
-	{
-		if (modifier != 0)
-			modifiers.Remove(modifier);
-	}
+    public void AddModifier(int modifier)
+    {
+        if (modifier != 0)
+            modifiers.Add(modifier);
+    }
+
+    public void RemoveModifier(int modifier)
+    {
+        if (modifier != 0)
+            modifiers.Remove(modifier);
+    }
 
 }
