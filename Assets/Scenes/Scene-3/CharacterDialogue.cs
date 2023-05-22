@@ -5,18 +5,17 @@ public class CharacterDialogue : MonoBehaviour
     public float interactionRadius = 3f;
     public DialogReader dialogReader;
     public TextAsset dialogJson;
-    private bool isPlayerInRange = false;
-
-    private void Start()
-    {
-        dialogReader.OnDialogComplete += HandleDialogComplete;
-    }
+    public bool isPlayerInRange = false;
+    public bool hasDialogueFinished = false;
+    public LayerMask playerLayer;
 
     private void Update()
     {
-        if (isPlayerInRange && Input.GetKeyDown(KeyCode.F))
+        isPlayerInRange = Physics.CheckSphere(transform.position, interactionRadius, playerLayer);
+        if (isPlayerInRange && Input.GetKeyDown(KeyCode.F) && !hasDialogueFinished)
         {
             dialogReader.LoadDialog(dialogJson);
+            dialogReader.OnDialogComplete += HandleDialogComplete;
         }
     }
 
@@ -39,6 +38,13 @@ public class CharacterDialogue : MonoBehaviour
 
     private void HandleDialogComplete()
     {
-        interactionRadius = 0;
+        hasDialogueFinished = true;
+        dialogReader.OnDialogComplete -= HandleDialogComplete; // видаляємо обробник подій
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, interactionRadius);
     }
 }

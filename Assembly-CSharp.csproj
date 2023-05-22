@@ -111,6 +111,7 @@
      <Compile Include="Assets\Scripts\Scene-1 Scripts\ChooseScene.cs" />
      <Compile Include="Assets\Scenes\Scene-3\PlayerStatsUI.cs" />
      <Compile Include="Assets\Scenes\Scene-3\CharacterDialogue.cs" />
+     <Compile Include="Assets\Scenes\Scene-3\InteractionHint.cs" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

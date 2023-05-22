@@ -5,12 +5,16 @@ using UnityEngine.UI;
 public class HealthUI : MonoBehaviour
 {
     public GameObject uiPrefab;
+    public Transform player;
     public Transform target;
     float visibleTime = 5;
     float lastMadeVisibleTime;
     Transform ui;
     Image healthSlider;
     Transform cam;
+    CanvasGroup canvasGroup;
+
+    float interactionRadius = 5f; // radius for interaction
 
     void Start()
     {
@@ -22,6 +26,7 @@ public class HealthUI : MonoBehaviour
             {
                 ui = Instantiate(uiPrefab, c.transform).transform;
                 healthSlider = ui.GetChild(0).GetComponent<Image>();
+                canvasGroup = ui.GetComponent<CanvasGroup>(); // get the CanvasGroup component
                 ui.gameObject.SetActive(false);
                 break;
             }
@@ -34,9 +39,6 @@ public class HealthUI : MonoBehaviour
     {
         if (ui != null)
         {
-            ui.gameObject.SetActive(true);
-            lastMadeVisibleTime = Time.time;
-
             float healthPercent = (float)currentHealth / maxHealth;
             healthSlider.fillAmount = healthPercent;
             if (currentHealth <= 0)
@@ -53,10 +55,27 @@ public class HealthUI : MonoBehaviour
             ui.position = target.position;
             ui.forward = -cam.forward;
 
-            if (Time.time - lastMadeVisibleTime > visibleTime)
+            // Check the distance to the player
+            if (Vector3.Distance(player.position, target.position) <= interactionRadius)
+            {
+                ui.gameObject.SetActive(true);
+                lastMadeVisibleTime = Time.time;
+            }
+            else if (Time.time - lastMadeVisibleTime > visibleTime)
             {
                 ui.gameObject.SetActive(false);
             }
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // Check if "F" is pressed
+        if (Input.GetKeyDown(KeyCode.F) && canvasGroup != null)
+        {
+            // set CanvasGroup's alpha to 0
+            canvasGroup.alpha = 0;
         }
     }
 }
