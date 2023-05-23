@@ -15,3 +15,5 @@ MonoBehaviour:
   name: Mind Stone
   icon: {fileID: 21300000, guid: 47efa12e15e71b448a4c51e63ff6edae, type: 3}
   isDefaultItem: 0
+  itemPrefab: {fileID: 6746228641984941583, guid: 058266ac0e62fac469325bb92426dc95,
+    type: 3}

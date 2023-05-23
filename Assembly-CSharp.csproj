@@ -73,6 +73,7 @@
      <Compile Include="Assets\Scripts\PauseScripts\PauseMenu.cs" />
      <Compile Include="Assets\Scripts\Scene-2 Scripts\JumpBehavior.cs" />
      <Compile Include="Assets\Scripts\Scene-2 Scripts\TreeDestruction.cs" />
+     <Compile Include="Assets\Scenes\Scene-3\PlayerStatsUI.cs" />
      <Compile Include="Assets\Scripts\Scene-2 Scripts\FollowObject.cs" />
      <Compile Include="Assets\Scripts\Scene-1 Scripts\CharacterController2D.cs" />
      <Compile Include="Assets\Scripts\Scene-1 Scripts\ChooseLabelController.cs" />
@@ -85,6 +86,7 @@
      <Compile Include="Assets\Scripts\Scene-2 Scripts\introBehavior.cs" />
      <Compile Include="Assets\Scripts\Scene-2 Scripts\IdleBehavior.cs" />
      <Compile Include="Assets\Scripts\Scene-2 Scripts\LevelManager.cs" />
+     <Compile Include="Assets\Scenes\Scene-3\InteractionHint.cs" />
      <Compile Include="Assets\Scripts\Scene-2 Scripts\Portal.cs" />
      <Compile Include="Assets\Scripts\Scene-2 Scripts\HintManager.cs" />
      <Compile Include="Assets\Scripts\Scene-2 Scripts\RayCastWeapon.cs" />
@@ -105,13 +107,11 @@
      <Compile Include="Assets\Scripts\Scene-2 Scripts\DeathBehavior.cs" />
      <Compile Include="Assets\Scripts\Scene-1 Scripts\ChooseController.cs" />
      <Compile Include="Assets\Scripts\ManuAndSaveScripts\DataHolder.cs" />
+     <Compile Include="Assets\Scenes\Scene-3\CharacterDialogue.cs" />
      <Compile Include="Assets\Scripts\Scene-3 Scripts\Controllers\CharacterCombat.cs" />
      <Compile Include="Assets\Scripts\Scene-1 Scripts\SpriteController.cs" />
      <Compile Include="Assets\Scripts\Scene-1 Scripts\BottomBarController.cs" />
      <Compile Include="Assets\Scripts\Scene-1 Scripts\ChooseScene.cs" />
-     <Compile Include="Assets\Scenes\Scene-3\PlayerStatsUI.cs" />
-     <Compile Include="Assets\Scenes\Scene-3\CharacterDialogue.cs" />
-     <Compile Include="Assets\Scenes\Scene-3\InteractionHint.cs" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
@@ -136,7 +136,6 @@
      <None Include="Assets\Resources\Shader\NormalMappedTileAnimated.shader" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
      <None Include="Assets\Resources\Shaders\FogInclude.cginc" />
-     <None Include="Assets\Hovl Studio\Magic effects pack\Demo scene\Readme.txt" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMP_Sprite.shader" />
     <Reference Include="UnityEngine">
         <HintPath>D:\Program Files\2021.3.20f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

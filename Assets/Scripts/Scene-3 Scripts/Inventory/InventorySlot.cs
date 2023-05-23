@@ -4,9 +4,10 @@ using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
 {
-
     public Image icon;
     public Button removeButton;
+    public GameObject itemPrefab; // Префаб предмета для створення
+    public Transform player; // Посилання на гравця
 
     Item item;
 
@@ -30,6 +31,10 @@ public class InventorySlot : MonoBehaviour
 
     public void OnRemoveButton()
     {
+        // Створюємо новий предмет в місці гравця
+        GameObject droppedItem = Instantiate(item.itemPrefab, player.position, Quaternion.identity);
+
+        // Видаляємо предмет з інвентаря
         Inventory.instance.Remove(item);
     }
 

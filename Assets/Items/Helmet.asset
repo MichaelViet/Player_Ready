@@ -15,6 +15,8 @@ MonoBehaviour:
   name: Helmet
   icon: {fileID: 21300000, guid: 63a13adb2b0e64f20a9b56869ed72751, type: 3}
   isDefaultItem: 0
+  itemPrefab: {fileID: 5901188123672760482, guid: efb5209a1be3bdc43abf98c657525eac,
+    type: 3}
   equipSlot: 0
   armorModifier: 2
   damageModifier: 1

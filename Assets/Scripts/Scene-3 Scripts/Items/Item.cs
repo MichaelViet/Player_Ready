@@ -8,6 +8,7 @@ public class Item : ScriptableObject
     new public string name = "New Item";
     public Sprite icon = null;
     public bool isDefaultItem = false;
+    public GameObject itemPrefab;
 
     public virtual void Use()
     {
@@ -19,3 +20,4 @@ public class Item : ScriptableObject
         Inventory.instance.Remove(this);
     }
 }
+

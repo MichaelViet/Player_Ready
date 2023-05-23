@@ -1,53 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-// Makes the camera follow the player
 
 public class CameraController : MonoBehaviour
 {
-
-    public Transform target;    // Target to follow (player)
-
-    public Vector3 offset;          // Offset from the player
-    public float zoomSpeed = 4f;    // How quickly we zoom
-    public float minZoom = 5f;      // Min zoom amount
-    public float maxZoom = 15f;     // Max zoom amount
-
-    public float pitch = 2f;        // Pitch up the camera to look at head
-
-    public float yawSpeed = 100f;   // How quickly we rotate
-
-    // In these variables we store input from Update
-    private float currentZoom = 10f;
-    private float currentYaw = 0f;
+    public Transform player; // Посилання на гравця
+    public Vector3 offset; // Відстань камери від гравця
+    public float zoomSpeed = 4f; // Швидкість зумування камери
+    public float minZoom = 10f; // Мінімальний рівень зуму камери
+    public float maxZoom = 5f; // Максимальний рівень зуму камери
+    public float pitch = 2f; // Кут нахилу камери
+    public float yawSpeed = 100f; // Швидкість обертання камери по горизонталі
+    private float currentZoom = 5f; // Поточний рівень зуму камери
+    private float currentYaw = 0f; // Поточний горизонтальний поворот камери
 
     void Update()
     {
-        // Adjust our zoom based on the scrollwheel
-        currentZoom -= Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
-        currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
+        currentZoom -= Input.GetAxis("Mouse ScrollWheel") * zoomSpeed; // Отримати значення прокрутки колеса миші для зумування камери
+        currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom); // Обмежити поточний рівень зуму камери в межах мінімального і максимального значень
 
-        // Adjust our camera's rotation around the player
         if (Input.GetKey(KeyCode.Q))
         {
-            currentYaw += yawSpeed * Time.deltaTime;
+            currentYaw += yawSpeed * Time.deltaTime; // Збільшити горизонтальний поворот камери вліво
         }
         else if (Input.GetKey(KeyCode.E))
         {
-            currentYaw -= yawSpeed * Time.deltaTime;
+            currentYaw -= yawSpeed * Time.deltaTime; // Збільшити горизонтальний поворот камери вправо
         }
     }
 
     void LateUpdate()
     {
-        // Set our cameras position based on offset and zoom
-        transform.position = target.position - offset * currentZoom;
-        // Look at the player's head
-        transform.LookAt(target.position + Vector3.up * pitch);
-
-        // Rotate around the player
-        transform.RotateAround(target.position, Vector3.up, currentYaw);
+        transform.position = player.position - offset * currentZoom; // Встановити позицію камери з урахуванням зуму та відстані від гравця
+        transform.LookAt(player.position + Vector3.up * pitch); // Навести камеру на гравця з врахуванням нахилу
+        transform.RotateAround(player.position, Vector3.up, currentYaw); // Обернути камеру навколо гравця по горизонталі
     }
-
 }

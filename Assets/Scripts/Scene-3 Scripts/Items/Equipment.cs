@@ -8,12 +8,10 @@ public class Equipment : Item
 {
 
     public EquipmentSlot equipSlot;
-
     public int armorModifier;
     public int damageModifier;
     public SkinnedMeshRenderer mesh;
     public EquipmentManager.MeshBlendShape[] coveredMeshRegions;
-
     public override void Use()
     {
         base.Use();

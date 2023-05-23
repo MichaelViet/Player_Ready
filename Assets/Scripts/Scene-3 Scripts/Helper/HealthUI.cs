@@ -13,8 +13,7 @@ public class HealthUI : MonoBehaviour
     Image healthSlider;
     Transform cam;
     CanvasGroup canvasGroup;
-
-    float interactionRadius = 5f; // radius for interaction
+    float interactionRadius = 5f;
 
     void Start()
     {
@@ -31,7 +30,6 @@ public class HealthUI : MonoBehaviour
                 break;
             }
         }
-
         GetComponent<CharacterStats>().OnHealthChanged += OnHealthChanged;
     }
 
@@ -55,27 +53,25 @@ public class HealthUI : MonoBehaviour
             ui.position = target.position;
             ui.forward = -cam.forward;
 
-            // Check the distance to the player
-            if (Vector3.Distance(player.position, target.position) <= interactionRadius)
+            float distanceToPlayer = Vector3.Distance(player.position, target.position);
+            if (distanceToPlayer <= interactionRadius)
             {
                 ui.gameObject.SetActive(true);
                 lastMadeVisibleTime = Time.time;
             }
-            else if (Time.time - lastMadeVisibleTime > visibleTime)
+            else if (Time.time - lastMadeVisibleTime > visibleTime || distanceToPlayer > interactionRadius)
             {
                 ui.gameObject.SetActive(false);
             }
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Check if "F" is pressed
         if (Input.GetKeyDown(KeyCode.F) && canvasGroup != null)
         {
-            // set CanvasGroup's alpha to 0
             canvasGroup.alpha = 0;
         }
     }
+
 }

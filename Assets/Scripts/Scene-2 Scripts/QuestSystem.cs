@@ -13,7 +13,7 @@ public class QuestSystem : MonoBehaviour
     public TMP_Text DescriptionQuest;
     public float fadeInDuration = 1f;
     public float fadeOutDuration = 1f;
-    public float displayDuration = 3f;
+    public float displayDuration = 2f;
     private float fadeOutDelay;
     private bool isPanelVisible;
     private bool hintShown = false;

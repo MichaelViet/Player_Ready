@@ -11,6 +11,7 @@ public class LevelThreeController : MonoBehaviour
     public DialogReader dialogReader;
     private HintManager hintManager;
     public QuestSystem questSystem;
+    public InventoryUI inventoryUI;
     private bool questActivated = false;
     public bool fadeInCalled = false;
     private PlayerController playerController;
@@ -43,6 +44,11 @@ public class LevelThreeController : MonoBehaviour
             hintManager.ShowHint(0); // Викликаємо ShowHint з індексом 0
             hintShown = true; // Оновлюємо, що підказка була показана
         }
+        // Додайте код оновлення UI після перевірки dialogReader.currentDialogIndex
+        if (inventoryUI != null)
+        {
+            inventoryUI.UpdateUI();
+        }
     }
 
     public void LoadPlayerProgress()
@@ -66,6 +72,13 @@ public class LevelThreeController : MonoBehaviour
             {
                 bool dialogComplete = PlayerPrefs.GetInt("DialogComplete") == 1 ? true : false;
                 dialogReader.bottomBarCanvasGroup.alpha = dialogComplete ? 0f : 1f; // Показуйте bottomBar, якщо діалог не завершено
+            }
+            // Завантаження предметів у інвентарі
+            if (Inventory.instance != null && data.inventoryItems != null)
+            {
+                Inventory.instance.items = data.inventoryItems;
+                if (Inventory.instance.onItemChangedCallback != null)
+                    Inventory.instance.onItemChangedCallback.Invoke();
             }
 
             // Загрузка гравця
@@ -101,6 +114,14 @@ public class LevelThreeController : MonoBehaviour
                     }
                 }
             }
+
+            CharacterDialogue characterDialogue = FindObjectOfType<CharacterDialogue>();
+            if (characterDialogue != null && characterDialogue.dialogJson != null)
+            {
+                characterDialogue.isPlayerInRange = data.isPlayerInRange;
+                characterDialogue.hasDialogueFinished = data.hasDialogueFinished;
+            }
+
         }
     }
     public void SavePlayerProgress()
@@ -123,6 +144,12 @@ public class LevelThreeController : MonoBehaviour
             PlayerPrefs.SetInt("LoadedCurrentSentenceIndex", data.currentSentenceIndex);
         }
 
+        // Збереження предметів у інвентарі
+        if (Inventory.instance != null)
+        {
+            data.inventoryItems = new List<Item>(Inventory.instance.items);
+        }
+
         // Збереження стану квестів
         data.questStates = new List<Quest>();
         foreach (var quest in questSystem.questList)
@@ -139,7 +166,15 @@ public class LevelThreeController : MonoBehaviour
                 PlayerPrefs.SetInt("Hint" + i, hintManager.hints[i].hasBeenShown ? 1 : 0);
             }
         }
+
+        CharacterDialogue characterDialogue = FindObjectOfType<CharacterDialogue>();
+        if (characterDialogue != null)
+        {
+            data.isPlayerInRange = characterDialogue.isPlayerInRange;
+            data.hasDialogueFinished = characterDialogue.hasDialogueFinished;
+        }
         SaveManager.SaveGame(data);
     }
+
 }
 
