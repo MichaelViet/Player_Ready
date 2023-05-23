@@ -79,7 +79,10 @@ public struct SaveData
     public List<int> prevScenes; // Список попередніх сцен
     public Quaternion treeRotation;// Поворот дерева
     public bool fadeInCalled; // Анімація панелі квестів
-    public bool isPlayerInRange;
-    public bool hasDialogueFinished;
+    public bool isPlayerInRange; // Гравець у зоні взаємодії
+    public bool hasDialogueFinished; // Діалог завершено
     public List<Item> inventoryItems; // Список предметів у інвентарі
+    public List<bool> itemsPickedUpStates; // Список станів предметів
+    public List<ItemState> itemStates; // Список станів предметів
 }
+

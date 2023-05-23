@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b0d8a6829a15a48929f6559b469eb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 1
+  radius: 2
   interactionTransform: {fileID: 6746228641984941587}
   item: {fileID: 11400000, guid: 587186ab8471ead4aa7643faf3fadd98, type: 2}
   hintManager: {fileID: 0}

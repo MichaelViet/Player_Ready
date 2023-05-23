@@ -17,3 +17,5 @@ MonoBehaviour:
   isDefaultItem: 0
   itemPrefab: {fileID: 6746228641984941583, guid: 058266ac0e62fac469325bb92426dc95,
     type: 3}
+  isPickedUp: 1
+  itemId: 67c4364f-d3b9-4f18-a605-13d3d5431f53

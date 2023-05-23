@@ -16,10 +16,27 @@ public class LevelThreeController : MonoBehaviour
     public bool fadeInCalled = false;
     private PlayerController playerController;
     private bool hintShown = false; // Відслідковує, чи був показаний підказка
-    SaveData data = new SaveData();
+    public SaveData data = new SaveData();
+    private Item item;
+
+    public static LevelThreeController instance;
+    void Awake()
+    {
+        // Перевіряємо, чи існує екземпляр класу LevelThreeController
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            // Якщо екземпляр уже існує, знищуємо поточний
+            Destroy(gameObject);
+        }
+    }
 
     public void Start()
     {
+        // Ініціалізуємо змінні та компоненти
         pauseMenu = FindObjectOfType<BasePauseMenu>();
         playerMotor = FindObjectOfType<PlayerMotor>();
         dialogReader = FindObjectOfType<DialogReader>();
@@ -33,18 +50,23 @@ public class LevelThreeController : MonoBehaviour
 
     private void Update()
     {
+        // Перевіряємо, чи гра не на паузі
         if (PauseMenu.isPaused)
         {
             return;
         }
+
+        // Перевіряємо, чи закінчився поточний діалог і фейд-ін не був викликаний
         if (dialogReader.currentDialogIndex >= dialogReader.dialogData.dialog.Count && !fadeInCalled)
         {
+            // Запускаємо фейд-ін та показуємо підказку з індексом 0
             questSystem.StartCoroutine(questSystem.FadeIn());
             fadeInCalled = true;
-            hintManager.ShowHint(0); // Викликаємо ShowHint з індексом 0
+            hintManager.ShowHint(0);
             hintShown = true; // Оновлюємо, що підказка була показана
         }
-        // Додайте код оновлення UI після перевірки dialogReader.currentDialogIndex
+
+        // Оновлюємо інтерфейс користувача після перевірки поточного індексу діалогу
         if (inventoryUI != null)
         {
             inventoryUI.UpdateUI();
@@ -53,11 +75,12 @@ public class LevelThreeController : MonoBehaviour
 
     public void LoadPlayerProgress()
     {
+        // Перевіряємо, чи є збережені дані та ключі координат гравця
         if (SaveManager.IsGameSaved() && PlayerPrefs.HasKey("PlayerPositionX") && PlayerPrefs.HasKey("PlayerPositionY") && PlayerPrefs.HasKey("PlayerPositionZ"))
         {
             data = SaveManager.LoadGame();
 
-            // Загрузка стану діалога
+            // Завантаження стану діалогу
             if (dialogReader != null && !playerController.dialogComplete)
             {
                 int loadedCurrentDialogIndex = PlayerPrefs.GetInt("LoadedCurrentDialogIndex");
@@ -71,17 +94,24 @@ public class LevelThreeController : MonoBehaviour
             if (PlayerPrefs.HasKey("DialogComplete"))
             {
                 bool dialogComplete = PlayerPrefs.GetInt("DialogComplete") == 1 ? true : false;
-                dialogReader.bottomBarCanvasGroup.alpha = dialogComplete ? 0f : 1f; // Показуйте bottomBar, якщо діалог не завершено
+                dialogReader.bottomBarCanvasGroup.alpha = dialogComplete ? 0f : 1f;
+                // Показуємо bottomBar, якщо діалог не завершено
             }
+
             // Завантаження предметів у інвентарі
             if (Inventory.instance != null && data.inventoryItems != null)
             {
+                Inventory.instance.items = data.inventoryItems;
+                for (int i = 0; i < Inventory.instance.items.Count; i++)
+                {
+                    Inventory.instance.items[i].isPickedUp = data.itemsPickedUpStates[i];
+                }
                 Inventory.instance.items = data.inventoryItems;
                 if (Inventory.instance.onItemChangedCallback != null)
                     Inventory.instance.onItemChangedCallback.Invoke();
             }
 
-            // Загрузка гравця
+            // Завантаження координат гравця
             if (playerMotor != null)
             {
                 playerMotor.SetPosition(data.playerMotorPosition);
@@ -92,7 +122,7 @@ public class LevelThreeController : MonoBehaviour
                 fadeInCalled = data.fadeInCalled;
             }
 
-            // Завантаження квесту
+            // Завантаження стану квестів
             if (questSystem != null)
             {
                 for (int i = 0; i < data.questStates.Count; i++)
@@ -101,6 +131,7 @@ public class LevelThreeController : MonoBehaviour
                     questSystem.questList[i].IsComplete = data.questStates[i].IsComplete;
                 }
             }
+
             // Завантаження стану підказок
             HintManager hintManager = FindObjectOfType<HintManager>();
             if (hintManager != null)
@@ -115,6 +146,19 @@ public class LevelThreeController : MonoBehaviour
                 }
             }
 
+            // Обробка стану предметів
+            if (data.itemStates != null)
+            {
+                foreach (var itemState in data.itemStates)
+                {
+                    var item = Inventory.instance.items.Find(i => i.itemId == itemState.itemId);
+                    if (item != null)
+                    {
+                        // Обробка стану предмету тут
+                    }
+                }
+            }
+
             CharacterDialogue characterDialogue = FindObjectOfType<CharacterDialogue>();
             if (characterDialogue != null && characterDialogue.dialogJson != null)
             {
@@ -124,18 +168,19 @@ public class LevelThreeController : MonoBehaviour
 
         }
     }
+
     public void SavePlayerProgress()
     {
         Debug.Log("Збереження гри...");
         pauseMenu.PlaySaveAnimation();
-        // Збереження сцени
+        // Збереження індексу поточної сцени
         data.currentScene = SceneManager.GetActiveScene().buildIndex;
 
-        // Збереження гравця
+        // Збереження координат гравця
         data.playerMotorPosition = playerMotor.transform.position;
         data.dialogCompleted = playerController.dialogComplete;
 
-        // Збереження діалогу
+        // Збереження поточного діалогу
         if (dialogReader != null)
         {
             data.currentDialogIndex = dialogReader.GetCurrentDialogIndex();
@@ -148,6 +193,18 @@ public class LevelThreeController : MonoBehaviour
         if (Inventory.instance != null)
         {
             data.inventoryItems = new List<Item>(Inventory.instance.items);
+        }
+
+        data.itemsPickedUpStates = new List<bool>();
+        foreach (var item in Inventory.instance.items)
+        {
+            data.itemsPickedUpStates.Add(item.isPickedUp);
+        }
+
+        data.itemStates = new List<ItemState>();
+        foreach (var item in Inventory.instance.items)
+        {
+            data.itemStates.Add(new ItemState(item.itemId, true));
         }
 
         // Збереження стану квестів
@@ -173,6 +230,7 @@ public class LevelThreeController : MonoBehaviour
             data.isPlayerInRange = characterDialogue.isPlayerInRange;
             data.hasDialogueFinished = characterDialogue.hasDialogueFinished;
         }
+
         SaveManager.SaveGame(data);
     }
 

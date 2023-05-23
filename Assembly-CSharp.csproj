@@ -69,6 +69,7 @@
      <Compile Include="Assets\Scripts\MainMenuAnimationsScripts\CloudsAnimation.cs" />
      <Compile Include="Assets\Scripts\MainMenuAnimationsScripts\TrainAnimation.cs" />
      <Compile Include="Assets\Scripts\Scene-3 Scripts\Stats\CharacterStats.cs" />
+     <Compile Include="Assets\Scripts\Scene-3 Scripts\Items\ItemState.cs" />
      <Compile Include="Assets\Scripts\Scene-3 Scripts\Controllers\LevelThreeController.cs" />
      <Compile Include="Assets\Scripts\PauseScripts\PauseMenu.cs" />
      <Compile Include="Assets\Scripts\Scene-2 Scripts\JumpBehavior.cs" />
