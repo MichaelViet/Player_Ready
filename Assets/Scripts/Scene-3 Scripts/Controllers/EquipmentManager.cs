@@ -34,20 +34,10 @@ public class EquipmentManager : MonoBehaviour
         int numSlots = System.Enum.GetNames(typeof(EquipmentSlot)).Length;
         currentEquipment = new Equipment[numSlots];
         currentMeshes = new SkinnedMeshRenderer[numSlots];
-        if (IsNewGame())
-        {
-            EquipDefaults();
-        }
-        else
-        {
-            LevelThreeController.instance.LoadPlayerProgress();
-        }
+        EquipDefaults();
+        LevelThreeController.instance.LoadPlayerProgress();
     }
-    public bool IsNewGame()
-    {
-        return !SaveManager.IsGameSaved();
 
-    }
 
     public void Equip(Equipment newItem)
     {
@@ -72,14 +62,9 @@ public class EquipmentManager : MonoBehaviour
         if (currentEquipment[slotIndex] != null)
         {
             oldItem = currentEquipment[slotIndex];
-            oldItem.isEquipped = false;
-            if (!oldItem.isEquipped)
-            {
-                inventory.Add(oldItem);
-            }
+            inventory.Add(oldItem);
 
             SetBlendShapeWeight(oldItem, 0);
-
             if (currentMeshes[slotIndex] != null)
             {
                 Destroy(currentMeshes[slotIndex].gameObject);

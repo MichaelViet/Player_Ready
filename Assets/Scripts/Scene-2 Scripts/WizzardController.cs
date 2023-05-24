@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 public class WizzardController : MonoBehaviour
 {
     public List<Transform> players;
     public float interactionDistance = 4f;
+    public float wizzardGoneAnimationDuration = 5f;
+    public CanvasGroup EndCanvasGroup;
     public Animator animator;
     public GameObject pressE;
     public DialogReader dialogReader;
+    public string currentScene;
     public GameObject Wall;
     public bool dialogComplete = false;
     public RayCastWeapon playerWeapon;
@@ -186,9 +190,18 @@ public class WizzardController : MonoBehaviour
         Wall.SetActive(false);
         SetCanShoot(true); // дозволити стрільбу після завершення діалогу
         Quest activeQuest = questSystem.GetActiveQuest();
+
         if (activeQuest != null)
         {
             questSystem.CompleteQuest(activeQuest);
+        }
+
+        if (currentScene == "Scene-4")
+        {
+            animator.SetBool("end", true);
+            // Після відтворення анімації загрузити сцену "Scene-5"
+            StartCoroutine(FadeInCanvasGroup(EndCanvasGroup, wizzardGoneAnimationDuration));
+            StartCoroutine(LoadSceneAfterAnimation("Scene-5", wizzardGoneAnimationDuration));
         }
 
         Quest nextQuest = questSystem.GetActiveQuest();
@@ -197,6 +210,7 @@ public class WizzardController : MonoBehaviour
             questSystem.StartQuest(nextQuest);
         }
         questActivated = true;
+
         if (bossIsDead)
         {
             afterBossDeathDialog = true;
@@ -213,14 +227,34 @@ public class WizzardController : MonoBehaviour
             // Повертаємося до анімації wizzard_idle після завершення wizzard_spell
             StartCoroutine(PlayIdleAnimation());
         }
+
         StartCoroutine(questSystem.FadeIn());
     }
+
+    private IEnumerator LoadSceneAfterAnimation(string sceneName, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(sceneName);
+    }
+
     public IEnumerator PlayIdleAnimation()
     {
         yield return new WaitForSeconds(1f); // Затримка, потрібно налаштувати для тривалості wizzard_spell анімації
         animator.SetBool("Spell", false);   // Повернення до анімації wizzard_idle
         portal.StartAnimation(); // Запуск анімації порталу
     }
+
+    private IEnumerator FadeInCanvasGroup(CanvasGroup canvasGroup, float duration)
+    {
+        float startTime = Time.time;
+        while (Time.time - startTime < duration)
+        {
+            canvasGroup.alpha = (Time.time - startTime) / duration;
+            yield return null;
+        }
+        canvasGroup.alpha = 1f;
+    }
+
     private void OnDestroy()
     {
         dialogReader.OnDialogComplete -= OnDialogComplete; // Відписуємося від події, коли об'єкт знищено

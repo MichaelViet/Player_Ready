@@ -23,7 +23,6 @@ public class GameController : MonoBehaviour
 
     public TextMeshProUGUI textObject1;
     public TextMeshProUGUI textObject2;
-
     public GameObject panel;
     public Animator transition;
     private State state = State.IDLE; // Enum для збереження поточного стану гри
@@ -42,6 +41,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         basePauseMenu = FindObjectOfType<BasePauseMenu>();
+        basePauseMenu.ToggleCursor(true);
         StartLevel();
         UnloadUnusedAssets();
         if (SaveManager.IsGameSaved())

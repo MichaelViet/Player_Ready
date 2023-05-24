@@ -49,25 +49,20 @@ public class Inventory : MonoBehaviour
         return true; // Повертаємо true, щоб показати, що предмет був успішно доданий
     }
 
-    public void Drop(Item item, Vector3 position)
-    {
-        items.Remove(item); // Видаляємо предмет з інвентаря
-
-        if (item.itemPrefab != null)
-        {
-            Instantiate(item.itemPrefab, position, Quaternion.identity); // Створюємо об'єкт предмету на заданій позиції
-        }
-
-        if (onItemChangedCallback != null)
-            onItemChangedCallback.Invoke(); // Викликаємо колбек, що сигналізує про зміну інвентаря
-    }
-
     public void Remove(Item item)
     {
-        items.Remove(item); // Видаляємо предмет з інвентаря
+        // Якщо предмет не є предметом для завдання, видаляємо його
+        if (!item.isMissionItem)
+        {
+            items.Remove(item); // Видаляємо предмет з інвентаря
 
-        if (onItemChangedCallback != null)
-            onItemChangedCallback.Invoke(); // Викликаємо колбек, що сигналізує про зміну інвентаря
+            if (onItemChangedCallback != null)
+                onItemChangedCallback.Invoke(); // Викликаємо колбек, що сигналізує про зміну інвентаря
+        }
+        else
+        {
+            Debug.Log(item.name + " is a mission item and cannot be removed."); // Виводимо повідомлення, що предмет є предметом для завдання і не може бути видалений
+        }
     }
     public List<Equipment> allEquipments; // add this line
 

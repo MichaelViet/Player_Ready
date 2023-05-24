@@ -19,3 +19,4 @@ MonoBehaviour:
     type: 3}
   isPickedUp: 1
   itemId: 67c4364f-d3b9-4f18-a605-13d3d5431f53
+  isMissionItem: 1

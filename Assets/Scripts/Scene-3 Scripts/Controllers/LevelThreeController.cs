@@ -124,18 +124,22 @@ public class LevelThreeController : MonoBehaviour
             }
 
             // Завантаження координат гравця
-            if (playerMotor != null && playerController != null)
+            if (playerMotor != null)
             {
                 playerMotor.SetPosition(data.playerMotorPosition);
-                playerController.dialogComplete = data.dialogCompleted;
                 PlayerPrefs.DeleteKey("PlayerPositionX");
                 PlayerPrefs.DeleteKey("PlayerPositionY");
                 PlayerPrefs.DeleteKey("PlayerPositionZ");
                 fadeInCalled = data.fadeInCalled;
+
+            }
+
+            if (playerController != null)
+            {
+                playerController.dialogComplete = data.dialogCompleted;
                 playerStats.maxHealth = data.maxHealth;
                 playerStats.SetCurrentHealth(data.currentHealth);
             }
-
             // Завантаження стану квестів
             if (questSystem != null)
             {
@@ -160,19 +164,6 @@ public class LevelThreeController : MonoBehaviour
                 }
             }
 
-            // Обробка стану предметів
-            if (data.itemStates != null)
-            {
-                foreach (var itemState in data.itemStates)
-                {
-                    var item = Inventory.instance.items.Find(i => i.itemId == itemState.itemId);
-                    if (item != null)
-                    {
-                        // Обробка стану предмету тут
-                    }
-                }
-            }
-
             CharacterDialogue characterDialogue = FindObjectOfType<CharacterDialogue>();
             if (characterDialogue != null && characterDialogue.dialogJson != null)
             {
@@ -186,17 +177,6 @@ public class LevelThreeController : MonoBehaviour
                 levelMusic = Resources.Load<AudioClip>(levelMusicPath);
                 // Виконайте інші дії, пов'язані зі завантаженням музики, якщо потрібно.
             }
-            // загрузка предметів
-            for (int i = 0; i < data.equippedItemIds.Length; i++)
-            {
-                Equipment equipment = Inventory.instance.GetEquipmentById(data.equippedItemIds[i]);
-                if (equipment != null)
-                {
-                    EquipmentManager.instance.Equip(equipment);
-                }
-            }
-
-
         }
     }
 
@@ -263,17 +243,6 @@ public class LevelThreeController : MonoBehaviour
         {
             data.isPlayerInRange = characterDialogue.isPlayerInRange;
             data.hasDialogueFinished = characterDialogue.hasDialogueFinished;
-        }
-
-        data.equippedItemIds = new string[EquipmentManager.instance.currentEquipment.Length];
-        data.equippedSlots = new EquipmentSlot[EquipmentManager.instance.currentEquipment.Length];
-        for (int i = 0; i < EquipmentManager.instance.currentEquipment.Length; i++)
-        {
-            if (EquipmentManager.instance.currentEquipment[i] != null)
-            {
-                data.equippedItemIds[i] = EquipmentManager.instance.currentEquipment[i].itemId;
-                data.equippedSlots[i] = EquipmentManager.instance.currentEquipment[i].equipSlot;
-            }
         }
 
         string levelMusicPath = GetLevelMusicPath();

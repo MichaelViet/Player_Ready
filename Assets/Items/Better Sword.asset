@@ -15,11 +15,13 @@ MonoBehaviour:
   name: Better Sword
   icon: {fileID: 21300000, guid: 5264ac7dd54fd4de69e43f8622b062e7, type: 3}
   isDefaultItem: 0
-  itemPrefab: {fileID: 4085629582200424795, guid: da3dece97557aa949939df0f160c64ae,
+  itemPrefab: {fileID: 795959376913920088, guid: da3dece97557aa949939df0f160c64ae,
     type: 3}
   isPickedUp: 0
   itemId: 028c18a9-0b44-4ac4-a82e-2b58e8ee63da
+  isMissionItem: 0
   equipSlot: 3
+  isEquipped: 0
   armorModifier: 0
   damageModifier: 20
   mesh: {fileID: 137017898815694052, guid: c89f4d7ed3b194dd6b0cfa2dba16a4d0, type: 3}

@@ -14,12 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Platebody
   icon: {fileID: 21300000, guid: 0f8810d5e106d4d68bc99d24b20063b0, type: 3}
-  isDefaultItem: 0
-  itemPrefab: {fileID: 3763322023990017884, guid: 42680b21fbf51d14bbc0988859e4b6c1,
+  isDefaultItem: 1
+  itemPrefab: {fileID: 7652771729456900207, guid: 42680b21fbf51d14bbc0988859e4b6c1,
     type: 3}
   isPickedUp: 0
   itemId: cbc13264-b4ac-4576-a3c8-34d2907a3e3a
+  isMissionItem: 0
   equipSlot: 1
+  isEquipped: 1
   armorModifier: 5
   damageModifier: 1
   mesh: {fileID: 137860983683025678, guid: 605c662279a464ffea62798a0fbc1314, type: 3}

@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     public float fadeDuration = 3.0f;
+    public string currentScene;
     public float musicFadeDuration = 2.0f;
     public AudioClip levelMusic;
     public BasePauseMenu pauseMenu;
@@ -38,6 +39,10 @@ public class LevelManager : MonoBehaviour
         player = FindObjectOfType<Player>();
         dialogReader = FindObjectOfType<DialogReader>();
         pauseMenu.ToggleCursor(false);
+        if (currentScene == "Scene-4")
+        {
+            portal.StartAnimation(); // Запуск анімації порталу
+        }
         StartCoroutine(PlayAnimationAndDeactivateCanvas());
         LoadLevelProgress();
     }

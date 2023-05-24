@@ -11,11 +11,22 @@ public class Portal : MonoBehaviour
     public bool isAnimating = false;
     private float radius = 4f;
 
-    public GameObject player; // Додайте гравця в інспекторі Unity
+    public GameObject player; // Add the player in the Unity inspector
+
+    private int currentSpriteIndex = 0;
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().name == "Scene-4")
+        {
+            radius = 0f; // Set radius to 0 for Scene-4
+            StartAnimation();
+        }
     }
 
     public void StartAnimation()
@@ -32,11 +43,10 @@ public class Portal : MonoBehaviour
 
         while (true)
         {
-            foreach (var sprite in sprites)
-            {
-                spriteRenderer.sprite = sprite;
-                yield return new WaitForSeconds(animationSpeed);
-            }
+            spriteRenderer.sprite = sprites[currentSpriteIndex];
+            currentSpriteIndex = (currentSpriteIndex + 1) % sprites.Length; // Increment index and wrap around
+
+            yield return new WaitForSeconds(animationSpeed);
         }
     }
 
@@ -47,7 +57,6 @@ public class Portal : MonoBehaviour
             float distance = Vector3.Distance(player.transform.position, transform.position);
             if (distance <= radius)
             {
-
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 SaveManager.ClearSavedGame();
             }

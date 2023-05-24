@@ -31,11 +31,8 @@ public class InventorySlot : MonoBehaviour
 
     public void OnRemoveButton()
     {
-        // Створюємо новий предмет в місці гравця
-        GameObject droppedItem = Instantiate(item.itemPrefab, player.position, Quaternion.identity);
-
         // Видаляємо предмет з інвентаря
-        Inventory.instance.Remove(item);
+        item.RemoveFromInventory();
     }
 
     public void UseItem()

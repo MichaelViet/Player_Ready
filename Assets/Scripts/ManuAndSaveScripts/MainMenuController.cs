@@ -70,7 +70,7 @@ public class MainMenuController : MonoBehaviour
                 PlayerPrefs.SetInt("LoadedCurrentDialogIndex", data.currentDialogIndex);
                 PlayerPrefs.SetInt("LoadedCurrentSentenceIndex", data.currentSentenceIndex);
 
-                PlayerPrefs.Save();
+                //PlayerPrefs.Save();
                 DialogReader dialogReader = FindObjectOfType<DialogReader>();
                 if (dialogReader != null)
                 {
@@ -85,6 +85,28 @@ public class MainMenuController : MonoBehaviour
                 PlayerPrefs.SetFloat("PlayerPositionY", data.playerMotorPosition.y);
                 PlayerPrefs.SetFloat("PlayerPositionZ", data.playerMotorPosition.z);
                 PlayerPrefs.Save();
+
+                DialogReader dialogReader = FindObjectOfType<DialogReader>();
+                if (dialogReader != null)
+                {
+                    dialogReader.SetCurrentDialogIndex(PlayerPrefs.GetInt("LoadedCurrentDialogIndex"));
+                    dialogReader.SetCurrentSentenceIndex(PlayerPrefs.GetInt("LoadedCurrentSentenceIndex"));
+                    dialogReader.DisplayDialog();
+                }
+            }
+            // Перевірка на Scene-2
+            if (data.currentScene == 4)
+            {
+                PlayerPrefs.SetFloat("LoadedWizzardPositionX", data.wizzardPosition.x);
+                PlayerPrefs.SetFloat("LoadedWizzardPositionY", data.wizzardPosition.y);
+                PlayerPrefs.SetFloat("LoadedWizzardPositionZ", data.wizzardPosition.z);
+
+                PlayerPrefs.SetFloat("LoadedPlayerPositionX", data.playerPosition.x);
+                PlayerPrefs.SetFloat("LoadedPlayerPositionY", data.playerPosition.y);
+                PlayerPrefs.SetFloat("LoadedPlayerPositionZ", data.playerPosition.z);
+
+                PlayerPrefs.SetInt("LoadedCurrentDialogIndex", data.currentDialogIndex);
+                PlayerPrefs.SetInt("LoadedCurrentSentenceIndex", data.currentSentenceIndex);
 
                 DialogReader dialogReader = FindObjectOfType<DialogReader>();
                 if (dialogReader != null)
