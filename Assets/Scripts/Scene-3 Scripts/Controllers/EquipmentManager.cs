@@ -5,16 +5,15 @@ using UnityEngine;
 
 public class EquipmentManager : MonoBehaviour
 {
-
     #region Singleton
 
     public enum MeshBlendShape { Torso, Arms, Legs };
     public Equipment[] defaultEquipment;
-
     public static EquipmentManager instance;
     public SkinnedMeshRenderer targetMesh;
-
-    SkinnedMeshRenderer[] currentMeshes;
+    public SkinnedMeshRenderer[] currentMeshes;
+    SaveManager saveManager;
+    public SaveData data = new SaveData();
 
     void Awake()
     {
@@ -23,23 +22,31 @@ public class EquipmentManager : MonoBehaviour
 
     #endregion
 
-    Equipment[] currentEquipment;
+    public Equipment[] currentEquipment;
 
     public delegate void OnEquipmentChanged(Equipment newItem, Equipment oldItem);
     public OnEquipmentChanged onEquipmentChanged;
-
-
     Inventory inventory;
 
     void Start()
     {
         inventory = Inventory.instance;
-
         int numSlots = System.Enum.GetNames(typeof(EquipmentSlot)).Length;
         currentEquipment = new Equipment[numSlots];
         currentMeshes = new SkinnedMeshRenderer[numSlots];
+        if (IsNewGame())
+        {
+            EquipDefaults();
+        }
+        else
+        {
+            LevelThreeController.instance.LoadPlayerProgress();
+        }
+    }
+    public bool IsNewGame()
+    {
+        return !SaveManager.IsGameSaved();
 
-        EquipDefaults();
     }
 
     public void Equip(Equipment newItem)
@@ -54,8 +61,10 @@ public class EquipmentManager : MonoBehaviour
         }
 
         currentEquipment[slotIndex] = newItem;
+        newItem.isEquipped = true;
         AttachToMesh(newItem, slotIndex);
     }
+
 
     public Equipment Unequip(int slotIndex)
     {
@@ -63,7 +72,11 @@ public class EquipmentManager : MonoBehaviour
         if (currentEquipment[slotIndex] != null)
         {
             oldItem = currentEquipment[slotIndex];
-            inventory.Add(oldItem);
+            oldItem.isEquipped = false;
+            if (!oldItem.isEquipped)
+            {
+                inventory.Add(oldItem);
+            }
 
             SetBlendShapeWeight(oldItem, 0);
 
@@ -81,6 +94,7 @@ public class EquipmentManager : MonoBehaviour
         }
         return oldItem;
     }
+
 
     public void UnequipAll()
     {
@@ -117,7 +131,7 @@ public class EquipmentManager : MonoBehaviour
         }
     }
 
-    void EquipDefaults()
+    public void EquipDefaults()
     {
         foreach (Equipment e in defaultEquipment)
         {
@@ -125,10 +139,9 @@ public class EquipmentManager : MonoBehaviour
         }
     }
 
-    void Update()
+    public void Update()
     {
         if (Input.GetKeyDown(KeyCode.U))
             UnequipAll();
     }
-
 }

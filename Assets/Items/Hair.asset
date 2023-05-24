@@ -15,6 +15,9 @@ MonoBehaviour:
   name: Hair
   icon: {fileID: 0}
   isDefaultItem: 1
+  itemPrefab: {fileID: 0}
+  isPickedUp: 0
+  itemId: ff1b14db-dde7-47fd-85b2-f991abdf402f
   equipSlot: 0
   armorModifier: 0
   damageModifier: 0

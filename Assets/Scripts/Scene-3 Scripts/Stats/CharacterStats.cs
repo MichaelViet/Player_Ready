@@ -4,7 +4,14 @@ public class CharacterStats : MonoBehaviour
 {
 
     public int maxHealth = 150;
-    public int currentHealth { get; private set; }
+    private int _currentHealth; // Додайте приватне поле для збереження значення currentHealth
+
+    public int currentHealth
+    {
+        get { return _currentHealth; }
+        private set { _currentHealth = value; }
+    }
+
     public float TimeDelay = 2;
     public float TimeDelayHp;
 
@@ -13,11 +20,14 @@ public class CharacterStats : MonoBehaviour
 
     public event System.Action<int, int> OnHealthChanged;
 
-    void Awake()
+    public void Awake()
     {
         currentHealth = maxHealth;
     }
-
+    public void SetCurrentHealth(int health)
+    {
+        _currentHealth = health; // Встановіть значення в приватне поле _currentHealth
+    }
     public void TakeDamage(int damage)
     {
         damage -= armor.GetValue();
@@ -37,6 +47,7 @@ public class CharacterStats : MonoBehaviour
         }
 
     }
+
 
     public virtual void Die()
     {

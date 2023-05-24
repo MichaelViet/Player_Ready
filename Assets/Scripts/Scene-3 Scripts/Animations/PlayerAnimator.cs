@@ -22,7 +22,7 @@ public class PlayerAnimator : CharacterAnimator
         }
     }
 
-    // Функція зворотнього виклику для зміни екіпунку
+    // Функція зворотнього виклику для зміни екіпіровки
     void OnEquipmentChanged(Equipment newItem, Equipment oldItem)
     {
         if (newItem != null && newItem.equipSlot == EquipmentSlot.Weapon)

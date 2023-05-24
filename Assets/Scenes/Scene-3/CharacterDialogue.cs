@@ -12,9 +12,13 @@ public class CharacterDialogue : MonoBehaviour
     public QuestSystem questSystem;
     private bool questActivated = false;
     private bool hintShown = false; // Відслідковує, чи був показаний підказка
+    public AudioClip nextMusic;
+    private LevelThreeController levelThreeController;
     private void Start()
     {
         hintManager = FindObjectOfType<HintManager>();
+        questSystem = FindObjectOfType<QuestSystem>();
+        levelThreeController = FindObjectOfType<LevelThreeController>();
     }
     private void Update()
     {
@@ -29,7 +33,8 @@ public class CharacterDialogue : MonoBehaviour
         {
             hintManager.ShowHint(1); // Викликаємо ShowHint з індексом 1
             hintShown = true; // Оновлюємо, що підказка була показана
-
+            levelThreeController.levelMusic = nextMusic; // замінюємо музику в LevelManager
+            levelThreeController.audioController.PlayAudio(levelThreeController.levelMusic, null, null); // відтворюємо нову музику
         }
 
     }

@@ -49,6 +49,7 @@ public class Portal : MonoBehaviour
             {
 
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                SaveManager.ClearSavedGame();
             }
         }
     }

@@ -1,6 +1,7 @@
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class SaveManager : MonoBehaviour
 {
@@ -46,6 +47,7 @@ public class SaveManager : MonoBehaviour
             File.Delete(path);
         }
     }
+
 }
 
 // Структура для зберігання даних гри
@@ -84,5 +86,10 @@ public struct SaveData
     public List<Item> inventoryItems; // Список предметів у інвентарі
     public List<bool> itemsPickedUpStates; // Список станів предметів
     public List<ItemState> itemStates; // Список станів предметів
+    public string[] equippedItemIds;
+    public EquipmentSlot[] equippedSlots;
+    public int maxHealth;
+    public int currentHealth;
 }
+
 

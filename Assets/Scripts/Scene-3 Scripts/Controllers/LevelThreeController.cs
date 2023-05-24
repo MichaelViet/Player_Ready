@@ -4,14 +4,18 @@ using UnityEngine.SceneManagement;
 
 public class LevelThreeController : MonoBehaviour
 {
-    int currentScene;
+    public int currentScene;
     public BasePauseMenu pauseMenu;
     public PlayerMotor playerMotor;
+    public AudioClip levelMusic;
+    public AudioController audioController;
     public CanvasGroup startScreenCanvasGroup;
     public DialogReader dialogReader;
     private HintManager hintManager;
     public QuestSystem questSystem;
     public InventoryUI inventoryUI;
+    private EquipmentManager equipmentManager;
+    private PlayerStats playerStats;
     private bool questActivated = false;
     public bool fadeInCalled = false;
     private PlayerController playerController;
@@ -32,19 +36,26 @@ public class LevelThreeController : MonoBehaviour
             // Якщо екземпляр уже існує, знищуємо поточний
             Destroy(gameObject);
         }
+        equipmentManager = FindObjectOfType<EquipmentManager>();
     }
 
     public void Start()
     {
         // Ініціалізуємо змінні та компоненти
         pauseMenu = FindObjectOfType<BasePauseMenu>();
+        playerStats = FindObjectOfType<PlayerStats>();
         playerMotor = FindObjectOfType<PlayerMotor>();
-        dialogReader = FindObjectOfType<DialogReader>();
         hintManager = FindObjectOfType<HintManager>();
         questSystem = FindObjectOfType<QuestSystem>();
         playerController = FindObjectOfType<PlayerController>();
         pauseMenu.ToggleCursor(visible: true);
         questActivated = false;
+        if (audioController != null)
+        {
+            audioController.PlayAudio(levelMusic, null, null);
+        }
+        SavePlayerProgress();
+        // Завантажуємо збережені дані
         LoadPlayerProgress();
     }
 
@@ -71,6 +82,7 @@ public class LevelThreeController : MonoBehaviour
         {
             inventoryUI.UpdateUI();
         }
+
     }
 
     public void LoadPlayerProgress()
@@ -81,7 +93,7 @@ public class LevelThreeController : MonoBehaviour
             data = SaveManager.LoadGame();
 
             // Завантаження стану діалогу
-            if (dialogReader != null && !playerController.dialogComplete)
+            if (dialogReader != null && playerController != null && !playerController.dialogComplete) // перевіряємо, чи dialogReader та playerController не є null
             {
                 int loadedCurrentDialogIndex = PlayerPrefs.GetInt("LoadedCurrentDialogIndex");
                 int loadedCurrentSentenceIndex = PlayerPrefs.GetInt("LoadedCurrentSentenceIndex");
@@ -112,7 +124,7 @@ public class LevelThreeController : MonoBehaviour
             }
 
             // Завантаження координат гравця
-            if (playerMotor != null)
+            if (playerMotor != null && playerController != null)
             {
                 playerMotor.SetPosition(data.playerMotorPosition);
                 playerController.dialogComplete = data.dialogCompleted;
@@ -120,6 +132,8 @@ public class LevelThreeController : MonoBehaviour
                 PlayerPrefs.DeleteKey("PlayerPositionY");
                 PlayerPrefs.DeleteKey("PlayerPositionZ");
                 fadeInCalled = data.fadeInCalled;
+                playerStats.maxHealth = data.maxHealth;
+                playerStats.SetCurrentHealth(data.currentHealth);
             }
 
             // Завантаження стану квестів
@@ -165,6 +179,23 @@ public class LevelThreeController : MonoBehaviour
                 characterDialogue.isPlayerInRange = data.isPlayerInRange;
                 characterDialogue.hasDialogueFinished = data.hasDialogueFinished;
             }
+            // завантаження поточної музики
+            if (PlayerPrefs.HasKey("LevelMusic"))
+            {
+                string levelMusicPath = PlayerPrefs.GetString("LevelMusic");
+                levelMusic = Resources.Load<AudioClip>(levelMusicPath);
+                // Виконайте інші дії, пов'язані зі завантаженням музики, якщо потрібно.
+            }
+            // загрузка предметів
+            for (int i = 0; i < data.equippedItemIds.Length; i++)
+            {
+                Equipment equipment = Inventory.instance.GetEquipmentById(data.equippedItemIds[i]);
+                if (equipment != null)
+                {
+                    EquipmentManager.instance.Equip(equipment);
+                }
+            }
+
 
         }
     }
@@ -179,6 +210,9 @@ public class LevelThreeController : MonoBehaviour
         // Збереження координат гравця
         data.playerMotorPosition = playerMotor.transform.position;
         data.dialogCompleted = playerController.dialogComplete;
+        // збереження характеристик гравця
+        data.maxHealth = playerStats.maxHealth;
+        data.currentHealth = playerStats.currentHealth;
 
         // Збереження поточного діалогу
         if (dialogReader != null)
@@ -231,7 +265,30 @@ public class LevelThreeController : MonoBehaviour
             data.hasDialogueFinished = characterDialogue.hasDialogueFinished;
         }
 
+        data.equippedItemIds = new string[EquipmentManager.instance.currentEquipment.Length];
+        data.equippedSlots = new EquipmentSlot[EquipmentManager.instance.currentEquipment.Length];
+        for (int i = 0; i < EquipmentManager.instance.currentEquipment.Length; i++)
+        {
+            if (EquipmentManager.instance.currentEquipment[i] != null)
+            {
+                data.equippedItemIds[i] = EquipmentManager.instance.currentEquipment[i].itemId;
+                data.equippedSlots[i] = EquipmentManager.instance.currentEquipment[i].equipSlot;
+            }
+        }
+
+        string levelMusicPath = GetLevelMusicPath();
+
+        PlayerPrefs.SetString("LevelMusic", levelMusicPath);
+        PlayerPrefs.Save();
         SaveManager.SaveGame(data);
+    }
+
+    private string GetLevelMusicPath()
+    {
+        string musicFolder = "Sounds/Music/";
+        string levelMusicName = levelMusic.name;
+        string levelMusicPath = musicFolder + levelMusicName;
+        return levelMusicPath;
     }
 
 }

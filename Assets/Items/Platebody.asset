@@ -17,8 +17,10 @@ MonoBehaviour:
   isDefaultItem: 0
   itemPrefab: {fileID: 3763322023990017884, guid: 42680b21fbf51d14bbc0988859e4b6c1,
     type: 3}
+  isPickedUp: 0
+  itemId: cbc13264-b4ac-4576-a3c8-34d2907a3e3a
   equipSlot: 1
-  armorModifier: 0
-  damageModifier: 3
+  armorModifier: 5
+  damageModifier: 1
   mesh: {fileID: 137860983683025678, guid: 605c662279a464ffea62798a0fbc1314, type: 3}
   coveredMeshRegions: 0100000002000000

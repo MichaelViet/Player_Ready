@@ -20,4 +20,5 @@ public class Item : ScriptableObject
         isPickedUp = false;
         Inventory.instance.Remove(this);
     }
+
 }

@@ -76,16 +76,7 @@ public class DialogReader : MonoBehaviour
             bottomBarCanvasGroup.alpha = 0f;
             return;
         }
-        if (BasePauseMenu.isPaused == false)
-        {
-            bottomBarCanvasGroup.alpha = 1f;
-        }
-        if (currentDialogIndex >= dialogData.dialog.Count)
-        {
-            bottomBarCanvasGroup.alpha = 0f;
-            OnDialogComplete?.Invoke();
-            return;
-        }
+
         if (Input.GetMouseButtonDown(0) && bottomBarCanvasGroup.alpha == 1 && !IsPointerOverUIElement())
         {
             if (currentDialogIndex < dialogData.dialog.Count)

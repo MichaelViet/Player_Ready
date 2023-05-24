@@ -17,6 +17,8 @@ MonoBehaviour:
   isDefaultItem: 0
   itemPrefab: {fileID: 7631751901778699538, guid: 6f6737af716b6b843b7db0fe49d397f7,
     type: 3}
+  isPickedUp: 0
+  itemId: 8b622608-c2fb-4ddc-a017-7c135338c75b
   equipSlot: 2
   armorModifier: 3
   damageModifier: 0
