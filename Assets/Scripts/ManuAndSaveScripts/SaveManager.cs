@@ -1,7 +1,6 @@
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class SaveManager : MonoBehaviour
 {
@@ -86,10 +85,10 @@ public struct SaveData
     public List<Item> inventoryItems; // Список предметів у інвентарі
     public List<bool> itemsPickedUpStates; // Список станів предметів
     public List<ItemState> itemStates; // Список станів предметів
-    public string[] equippedItemIds;
-    public EquipmentSlot[] equippedSlots;
-    public int maxHealth;
-    public int currentHealth;
+    public string[] equippedItemIds; // Список id предметів
+    public EquipmentSlot[] equippedSlots;  // Список слотів
+    public int itemsPickedUpCount; // Поле для itemsPickedUpCount
+
 }
 
 

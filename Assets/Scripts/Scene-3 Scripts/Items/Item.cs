@@ -11,6 +11,7 @@ public class Item : ScriptableObject
     public bool isPickedUp = false;
     public string itemId = Guid.NewGuid().ToString();
     public bool isMissionItem = false;
+
     public virtual void Use()
     {
         Debug.Log("Using " + name);
@@ -23,10 +24,6 @@ public class Item : ScriptableObject
         {
             isPickedUp = false;
             Inventory.instance.Remove(this);
-        }
-        else
-        {
-            Debug.Log(name + " is a mission item and cannot be removed."); // Виводимо повідомлення, що предмет є предметом для завдання і не може бути видалений
         }
     }
 

@@ -17,7 +17,7 @@ MonoBehaviour:
   isDefaultItem: 0
   itemPrefab: {fileID: 7147438105208529373, guid: aa773d7f14a92474db9b68c610d8ad45,
     type: 3}
-  isPickedUp: 0
+  isPickedUp: 1
   itemId: 58d0e7ee-2d54-4183-b4ba-804fb60c4e6f
   isMissionItem: 0
   equipSlot: 4

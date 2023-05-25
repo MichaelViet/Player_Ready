@@ -52,9 +52,9 @@ public class EquipmentManager : MonoBehaviour
 
         currentEquipment[slotIndex] = newItem;
         newItem.isEquipped = true;
+        newItem.isPickedUp = true; // встановлюємо isPickedUp в true
         AttachToMesh(newItem, slotIndex);
     }
-
 
     public Equipment Unequip(int slotIndex)
     {
@@ -80,7 +80,6 @@ public class EquipmentManager : MonoBehaviour
         return oldItem;
     }
 
-
     public void UnequipAll()
     {
         for (int i = 0; i < currentEquipment.Length; i++)
@@ -93,15 +92,12 @@ public class EquipmentManager : MonoBehaviour
 
     void AttachToMesh(Equipment item, int slotIndex)
     {
-
         SkinnedMeshRenderer newMesh = Instantiate(item.mesh) as SkinnedMeshRenderer;
         newMesh.transform.parent = targetMesh.transform.parent;
 
         newMesh.rootBone = targetMesh.rootBone;
         newMesh.bones = targetMesh.bones;
-
         currentMeshes[slotIndex] = newMesh;
-
 
         SetBlendShapeWeight(item, 100);
 

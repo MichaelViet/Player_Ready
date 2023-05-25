@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Platelegs
   icon: {fileID: 21300000, guid: 4c61fabec38534e4fbc8e3137996d06b, type: 3}
-  isDefaultItem: 1
+  isDefaultItem: 0
   itemPrefab: {fileID: 6902618424425844254, guid: 6f6737af716b6b843b7db0fe49d397f7,
     type: 3}
-  isPickedUp: 0
+  isPickedUp: 1
   itemId: 8b622608-c2fb-4ddc-a017-7c135338c75b
   isMissionItem: 0
   equipSlot: 2

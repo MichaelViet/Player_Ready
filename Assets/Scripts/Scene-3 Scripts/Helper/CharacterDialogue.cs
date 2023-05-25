@@ -3,6 +3,8 @@ using UnityEngine;
 public class CharacterDialogue : MonoBehaviour
 {
     public float interactionRadius = 3f;
+    public bool isBoss = false;
+    public GameObject BossSkeleton;
     public DialogReader dialogReader;
     public TextAsset dialogJson;
     public bool isPlayerInRange = false;
@@ -20,6 +22,18 @@ public class CharacterDialogue : MonoBehaviour
         hintManager = FindObjectOfType<HintManager>();
         questSystem = FindObjectOfType<QuestSystem>();
         levelThreeController = FindObjectOfType<LevelThreeController>();
+        if (isBoss)
+        {
+            GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+            foreach (GameObject obj in allObjects)
+            {
+                if (obj.name == "BossSkeleton")
+                {
+                    BossSkeleton = obj;
+                    break;
+                }
+            }
+        }
     }
     private void Update()
     {
@@ -78,6 +92,10 @@ public class CharacterDialogue : MonoBehaviour
             levelThreeController.levelMusic = nextMusic; // замінюємо музику в LevelManager
             levelThreeController.audioController.PlayAudio(levelThreeController.levelMusic, null, null); // відтворюємо нову музику
             hasMusicChanged = true;
+        }
+        if (isBoss)
+        {
+            BossSkeleton.SetActive(true);
         }
     }
 

@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     public float healthRegenDelay = 5f;  // здоров'я відновлюється кожні 5 секунд
     public int healthRegenAmount = 2;  // кількість здоров'я, що відновлюється за один раз
     private CameraOffsetAnimator cameraOffsetAnimator;
-
+    public GameObject deathMenu;    // Посилання на DeathMenu
     void Start()
     {
         cameraOffsetAnimator = FindObjectOfType<CameraOffsetAnimator>();
@@ -90,6 +90,11 @@ public class Player : MonoBehaviour
             crouch = false;
         }
         healthSlider.value = health;
+        if (health <= 0)
+        {
+            deathMenu.SetActive(true);
+            Time.timeScale = 0f;
+        }
     }
 
     public IEnumerator RegenHealth()

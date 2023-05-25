@@ -23,7 +23,7 @@ public class AutoSaveCoroutine : MonoBehaviour
             yield return new WaitForSeconds(saveInterval);
 
             // Викликаємо метод збереження гри
-            //levelThreeController.SavePlayerProgress();
+            levelThreeController.SavePlayerProgress();
         }
     }
 

@@ -28,6 +28,7 @@ public class CharacterStats : MonoBehaviour
     {
         _currentHealth = health; // Встановіть значення в приватне поле _currentHealth
     }
+
     public void TakeDamage(int damage)
     {
         damage -= armor.GetValue();
@@ -47,7 +48,6 @@ public class CharacterStats : MonoBehaviour
         }
 
     }
-
 
     public virtual void Die()
     {

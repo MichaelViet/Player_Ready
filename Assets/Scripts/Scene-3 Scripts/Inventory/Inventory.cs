@@ -11,7 +11,6 @@ public class Inventory : MonoBehaviour
     {
         if (instance != null)
         {
-            Debug.LogWarning("More than one instance of Inventory found!");
             return;
         }
 
@@ -59,12 +58,8 @@ public class Inventory : MonoBehaviour
             if (onItemChangedCallback != null)
                 onItemChangedCallback.Invoke(); // Викликаємо колбек, що сигналізує про зміну інвентаря
         }
-        else
-        {
-            Debug.Log(item.name + " is a mission item and cannot be removed."); // Виводимо повідомлення, що предмет є предметом для завдання і не може бути видалений
-        }
     }
-    public List<Equipment> allEquipments; // add this line
+    public List<Equipment> allEquipments;
 
     public Equipment GetEquipmentById(string id)
     {
@@ -75,8 +70,6 @@ public class Inventory : MonoBehaviour
                 return equipment;
             }
         }
-
-        Debug.LogWarning("No equipment found with ID " + id);
         return null;
     }
 

@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Helmet
   icon: {fileID: 21300000, guid: 63a13adb2b0e64f20a9b56869ed72751, type: 3}
-  isDefaultItem: 1
+  isDefaultItem: 0
   itemPrefab: {fileID: 6634391779328800309, guid: efb5209a1be3bdc43abf98c657525eac,
     type: 3}
-  isPickedUp: 0
+  isPickedUp: 1
   itemId: 21af68c0-a878-4c99-afeb-9bc7a3f256a5
   isMissionItem: 0
   equipSlot: 0

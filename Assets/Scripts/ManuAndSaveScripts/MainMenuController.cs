@@ -70,7 +70,7 @@ public class MainMenuController : MonoBehaviour
                 PlayerPrefs.SetInt("LoadedCurrentDialogIndex", data.currentDialogIndex);
                 PlayerPrefs.SetInt("LoadedCurrentSentenceIndex", data.currentSentenceIndex);
 
-                //PlayerPrefs.Save();
+                PlayerPrefs.Save();
                 DialogReader dialogReader = FindObjectOfType<DialogReader>();
                 if (dialogReader != null)
                 {
@@ -84,7 +84,6 @@ public class MainMenuController : MonoBehaviour
                 PlayerPrefs.SetFloat("PlayerPositionX", data.playerMotorPosition.x);
                 PlayerPrefs.SetFloat("PlayerPositionY", data.playerMotorPosition.y);
                 PlayerPrefs.SetFloat("PlayerPositionZ", data.playerMotorPosition.z);
-                PlayerPrefs.Save();
 
                 DialogReader dialogReader = FindObjectOfType<DialogReader>();
                 if (dialogReader != null)
@@ -94,7 +93,7 @@ public class MainMenuController : MonoBehaviour
                     dialogReader.DisplayDialog();
                 }
             }
-            // Перевірка на Scene-2
+            // Перевірка на Scene-4
             if (data.currentScene == 4)
             {
                 PlayerPrefs.SetFloat("LoadedWizzardPositionX", data.wizzardPosition.x);

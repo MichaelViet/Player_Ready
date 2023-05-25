@@ -5,12 +5,13 @@ public class BackPortal : MonoBehaviour
 {
     public float interactionRadius = 5f;
     public LayerMask playerLayer;
+    public EnemyStats bossStats; // Додати цю змінну
     private bool isPlayerInRange = false;
 
     private void Update()
     {
         isPlayerInRange = Physics.CheckSphere(transform.position, interactionRadius, playerLayer);
-        if (isPlayerInRange && Input.GetKeyDown(KeyCode.F))
+        if (isPlayerInRange && Input.GetKeyDown(KeyCode.F) && bossStats.isDead) // Перевірити, чи бос мертвий
         {
             LoadNextScene();
         }
@@ -22,7 +23,6 @@ public class BackPortal : MonoBehaviour
         int nextSceneIndex = currentSceneIndex + 1;
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
         {
-            SaveManager.ClearSavedGame();
             SceneManager.LoadScene(nextSceneIndex);
         }
     }
@@ -33,3 +33,4 @@ public class BackPortal : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, interactionRadius);
     }
 }
+

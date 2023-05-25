@@ -5,6 +5,7 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
     public GameObject player;
+    public GameObject deathObject;
     void Awake()
     {
         instance = this;
@@ -13,6 +14,7 @@ public class PlayerManager : MonoBehaviour
     public void KillPlayer()
     {
         // Перезавантаження поточної сцени
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        deathObject.SetActive(true);
+        Time.timeScale = 0f;
     }
 }

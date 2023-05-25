@@ -40,6 +40,16 @@ public class DialogReader : MonoBehaviour
 
     private void Start()
     {
+        if (PlayerPrefs.HasKey("LoadedCurrentDialogIndex") && PlayerPrefs.HasKey("LoadedCurrentSentenceIndex"))
+        {
+            SetCurrentDialogIndex(PlayerPrefs.GetInt("LoadedCurrentDialogIndex"));
+            SetCurrentSentenceIndex(PlayerPrefs.GetInt("LoadedCurrentSentenceIndex"));
+        }
+        else
+        {
+            currentDialogIndex = 0;
+            currentSentenceIndex = 0;
+        }
         if (dialogJson != null)
         {
             string jsonString = dialogJson.text;

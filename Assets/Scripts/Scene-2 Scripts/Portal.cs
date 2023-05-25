@@ -58,7 +58,6 @@ public class Portal : MonoBehaviour
             if (distance <= radius)
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-                SaveManager.ClearSavedGame();
             }
         }
     }

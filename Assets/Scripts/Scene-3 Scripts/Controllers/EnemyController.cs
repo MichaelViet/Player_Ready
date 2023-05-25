@@ -7,7 +7,6 @@ public class EnemyController : MonoBehaviour
     Transform target;
     NavMeshAgent agent;
     CharacterCombat combat;
-
     void Start()
     {
         target = PlayerManager.instance.player.transform;

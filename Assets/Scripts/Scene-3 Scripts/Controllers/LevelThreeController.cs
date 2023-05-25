@@ -1,10 +1,11 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelThreeController : MonoBehaviour
 {
-    public int currentScene;
+    private int currentScene;
     public BasePauseMenu pauseMenu;
     public PlayerMotor playerMotor;
     public AudioClip levelMusic;
@@ -18,11 +19,13 @@ public class LevelThreeController : MonoBehaviour
     private PlayerStats playerStats;
     private bool questActivated = false;
     public bool fadeInCalled = false;
+    public float fadeDuration = 3.0f;
+    public CanvasGroup StartImage;
     private PlayerController playerController;
     private bool hintShown = false; // Відслідковує, чи був показаний підказка
     public SaveData data = new SaveData();
     private Item item;
-
+    private EnemyStats enemyStats;
     public static LevelThreeController instance;
     void Awake()
     {
@@ -37,12 +40,13 @@ public class LevelThreeController : MonoBehaviour
             Destroy(gameObject);
         }
         equipmentManager = FindObjectOfType<EquipmentManager>();
+
     }
 
     public void Start()
     {
-        // Ініціалізуємо змінні та компоненти
         pauseMenu = FindObjectOfType<BasePauseMenu>();
+        enemyStats = FindObjectOfType<EnemyStats>();
         playerStats = FindObjectOfType<PlayerStats>();
         playerMotor = FindObjectOfType<PlayerMotor>();
         hintManager = FindObjectOfType<HintManager>();
@@ -50,11 +54,11 @@ public class LevelThreeController : MonoBehaviour
         playerController = FindObjectOfType<PlayerController>();
         pauseMenu.ToggleCursor(visible: true);
         questActivated = false;
+        StartCoroutine(FadeInLevel());
         if (audioController != null)
         {
             audioController.PlayAudio(levelMusic, null, null);
         }
-        SavePlayerProgress();
         // Завантажуємо збережені дані
         LoadPlayerProgress();
     }
@@ -92,8 +96,24 @@ public class LevelThreeController : MonoBehaviour
         {
             data = SaveManager.LoadGame();
 
+            if (playerController != null)
+            {
+                playerController.dialogComplete = data.dialogCompleted;
+            }
+
+            // Завантаження координат гравця
+            if (playerMotor != null)
+            {
+                playerMotor.SetPosition(data.playerMotorPosition);
+                PlayerPrefs.DeleteKey("PlayerPositionX");
+                PlayerPrefs.DeleteKey("PlayerPositionY");
+                PlayerPrefs.DeleteKey("PlayerPositionZ");
+                fadeInCalled = data.fadeInCalled;
+
+            }
+
             // Завантаження стану діалогу
-            if (dialogReader != null && playerController != null && !playerController.dialogComplete) // перевіряємо, чи dialogReader та playerController не є null
+            if (dialogReader != null) // перевіряємо, чи dialogReader та playerController не є null
             {
                 int loadedCurrentDialogIndex = PlayerPrefs.GetInt("LoadedCurrentDialogIndex");
                 int loadedCurrentSentenceIndex = PlayerPrefs.GetInt("LoadedCurrentSentenceIndex");
@@ -123,23 +143,6 @@ public class LevelThreeController : MonoBehaviour
                     Inventory.instance.onItemChangedCallback.Invoke();
             }
 
-            // Завантаження координат гравця
-            if (playerMotor != null)
-            {
-                playerMotor.SetPosition(data.playerMotorPosition);
-                PlayerPrefs.DeleteKey("PlayerPositionX");
-                PlayerPrefs.DeleteKey("PlayerPositionY");
-                PlayerPrefs.DeleteKey("PlayerPositionZ");
-                fadeInCalled = data.fadeInCalled;
-
-            }
-
-            if (playerController != null)
-            {
-                playerController.dialogComplete = data.dialogCompleted;
-                playerStats.maxHealth = data.maxHealth;
-                playerStats.SetCurrentHealth(data.currentHealth);
-            }
             // Завантаження стану квестів
             if (questSystem != null)
             {
@@ -164,12 +167,14 @@ public class LevelThreeController : MonoBehaviour
                 }
             }
 
+            // Завантаження стану діалогу персонажа
             CharacterDialogue characterDialogue = FindObjectOfType<CharacterDialogue>();
             if (characterDialogue != null && characterDialogue.dialogJson != null)
             {
                 characterDialogue.isPlayerInRange = data.isPlayerInRange;
                 characterDialogue.hasDialogueFinished = data.hasDialogueFinished;
             }
+
             // завантаження поточної музики
             if (PlayerPrefs.HasKey("LevelMusic"))
             {
@@ -177,6 +182,26 @@ public class LevelThreeController : MonoBehaviour
                 levelMusic = Resources.Load<AudioClip>(levelMusicPath);
                 // Виконайте інші дії, пов'язані зі завантаженням музики, якщо потрібно.
             }
+
+            // Завантаження обладнання
+            if (EquipmentManager.instance != null && Inventory.instance != null)
+            {
+                for (int i = 0; i < data.equippedItemIds.Length; i++)
+                {
+                    if (!string.IsNullOrEmpty(data.equippedItemIds[i]))
+                    {
+                        Equipment equipment = Inventory.instance.GetEquipmentById(data.equippedItemIds[i]);
+                        if (equipment != null)
+                        {
+                            EquipmentManager.instance.Equip(equipment);
+                        }
+                    }
+                }
+            }
+
+            // Завантажуємо значення itemsPickedUpCount
+            ItemPickup.itemsPickedUpCount = data.itemsPickedUpCount;
+
         }
     }
 
@@ -190,9 +215,6 @@ public class LevelThreeController : MonoBehaviour
         // Збереження координат гравця
         data.playerMotorPosition = playerMotor.transform.position;
         data.dialogCompleted = playerController.dialogComplete;
-        // збереження характеристик гравця
-        data.maxHealth = playerStats.maxHealth;
-        data.currentHealth = playerStats.currentHealth;
 
         // Збереження поточного діалогу
         if (dialogReader != null)
@@ -247,6 +269,24 @@ public class LevelThreeController : MonoBehaviour
 
         string levelMusicPath = GetLevelMusicPath();
 
+        // Збереження поточної екіпіровки
+        if (EquipmentManager.instance != null)
+        {
+            data.equippedItemIds = new string[EquipmentManager.instance.currentEquipment.Length];
+            data.equippedSlots = new EquipmentSlot[EquipmentManager.instance.currentEquipment.Length];
+            for (int i = 0; i < EquipmentManager.instance.currentEquipment.Length; i++)
+            {
+                if (EquipmentManager.instance.currentEquipment[i] != null)
+                {
+                    data.equippedItemIds[i] = EquipmentManager.instance.currentEquipment[i].itemId;
+                    data.equippedSlots[i] = EquipmentManager.instance.currentEquipment[i].equipSlot;
+                }
+            }
+        }
+
+        // Зберігаємо значення itemsPickedUpCount
+        data.itemsPickedUpCount = ItemPickup.itemsPickedUpCount;
+
         PlayerPrefs.SetString("LevelMusic", levelMusicPath);
         PlayerPrefs.Save();
         SaveManager.SaveGame(data);
@@ -259,6 +299,37 @@ public class LevelThreeController : MonoBehaviour
         string levelMusicPath = musicFolder + levelMusicName;
         return levelMusicPath;
     }
+    private EnemyStats FindBossByID(string id)
+    {
+        EnemyStats[] bosses = FindObjectsOfType<EnemyStats>();
+        foreach (var boss in bosses)
+        {
+            if (boss.skeletonID == id)
+            {
+                return boss;
+            }
+        }
+        return null;
+    }
 
+    private IEnumerator FadeInLevel()
+    {
+        yield return new WaitForSeconds(2);
+
+        if (audioController != null)
+        {
+            audioController.PlayAudio(levelMusic, null, null);
+        }
+
+        float elapsedTime = 0f;
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            StartImage.alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+            yield return null;
+        }
+        StartImage.alpha = 0f;
+    }
 }
 
