@@ -49,8 +49,8 @@ public class EnemyStats : CharacterStats
             levelThreeController.levelMusic = nextMusic; // замінюємо музику в LevelManager
             levelThreeController.audioController.PlayAudio(levelThreeController.levelMusic, null, null); // відтворюємо нову музику
             hasMusicChanged = true;
+            BossMusic.SetActive(false);
         }
-        BossMusic.SetActive(false);
 
         TurnOff();
     }

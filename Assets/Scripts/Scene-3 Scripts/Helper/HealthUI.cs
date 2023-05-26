@@ -12,7 +12,6 @@ public class HealthUI : MonoBehaviour
     Transform ui;
     Image healthSlider;
     Transform cam;
-    CanvasGroup canvasGroup;
     float interactionRadius = 5f;
 
     void Start()
@@ -25,7 +24,6 @@ public class HealthUI : MonoBehaviour
             {
                 ui = Instantiate(uiPrefab, c.transform).transform;
                 healthSlider = ui.GetChild(0).GetComponent<Image>();
-                canvasGroup = ui.GetComponent<CanvasGroup>(); // get the CanvasGroup component
                 ui.gameObject.SetActive(false);
                 break;
             }
@@ -65,13 +63,4 @@ public class HealthUI : MonoBehaviour
             }
         }
     }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F) && canvasGroup != null)
-        {
-            canvasGroup.alpha = 0;
-        }
-    }
-
 }

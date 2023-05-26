@@ -9,6 +9,7 @@ public class CharacterDialogue : MonoBehaviour
     public TextAsset dialogJson;
     public bool isPlayerInRange = false;
     public bool hasDialogueFinished = false;
+    public bool isMark = false;
     public LayerMask playerLayer;
     private HintManager hintManager;
     public QuestSystem questSystem;
@@ -16,6 +17,7 @@ public class CharacterDialogue : MonoBehaviour
     private bool hintShown = false; // Відслідковує, чи був показаний підказка
     public AudioClip nextMusic;
     public bool hasMusicChanged = false;
+    private bool hasQuestStarted = false;
     private LevelThreeController levelThreeController;
     private void Start()
     {
@@ -38,16 +40,19 @@ public class CharacterDialogue : MonoBehaviour
     private void Update()
     {
         isPlayerInRange = Physics.CheckSphere(transform.position, interactionRadius, playerLayer);
+
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.F) && !hasDialogueFinished)
         {
             dialogReader.LoadDialog(dialogJson);
             dialogReader.OnDialogComplete += HandleDialogComplete;
 
         }
-        if (hasDialogueFinished == true)
+
+        if (hasDialogueFinished == true && !hasQuestStarted)
         {
-            hintManager.ShowHint(1); // Викликаємо ShowHint з індексом 1
-            hintShown = true; // Оновлюємо, що підказка була показана
+            hintManager.ShowHint(1);
+            hintShown = true;
+            hasQuestStarted = true;
         }
 
     }
@@ -72,25 +77,29 @@ public class CharacterDialogue : MonoBehaviour
     private void HandleDialogComplete()
     {
         hasDialogueFinished = true;
-        dialogReader.OnDialogComplete -= HandleDialogComplete; // видаляємо обробник подій
-        Quest activeQuest = questSystem.GetActiveQuest();
-        if (activeQuest != null)
-        {
-            questSystem.CompleteQuest(activeQuest);
-        }
+        dialogReader.OnDialogComplete -= HandleDialogComplete;
 
-        Quest nextQuest = questSystem.GetActiveQuest();
-        if (nextQuest != null)
+        if (!hasQuestStarted && isMark)
         {
-            questSystem.StartQuest(nextQuest);
+            Quest activeQuest = questSystem.GetActiveQuest();
+            if (activeQuest != null)
+            {
+                questSystem.CompleteQuest(activeQuest);
+            }
+
+            Quest nextQuest = questSystem.GetActiveQuest();
+            if (nextQuest != null)
+            {
+                questSystem.StartQuest(nextQuest);
+            }
+            hasQuestStarted = true;
         }
-        questActivated = true;
 
         if (!hasMusicChanged)
         {
             // ваш код
-            levelThreeController.levelMusic = nextMusic; // замінюємо музику в LevelManager
-            levelThreeController.audioController.PlayAudio(levelThreeController.levelMusic, null, null); // відтворюємо нову музику
+            levelThreeController.levelMusic = nextMusic;
+            levelThreeController.audioController.PlayAudio(levelThreeController.levelMusic, null, null);
             hasMusicChanged = true;
         }
         if (isBoss)

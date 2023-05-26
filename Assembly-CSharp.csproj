@@ -65,6 +65,7 @@
      <Compile Include="Assets\Scripts\Scene-1 Scripts\SpriteSwitcher.cs" />
      <Compile Include="Assets\Scripts\Scene-2 Scripts\MonologueZone.cs" />
      <Compile Include="Assets\Scripts\Scene-3 Scripts\Helper\MeshFromSkinnedMesh.cs" />
+     <Compile Include="Assets\Scripts\Scene-3 Scripts\GenericUI.cs" />
      <Compile Include="Assets\Scripts\Scene-3 Scripts\Controllers\PlayerController.cs" />
      <Compile Include="Assets\Scripts\MainMenuAnimationsScripts\CloudsAnimation.cs" />
      <Compile Include="Assets\Scripts\MainMenuAnimationsScripts\TrainAnimation.cs" />
@@ -108,6 +109,7 @@
      <Compile Include="Assets\Scripts\Scene-1 Scripts\Speaker.cs" />
      <Compile Include="Assets\Scripts\Scene-2 Scripts\DeathBehavior.cs" />
      <Compile Include="Assets\Scripts\Scene-1 Scripts\ChooseController.cs" />
+     <Compile Include="Assets\Scripts\Scene-3 Scripts\BossMusic.cs" />
      <Compile Include="Assets\Scripts\ManuAndSaveScripts\DataHolder.cs" />
      <Compile Include="Assets\Scripts\Scene-3 Scripts\Helper\CharacterDialogue.cs" />
      <Compile Include="Assets\Scripts\Scene-3 Scripts\Controllers\CharacterCombat.cs" />
@@ -115,7 +117,6 @@
      <Compile Include="Assets\Scripts\Scene-1 Scripts\BottomBarController.cs" />
      <Compile Include="Assets\Scripts\Scene-1 Scripts\ChooseScene.cs" />
      <Compile Include="Assets\Scripts\Scene-3 Scripts\Helper\BackPortal.cs" />
-     <Compile Include="Assets\Scripts\Scene-3 Scripts\BossMusic.cs" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
