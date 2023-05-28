@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 public class MainMenuController : MonoBehaviour
 {
+    // Декларуємо компоненти інтерфейсу користувача та аудіо-контролера
     public Image loadingImage, circleImg;
     public Button loadButton;
     public TextMeshProUGUI pressE;
@@ -13,8 +14,11 @@ public class MainMenuController : MonoBehaviour
 
     public void Start()
     {
+        // Налаштування курсору при запуску
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+
+        // Відключити кнопку завантаження, якщо гра не збережена
         loadButton.interactable = SaveManager.IsGameSaved();
     }
     public void Update()
@@ -24,6 +28,7 @@ public class MainMenuController : MonoBehaviour
 
     public void PlayGame()
     {
+        // Запускаємо гру: очищуємо кеш, зупиняємо аудіо та анімацію, завантажуємо нову гру
         CacheObjects();
         SaveManager.ClearSavedGame();
         audioController.musicSource.Stop();
@@ -39,11 +44,13 @@ public class MainMenuController : MonoBehaviour
 
     public void CacheObjects()
     {
+        // Очищення кешу ресурсів
         Resources.UnloadUnusedAssets();
     }
 
     public void Load()
     {
+        // Завантаження збереженої гри: зупиняємо анімацію і аудіо, а потім завантажуємо гру
         trainAnimation.StopTrainAnimation();
         audioController.musicSource.Stop();
         StartCoroutine(LoadSavedGame());
@@ -51,9 +58,8 @@ public class MainMenuController : MonoBehaviour
 
     private IEnumerator LoadSavedGame()
     {
-        Debug.Log("LoadSavedGame() called in scene: " + SceneManager.GetActiveScene().name);
-        int sceneToLoad = SceneManager.GetActiveScene().buildIndex + 1;
-        SaveData data = SaveManager.LoadGame();
+        int sceneToLoad = SceneManager.GetActiveScene().buildIndex + 1;  // Змінна для визначення наступної сцени для завантаження
+        SaveData data = SaveManager.LoadGame(); // Завантажуємо дані збереження
         if (SaveManager.IsGameSaved())
         {
             // Перевірка на Scene-2
@@ -79,7 +85,7 @@ public class MainMenuController : MonoBehaviour
                     dialogReader.DisplayDialog();
                 }
             }
-            if (data.currentScene == 3)
+            if (data.currentScene == 3) // Перевірка на Scene-3
             {
                 PlayerPrefs.SetFloat("PlayerPositionX", data.playerMotorPosition.x);
                 PlayerPrefs.SetFloat("PlayerPositionY", data.playerMotorPosition.y);
@@ -93,8 +99,7 @@ public class MainMenuController : MonoBehaviour
                     dialogReader.DisplayDialog();
                 }
             }
-            // Перевірка на Scene-4
-            if (data.currentScene == 4)
+            if (data.currentScene == 4) // Перевірка на Scene-4
             {
                 PlayerPrefs.SetFloat("LoadedWizzardPositionX", data.wizzardPosition.x);
                 PlayerPrefs.SetFloat("LoadedWizzardPositionY", data.wizzardPosition.y);
@@ -115,12 +120,13 @@ public class MainMenuController : MonoBehaviour
                     dialogReader.DisplayDialog();
                 }
             }
-            sceneToLoad = data.currentScene != 0 ? data.currentScene : sceneToLoad;
+            sceneToLoad = data.currentScene != 0 ? data.currentScene : sceneToLoad; // Вибираємо сцену для завантаження
 
+            // Завантажуємо сцену асинхронно
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Single);
             loadingImage.gameObject.SetActive(true);
             asyncLoad.allowSceneActivation = false;
-            while (!asyncLoad.isDone)
+            while (!asyncLoad.isDone) // Показуємо загрузку
             {
                 float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
                 float fillAmount = progress * 360f;
@@ -141,6 +147,7 @@ public class MainMenuController : MonoBehaviour
 
     IEnumerator LoadNewGame()
     {
+        // Завантажуємо нову гру
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
         loadingImage.gameObject.SetActive(true);
         asyncLoad.allowSceneActivation = false;

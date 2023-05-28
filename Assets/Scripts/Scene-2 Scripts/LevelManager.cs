@@ -176,14 +176,15 @@ public class LevelManager : MonoBehaviour
         // Завантаження стану камери
         if (cameraOffsetAnimator != null)
         {
-            if (PlayerPrefs.HasKey("CameraPositionX") && PlayerPrefs.HasKey("CameraPositionY") && PlayerPrefs.HasKey("CameraPositionZ") && PlayerPrefs.HasKey("isAnimationPlayed"))
+            if (PlayerPrefs.HasKey("CameraPositionX") && PlayerPrefs.HasKey("CameraPositionY") && PlayerPrefs.HasKey("CameraPositionZ") && PlayerPrefs.HasKey("isAnimationPlayed") && PlayerPrefs.HasKey("isCameraAnimating"))
             {
-                cameraOffsetAnimator.isAnimationPlayed = data.isAnimationPlayed;
+                cameraOffsetAnimator.isAnimationPlayed = PlayerPrefs.GetInt("isAnimationPlayed") == 1; // Завантажуємо isAnimationPlayed
+                cameraOffsetAnimator.isCameraAnimating = PlayerPrefs.GetInt("isCameraAnimating") == 1; // Завантажуємо isCameraAnimating
                 float CameraX = PlayerPrefs.GetFloat("CameraPositionX");
                 float CameraY = PlayerPrefs.GetFloat("CameraPositionY");
                 float CameraZ = PlayerPrefs.GetFloat("CameraPositionZ");
                 cameraOffsetAnimator.virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset = new Vector3(CameraX, CameraY, CameraZ);
-                cameraOffsetAnimator.isCameraAnimating = data.isCameraAnimating;
+
                 // Якщо анімація вже була відтворена, відключаємо StartImage
                 if (cameraOffsetAnimator.isAnimationPlayed)
                 {
@@ -290,8 +291,8 @@ public class LevelManager : MonoBehaviour
             PlayerPrefs.SetFloat("CameraPositionX", cameraPosition.x);
             PlayerPrefs.SetFloat("CameraPositionY", cameraPosition.y);
             PlayerPrefs.SetFloat("CameraPositionZ", cameraPosition.z);
-            data.isAnimationPlayed = cameraOffsetAnimator.isAnimationPlayed;
-            data.isCameraAnimating = cameraOffsetAnimator.isCameraAnimating;
+            PlayerPrefs.SetInt("isAnimationPlayed", cameraOffsetAnimator.isAnimationPlayed ? 1 : 0);  // Зберігаємо isAnimationPlayed
+            PlayerPrefs.SetInt("isCameraAnimating", cameraOffsetAnimator.isCameraAnimating ? 1 : 0);  // Зберігаємо isCameraAnimating
         }
 
         // Збереження стану анімації порталу

@@ -99,7 +99,7 @@
      <Compile Include="Assets\Scripts\Scene-1 Scripts\StoryScene.cs" />
      <Compile Include="Assets\Scripts\Scene-2 Scripts\DialogReader.cs" />
      <Compile Include="Assets\Scripts\MainMenuAnimationsScripts\SpriteFadeInOut.cs" />
-     <Compile Include="Assets\Scripts\Scene-1 Scripts\AudioController.cs" />
+     <Compile Include="Assets\Scenes\Scene-1\AudioController.cs" />
      <Compile Include="Assets\Scripts\Scene-1 Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\Scene-3 Scripts\Animations\PlayerAnimator.cs" />
      <Compile Include="Assets\Scripts\Scene-2 Scripts\PlayerSwitchController.cs" />
@@ -114,6 +114,7 @@
      <Compile Include="Assets\Scripts\Scene-3 Scripts\Helper\CharacterDialogue.cs" />
      <Compile Include="Assets\Scripts\Scene-3 Scripts\Controllers\CharacterCombat.cs" />
      <Compile Include="Assets\Scripts\Scene-1 Scripts\SpriteController.cs" />
+     <Compile Include="Assets\Scripts\MainMenuAnimationsScripts\EndCredits.cs" />
      <Compile Include="Assets\Scripts\Scene-1 Scripts\BottomBarController.cs" />
      <Compile Include="Assets\Scripts\Scene-1 Scripts\ChooseScene.cs" />
      <Compile Include="Assets\Scripts\Scene-3 Scripts\Helper\BackPortal.cs" />
@@ -136,6 +137,7 @@
      <None Include="Assets\Resources\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
+     <None Include="Assets\StreamingAssets\end_credits.txt" />
      <None Include="Assets\Resources\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
      <None Include="Assets\Resources\TextMesh Pro\Resources\Fonts &amp; Materials\LiberationSans - OFL.txt" />
      <None Include="Assets\Resources\Shader\NormalMappedTileAnimated.shader" />

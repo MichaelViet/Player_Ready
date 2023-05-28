@@ -1,0 +1,47 @@
+<b><size=150%>Гра "Player One, Get Ready!"</size></b>
+
+<b>Розробка</b>
+
+<b>Головний дизайнер</b>
+Костюк Михайло
+<b>Головний програміст</b>
+Костюк Михайло
+
+<b>Художники:</b> 
+Arseniy Chebynkin
+Hovl Studio
+Ansimuz
+
+<b>3D-моделювання:</b>
+Blink
+Brackeys
+
+<b>Музика та звук</b>
+
+<b>Композитори:</b>
+Woody Jackson
+Arseny St
+RedMountain
+Tokyo Rider
+Paul Leonard-Morgan
+Red Dead Redemption 2 - Eastward Bound
+Red Dead Redemption 2 - Finale Arthur Fight
+Sergey Eybog
+
+<b>Звукорежисер:</b> 
+Костюк Михайло
+
+
+<b>Підтримка</b>
+
+<b>Технічна підтримка:</b>
+Костюк Михайло
+
+<b>Команда тестування:</b>
+Костюк Михайло
+
+<b>Спеціальна подяка:</b> 
+
+Моїм друзям, які мене підтримували та інтернет джерелам, які допомогли мені в розробці цього проекту.
+
+<b><size=150%>Дякуємо за гру!</size></b>

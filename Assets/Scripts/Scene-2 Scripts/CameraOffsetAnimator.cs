@@ -15,19 +15,10 @@ public class CameraOffsetAnimator : MonoBehaviour
 
     void Start()
     {
-        Player player = FindObjectOfType<Player>();  // знайти гравця
-        if (player != null)
-        {
-            isCameraAnimating = true;  // встановити isCameraAnimating на true
-        }
         if (isAnimationPlayed == false)
         {
+            isCameraAnimating = true;  // встановити isCameraAnimating на true
             StartCoroutine(AnimateOffset());
-        }
-        else
-        {
-            LoadCameraPositionAndState();
-            isCameraAnimating = false;  // встановити isCameraAnimating на false
         }
     }
 
@@ -44,25 +35,5 @@ public class CameraOffsetAnimator : MonoBehaviour
         isAnimationPlayed = true;
         isCameraAnimating = false;  // встановити isCameraAnimating на false після завершення анімації
         OnAnimationEnd?.Invoke();
-    }
-
-    void SaveCameraPositionAndState()
-    {
-        Vector3 cameraPosition = virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset;
-        PlayerPrefs.SetFloat("CameraPositionX", cameraPosition.x);
-        PlayerPrefs.SetFloat("CameraPositionY", cameraPosition.y);
-        PlayerPrefs.SetFloat("CameraPositionZ", cameraPosition.z);
-        PlayerPrefs.Save();
-    }
-
-    void LoadCameraPositionAndState()
-    {
-        if (PlayerPrefs.HasKey("CameraPositionX") && PlayerPrefs.HasKey("CameraPositionY") && PlayerPrefs.HasKey("CameraPositionZ") && PlayerPrefs.HasKey("isAnimationPlayed"))
-        {
-            float x = PlayerPrefs.GetFloat("CameraPositionX");
-            float y = PlayerPrefs.GetFloat("CameraPositionY");
-            float z = PlayerPrefs.GetFloat("CameraPositionZ");
-            virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset = new Vector3(x, y, z);
-        }
     }
 }
